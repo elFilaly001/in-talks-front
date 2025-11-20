@@ -30,10 +30,20 @@ const chartData = [
   { date: "2022-08-08", positive: 220, neutral: 140, negative: 110 },
 ];
 
+// ShareOfVoice palette used across the dashboard
+const palette = [
+  "#10B981", // green
+  "#6B7280", // gray
+  "#EF4444", // red
+  "#F59E0B",
+  "#8B5CF6",
+  "#06B6D4",
+];
+
 const chartConfig = {
-  positive: { label: "Positive", color: "#ec4899" },
-  neutral: { label: "Neutral", color: "#06b6d4" },
-  negative: { label: "Negative", color: "#6d28d9" },
+  positive: { label: "Positive", color: palette[0] },
+  neutral: { label: "Neutral", color: palette[1] },
+  negative: { label: "Negative", color: palette[2] },
 } satisfies ChartConfig;
 
 export default function MentionsBySentimentCard() {
@@ -67,21 +77,21 @@ export default function MentionsBySentimentCard() {
           <div className="flex items-center gap-2">
             <span
               className="h-3 w-3 rounded-sm block"
-              style={{ background: "linear-gradient(90deg,#f472b6,#ec4899)" }}
+              style={{ background: "linear-gradient(90deg,#34d399,#10b981)" }}
             />
             <span className="text-sm text-muted-foreground">Positive</span>
           </div>
           <div className="flex items-center gap-2">
             <span
               className="h-3 w-3 rounded-sm block"
-              style={{ background: "linear-gradient(90deg,#67e8f9,#06b6d4)" }}
+              style={{ background: "linear-gradient(90deg,#9ca3af,#6b7280)" }}
             />
             <span className="text-sm text-muted-foreground">Neutral</span>
           </div>
           <div className="flex items-center gap-2">
             <span
               className="h-3 w-3 rounded-sm block"
-              style={{ background: "linear-gradient(90deg,#a78bfa,#6d28d9)" }}
+              style={{ background: "linear-gradient(90deg,#f87171,#ef4444)" }}
             />
             <span className="text-sm text-muted-foreground">Negative</span>
           </div>
@@ -91,16 +101,16 @@ export default function MentionsBySentimentCard() {
             <BarChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 20 }}>
               <defs>
                 <linearGradient id="gradPos" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#f472b6" stopOpacity={1} />
-                  <stop offset="100%" stopColor="#ec4899" stopOpacity={1} />
+                  <stop offset="0%" stopColor="#34d399" stopOpacity={1} />
+                  <stop offset="100%" stopColor="#10b981" stopOpacity={1} />
                 </linearGradient>
                 <linearGradient id="gradNeu" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#67e8f9" stopOpacity={1} />
-                  <stop offset="100%" stopColor="#06b6d4" stopOpacity={1} />
+                  <stop offset="0%" stopColor="#9ca3af" stopOpacity={1} />
+                  <stop offset="100%" stopColor="#6b7280" stopOpacity={1} />
                 </linearGradient>
                 <linearGradient id="gradNeg" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#a78bfa" stopOpacity={1} />
-                  <stop offset="100%" stopColor="#6d28d9" stopOpacity={1} />
+                  <stop offset="0%" stopColor="#f87171" stopOpacity={1} />
+                  <stop offset="100%" stopColor="#ef4444" stopOpacity={1} />
                 </linearGradient>
               </defs>
               <CartesianGrid vertical={false} strokeDasharray="3 3" />
