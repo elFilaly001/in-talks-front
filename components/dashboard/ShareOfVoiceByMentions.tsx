@@ -6,13 +6,23 @@ import { Smile, Frown, Meh } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ToolTipsProvider from "../charts/ToolTipsProvider";
 import Image from "next/image";
+// ShareOfVoice palette used across the dashboard
+const palette = [
+  "#10B981", // green
+  "#6B7280", // gray
+  "#EF4444", // red
+  "#F59E0B",
+  "#8B5CF6",
+  "#06B6D4",
+];
+
 // Default brands palette (used if parent doesn't pass rows)
 const defaultBrands = [
-    { label: 'Jumia Food', value: 35000, color: '#35B9F4' }, // blue
-    { label: 'Yasser Market', value: 25000, color: '#7FDFFF' }, // light blue
-    { label: 'Kool', value: 18000, color: '#9A4BF0' }, // purple
-    { label: 'Livery', value: 15000, color: '#D46BF8' }, // lavender/pinkish
-    { label: 'Creem Food', value: 9000, color: '#F02CB9' }, // pink
+    { label: 'Jumia Food', value: 35000, color: palette[0] }, // green
+    { label: 'Yasser Market', value: 25000, color: palette[1] }, // gray
+    { label: 'Kool', value: 18000, color: palette[2] }, // red
+    { label: 'Livery', value: 15000, color: palette[3] }, // orange/amber
+    { label: 'Creem Food', value: 9000, color: palette[4] }, // purple
 ];
 
 // Sentiment breakdowns for the five Moroccan competitors (positive / negative).
@@ -50,7 +60,7 @@ function buildData(labels: string[], values: number[], colors: string[]) {
 export default function ShareOfVoiceByMentionsDonut({ rows }: Props) {
     const [showInsight, setShowInsight] = useState(false);
 
-    const brands = rows && rows.length > 0 ? rows.map((r, i) => ({ label: r.label, value: parseFollowersCount(r.followers), color: r.color || ['#35B9F4', '#7FDFFF', '#9A4BF0', '#D46BF8', '#F02CB9'][i % 5] })) : defaultBrands
+    const brands = rows && rows.length > 0 ? rows.map((r, i) => ({ label: r.label, value: parseFollowersCount(r.followers), color: r.color || palette[i % palette.length] })) : defaultBrands
 
     const positive = rows && rows.length > 0 ? brands.map((b) => Math.round(b.value * 0.1)) : defaultPositive
     const negative = rows && rows.length > 0 ? brands.map((b) => Math.round(b.value * 0.12)) : defaultNegative

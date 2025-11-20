@@ -22,14 +22,24 @@ import {
 import ToolTipsProvider from "../charts/ToolTipsProvider";
 import Image from "next/image";
 
+// ShareOfVoice palette used across the dashboard
+const palette = [
+  "#10B981", // green
+  "#6B7280", // gray
+  "#EF4444", // red
+  "#F59E0B",
+  "#8B5CF6",
+  "#06B6D4",
+];
+
 // Sample palette and brands (keeps parity with other share-of-voice components)
 const brands = [
-  { key: "jumia", label: "JumiaFood", color: "#35B9F4" },
-  { key: "careem", label: "CareemNow", color: "#7FDFFF" },
-  { key: "yassir", label: "Yassir", color: "#9A4BF0" },
-  { key: "koul", label: "Koul", color: "#D46BF8" },
-  { key: "livry", label: "Livry", color: "#F02CB9" },
-  { key: "glovo", label: "Glovo", color: "#F9A8D4" },
+  { key: "jumia", label: "JumiaFood", color: palette[0] },
+  { key: "careem", label: "CareemNow", color: palette[1] },
+  { key: "yassir", label: "Yassir", color: palette[2] },
+  { key: "koul", label: "Koul", color: palette[3] },
+  { key: "livry", label: "Livry", color: palette[4] },
+  { key: "glovo", label: "Glovo", color: palette[5] },
 ];
 
 // Sample data mirroring the screenshot (sources as categories, stacked counts per brand)
