@@ -1,12 +1,17 @@
+"use client";
 import FilterFeed from "@/components/fil-actualites/FilterFeed";
 import MentionPagination from "@/components/fil-actualites/MentionPagination";
 import Mentions from "@/components/fil-actualites/Mentions";
+import MentionsFeed from "@/components/media/MentionsFeed";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import React, { Suspense } from "react";
 
-const page = () => {
-  return (
-    <div className="grid grid-cols-3 gap-5">
+const tabs = [
+  {
+    label: "OverView",
+    value: "overView",
+    component: <div className="grid grid-cols-3 gap-5">
       <div className="col-span-2 flex flex-col gap-5">
         <Suspense>
         
@@ -20,7 +25,38 @@ const page = () => {
       <Suspense>
         <FilterFeed />
       </Suspense>
-    </div>
+    </div>,
+  },
+  {
+    label: "Statistics",
+    value: "statistics",
+    component: <MentionsFeed />,
+  },
+];
+
+const page = () => {
+  return (
+    <Tabs defaultValue={"overView"} className="my-2">
+              <TabsList className="grid grid-cols-2 w-full b text-white border dark:border-gray-800 border-gray-200">
+                {tabs.map((tab) => (
+                  <TabsTrigger
+                    className="bg-white dark:data-[state=active]:bg-main data-[state=active]:bg-main data-[state=active]:text-white text-gray-700"
+                    key={tab.label}
+                    value={tab.value}
+                    // onClick={() => {
+                    //   handlechange(tab.value);
+                    // }}
+                  >
+                    {tab.label}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+              {tabs.map((tab) => (
+                <TabsContent key={tab.value} value={tab.value}>
+                  {tab.component} 
+                </TabsContent>
+              ))}
+            </Tabs>
   );
 };
 
