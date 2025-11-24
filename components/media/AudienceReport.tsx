@@ -92,8 +92,8 @@ const media = [
     image: "/media/youtube.png",
   },
   {
-    label: "Presse",
-    image: "/media/presse.png",
+    label: "X",
+    image: "/media/x.png",
   },
   {
     label: "Tiktok",
@@ -356,7 +356,26 @@ const AudienceReport = () => {
                 <SelectLabel>Par source</SelectLabel>
                 {media.map((item) => (
                   <SelectItem key={item.label} value={item.label}>
-                    {item.image ? (
+                    {item.label === "X" ? (
+                      <Image
+                        src="/media/x.png"
+                        alt="X logo"
+                        width={20}
+                        height={20}
+                        onError={(e) => {
+                          e.currentTarget.style.display = "none";
+                          const parent = e.currentTarget.parentElement;
+                          if (parent) {
+                            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                            svg.setAttribute("width", "20");
+                            svg.setAttribute("height", "20");
+                            svg.setAttribute("viewBox", "0 0 24 24");
+                            svg.innerHTML = '<path fill="black" d="M17.53 3H21L14.19 10.63L22.09 21H15.63L10.77 14.62L5.29 21H2L9.13 13L1.61 3H8.24L12.68 8.87L17.53 3ZM16.41 19H18.23L7.75 5H5.81L16.41 19Z"/>';
+                            parent.insertBefore(svg, parent.firstChild);
+                          }
+                        }}
+                      />
+                    ) : item.image ? (
                       <Image
                         src={item.image}
                         alt={item.label}
