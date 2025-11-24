@@ -5,7 +5,6 @@ import Overview from "@/components/media/Overview";
 import PostsGrid from "@/components/media/PostsGrid";
 import AudienceReport from "@/components/media/AudienceReport";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Keywords from "@/components/media/Keywords";
 import Sentiment from "@/components/media/Sentiment";
 import MentionsFeed from "@/components/media/MentionsFeed";
 const tabs = [
@@ -34,11 +33,6 @@ const tabs = [
     value: "sentiment",
     component: <Sentiment />,
   },
-  {
-    label: "Mots-clés",
-    value: "keywords",
-    component: <Keywords />,
-  },
 ];
 
 const Page = () => {
@@ -47,15 +41,12 @@ const Page = () => {
       <div className="@container/main flex flex-col">
         <Profil />
         <Tabs defaultValue={"overView"} className="my-2">
-          <TabsList className="grid grid-cols-6 w-full b text-white border dark:border-gray-800 border-gray-200">
+          <TabsList className="flex w-full text-white border dark:border-gray-800 border-gray-200">
             {tabs.map((tab) => (
               <TabsTrigger
-                className="bg-white dark:data-[state=active]:bg-main data-[state=active]:bg-main data-[state=active]:text-white text-gray-700"
+                className="flex-1 bg-white dark:data-[state=active]:bg-main data-[state=active]:bg-main data-[state=active]:text-white text-gray-700"
                 key={tab.label}
                 value={tab.value}
-                // onClick={() => {
-                //   handlechange(tab.value);
-                // }}
               >
                 {tab.label}
               </TabsTrigger>
