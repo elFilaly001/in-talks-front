@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useSearchParams, useRouter } from "next/navigation";
 import Keywords from "@/components/media/Keywords";
 import Sentiment from "@/components/media/Sentiment";
-import MentionsFeed from "@/components/media/MentionsFeed";
+import MentionsPanel from "@/components/social-listening/MentionsPanel";
 const tabs = [
   {
     label: "Écoute sociale",
@@ -28,7 +28,7 @@ const tabs = [
   {
     label: "Mentions",
     value: "mentions",
-    component: <MentionsFeed />,
+    component: <MentionsPanel />,
   },
   {
     label: "Sentiment",
