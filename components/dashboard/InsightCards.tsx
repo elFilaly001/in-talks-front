@@ -113,11 +113,179 @@ const mentions = [
     source: "tiktok",
     type: "NEGATIVE",
   },
+  {
+    id: "6",
+    title: "New delivery zones in Marrakech",
+    link: "https://example.com/marrakech-zones",
+    postedDate: "2025-10-15",
+    thumbnail: "/mentions/Glovo-1.png",
+    snippet:
+      "Glovo has announced the addition of new delivery zones in Marrakech, covering popular tourist areas and residential neighborhoods. This move is expected to boost local businesses and provide faster service to customers in these areas.",
+    source: "twitter",
+    type: "POSITIVE",
+  },
+  {
+    id: "7",
+    title: "Customer feedback on Glovo app",
+    link: "https://example.com/app-feedback",
+    postedDate: "2025-10-12",
+    thumbnail: "/mentions/glovo.webp",
+    snippet:
+      "Users have shared mixed feedback on the Glovo app's user interface and delivery tracking features. While many appreciate the real-time updates, some complain about occasional glitches and slow loading times.",
+    source: "facebook",
+    type: "NEUTRAL",
+  },
+  {
+    id: "8",
+    title: "Glovo sustainability initiatives",
+    link: "https://example.com/sustainability",
+    postedDate: "2025-10-10",
+    thumbnail: "/mentions/Glovo-2.webp",
+    snippet:
+      "Glovo is implementing eco-friendly practices, including the use of electric vehicles for deliveries and biodegradable packaging. This initiative aims to reduce the company's carbon footprint and appeal to environmentally conscious consumers.",
+    source: "instagram",
+    type: "POSITIVE",
+  },
+  {
+    id: "9",
+    title: "Delivery delays during peak hours",
+    link: "https://example.com/delays",
+    postedDate: "2025-10-08",
+    thumbnail: "/mentions/glovo.webp",
+    snippet:
+      "Customers have reported longer wait times during peak hours, leading to dissatisfaction. Glovo is working on optimizing their logistics to handle increased demand more efficiently.",
+    source: "tiktok",
+    type: "NEGATIVE",
+  },
+  {
+    id: "10",
+    title: "Partnership with local supermarkets",
+    link: "https://example.com/supermarkets",
+    postedDate: "2025-10-05",
+    thumbnail: "/mentions/Glovo-1.png",
+    snippet:
+      "Glovo has expanded its grocery delivery options by partnering with major supermarkets across Morocco. This collaboration offers customers a wider selection of products and competitive pricing.",
+    source: "facebook",
+    type: "POSITIVE",
+  },
+  {
+    id: "11",
+    title: "Glovo customer loyalty program",
+    link: "https://example.com/loyalty",
+    postedDate: "2025-10-03",
+    thumbnail: "/mentions/Glovo-2.webp",
+    snippet:
+      "The new loyalty program rewards frequent users with discounts and free deliveries. Early feedback indicates that it has increased customer retention and app usage.",
+    source: "instagram",
+    type: "POSITIVE",
+  },
+  {
+    id: "12",
+    title: "Challenges in rural delivery",
+    link: "https://example.com/rural-delivery",
+    postedDate: "2025-10-01",
+    thumbnail: "/mentions/glovo.webp",
+    snippet:
+      "Delivering to rural areas remains a challenge due to infrastructure limitations. Glovo is exploring solutions like drone deliveries to improve service in these regions.",
+    source: "twitter",
+    type: "NEUTRAL",
+  },
+  {
+    id: "13",
+    title: "Glovo app security updates",
+    link: "https://example.com/security",
+    postedDate: "2025-09-28",
+    thumbnail: "/mentions/Glovo-1.png",
+    snippet:
+      "Recent security updates have enhanced data protection for users. This includes improved encryption and secure payment methods, addressing previous concerns about privacy.",
+    source: "facebook",
+    type: "POSITIVE",
+  },
+  {
+    id: "14",
+    title: "Increase in delivery fees",
+    link: "https://example.com/fees",
+    postedDate: "2025-09-25",
+    thumbnail: "/mentions/glovo.webp",
+    snippet:
+      "Glovo has adjusted delivery fees to cover rising operational costs. While necessary, this has sparked debates among users about affordability.",
+    source: "instagram",
+    type: "NEGATIVE",
+  },
+  {
+    id: "15",
+    title: "New features in Glovo app",
+    link: "https://example.com/new-features",
+    postedDate: "2025-09-22",
+    thumbnail: "/mentions/Glovo-2.webp",
+    snippet:
+      "The latest app update introduces features like group ordering and scheduled deliveries. Users are excited about these additions, which enhance convenience.",
+    source: "tiktok",
+    type: "POSITIVE",
+  },
+  {
+    id: "16",
+    title: "Glovo's impact on local economy",
+    link: "https://example.com/economy",
+    postedDate: "2025-09-20",
+    thumbnail: "/mentions/glovo.webp",
+    snippet:
+      "By connecting consumers with local businesses, Glovo has stimulated economic growth in Morocco. Small vendors report increased sales through the platform.",
+    source: "facebook",
+    type: "POSITIVE",
+  },
+  {
+    id: "17",
+    title: "Customer service improvements",
+    link: "https://example.com/service",
+    postedDate: "2025-09-18",
+    thumbnail: "/mentions/Glovo-1.png",
+    snippet:
+      "Glovo has upgraded its customer support with 24/7 chat assistance. Response times have improved, leading to higher satisfaction rates.",
+    source: "instagram",
+    type: "POSITIVE",
+  },
+  {
+    id: "18",
+    title: "Weather-related delivery issues",
+    link: "https://example.com/weather",
+    postedDate: "2025-09-15",
+    thumbnail: "/mentions/glovo.webp",
+    snippet:
+      "Heavy rains have caused delays in deliveries. Glovo is advising customers to plan ahead and offering rain checks for affected orders.",
+    source: "twitter",
+    type: "NEUTRAL",
+  },
+  {
+    id: "19",
+    title: "Glovo expands to new categories",
+    link: "https://example.com/categories",
+    postedDate: "2025-09-12",
+    thumbnail: "/mentions/Glovo-2.webp",
+    snippet:
+      "Beyond food and groceries, Glovo now offers delivery for electronics and household items. This diversification is attracting a broader customer base.",
+    source: "facebook",
+    type: "POSITIVE",
+  },
+  {
+    id: "20",
+    title: "Feedback on delivery personnel",
+    link: "https://example.com/personnel",
+    postedDate: "2025-09-10",
+    thumbnail: "/mentions/glovo.webp",
+    snippet:
+      "Delivery partners are praised for their professionalism, but there are occasional complaints about package handling. Glovo is providing additional training.",
+    source: "instagram",
+    type: "MIXED",
+  },
 ];
 
 export function InsightCards() {
   const [showInsight1, setShowInsight1] = useState(false);
   const [showInsight2, setShowInsight2] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const totalPages = Math.ceil(mentions.length / itemsPerPage);
 
  
 
@@ -229,36 +397,49 @@ export function InsightCards() {
             />
           </div>
         </CardHeader>
-        <CardContent className="flex flex-col gap-2.5 pb-16">
-          {mentions.slice(0, 3).map((feed) => (
-            <div key={feed.id} className="flex items-center gap-5">
-              <div
-                className="h-16 w-16 rounded-md bg-gray-700 bg-cover bg-center"
-                style={{ backgroundImage: `url(${feed.thumbnail})` }}
-              ></div>
-              <div className="flex flex-1 justify-between items-center">
-                <div>
-                  {feed.title}
-                  {feed.snippet && (
-                    <p
-                      className="text-xs"
-                      dangerouslySetInnerHTML={{
-                        __html: feed.snippet.slice(0, 85),
-                      }}
-                    ></p>
-                  )}
+        <CardContent className="flex flex-col gap-2.5 pb-8">
+          <div className="max-h-96 overflow-y-auto">
+            {(() => {
+              const startIndex = (currentPage - 1) * itemsPerPage;
+              const endIndex = startIndex + itemsPerPage;
+              const currentItems = mentions.slice(startIndex, endIndex);
+              return currentItems.map((feed) => (
+                <div key={feed.id} className="flex items-center gap-5">
+                  <div
+                    className="h-16 w-16 rounded-md bg-gray-700 bg-cover bg-center"
+                    style={{ backgroundImage: `url(${feed.thumbnail})` }}
+                  ></div>
+                  <div className="flex flex-1 justify-between items-center">
+                    <div>
+                      {feed.title}
+                      {feed.snippet && (
+                        <p
+                          className="text-xs"
+                          dangerouslySetInnerHTML={{
+                            __html: feed.snippet.slice(0, 85),
+                          }}
+                        ></p>
+                      )}
+                    </div>
+                    <div className="h-8 w-8 bg-main text-white rounded-full flex justify-center items-center">
+                      <ArrowUpRight className="size-4" />
+                    </div>
+                  </div>
                 </div>
-                <div className="h-8 w-8 bg-main text-white rounded-full flex justify-center items-center">
-                  <ArrowUpRight className="size-4" />
-                </div>
-              </div>
-            </div>
-          ))}
+              ));
+            })()}
+          </div>
         </CardContent>
-        <CardFooter className="gap-2">
-          <Button size="sm" variant="outline" className="basis-1/2 mx-auto">
-            Voir plus
-          </Button>
+        <CardFooter className="gap-2 pb-8">
+          <div className="flex justify-between items-center w-full">
+            <Button size="sm" variant="outline" onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
+              Previous
+            </Button>
+            <span className="text-sm">Page {currentPage} of {totalPages}</span>
+            <Button size="sm" variant="outline" onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>
+              Next
+            </Button>
+          </div>
         </CardFooter>
         <div className="absolute bottom-4 left-6">
           <div className="relative">

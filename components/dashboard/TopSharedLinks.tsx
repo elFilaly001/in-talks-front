@@ -23,11 +23,29 @@ const mockFeeds: Feed[] = [
   { id: "3", link: "https://medium.com/glovo-commissions", mentionCount: 60 },
   { id: "4", link: "https://wired.com/glovo-growth", mentionCount: 45 },
   { id: "5", link: "https://theverge.com/glovo-vendors", mentionCount: 30 },
+  { id: "6", link: "https://bbc.com/glovo-morocco", mentionCount: 85 },
+  { id: "7", link: "https://cnn.com/glovo-delivery", mentionCount: 70 },
+  { id: "8", link: "https://nytimes.com/glovo-app", mentionCount: 55 },
+  { id: "9", link: "https://wsj.com/glovo-business", mentionCount: 40 },
+  { id: "10", link: "https://bloomberg.com/glovo-trends", mentionCount: 35 },
+  { id: "11", link: "https://reuters.com/glovo-expansion", mentionCount: 50 },
+  { id: "12", link: "https://apnews.com/glovo-partners", mentionCount: 65 },
+  { id: "13", link: "https://guardian.com/glovo-issues", mentionCount: 25 },
+  { id: "14", link: "https://economist.com/glovo-economy", mentionCount: 75 },
+  { id: "15", link: "https://ft.com/glovo-growth", mentionCount: 60 },
+  { id: "16", link: "https://businessinsider.com/glovo-app", mentionCount: 45 },
+  { id: "17", link: "https://techradar.com/glovo-features", mentionCount: 30 },
+  { id: "18", link: "https://mashable.com/glovo-social", mentionCount: 55 },
+  { id: "19", link: "https://engadget.com/glovo-tech", mentionCount: 40 },
+  { id: "20", link: "https://gizmodo.com/glovo-innovation", mentionCount: 35 },
 ]
 
 export default function TopSharedLinks({ feeds = [] as Feed[] }) {
   const [showInsightBlogs, setShowInsightBlogs] = React.useState(false)
   const displayFeeds = feeds && feeds.length > 0 ? feeds : mockFeeds
+  const [currentPage, setCurrentPage] = React.useState(1)
+  const itemsPerPage = 15
+  const totalPages = Math.ceil(displayFeeds.length / itemsPerPage)
 
   return (
     <Card className="flex-1 relative">
@@ -39,29 +57,42 @@ export default function TopSharedLinks({ feeds = [] as Feed[] }) {
       </CardHeader>
 
       <CardContent className="flex flex-col gap-2.5 pb-8">
-        {displayFeeds.slice(0, 3).map((feed) => (
-          <div key={feed.id} className="flex items-center gap-4">
-            <ExternalLink className="h-5 w-5 text-primary" />
-            <a
-              href={feed.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              title={feed.link}
-              className="flex-1 text-sm text-blue-600 underline cursor-pointer break-words"
-            >
-              {feed.link}
-            </a>
-            <div className="h-8 w-8 bg-primary rounded-full flex justify-center items-center text-white text-sm">
-              {formatNumber(feed.mentionCount)}
-            </div>
-          </div>
-        ))}
+        <div className="max-h-96 overflow-y-auto">
+          {(() => {
+            const startIndex = (currentPage - 1) * itemsPerPage
+            const endIndex = startIndex + itemsPerPage
+            const currentItems = displayFeeds.slice(startIndex, endIndex)
+            return currentItems.map((feed) => (
+              <div key={feed.id} className="flex items-center gap-4">
+                <ExternalLink className="h-5 w-5 text-primary" />
+                <a
+                  href={feed.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={feed.link}
+                  className="flex-1 text-sm text-blue-600 underline cursor-pointer break-words"
+                >
+                  {feed.link}
+                </a>
+                <div className="h-8 w-8 bg-primary rounded-full flex justify-center items-center text-white text-sm">
+                  {formatNumber(feed.mentionCount)}
+                </div>
+              </div>
+            ))
+          })()}
+        </div>
       </CardContent>
 
       <CardFooter className="gap-2 pb-4">
-        <Button size="sm" variant="outline" className="basis-1/2 mx-auto">
-          Voir plus
-        </Button>
+        <div className="flex justify-between items-center w-full">
+          <Button size="sm" variant="outline" onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
+            Previous
+          </Button>
+          <span className="text-sm">Page {currentPage} of {totalPages}</span>
+          <Button size="sm" variant="outline" onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>
+            Next
+          </Button>
+        </div>
       </CardFooter>
 
       <div className="absolute bottom-4 left-6">

@@ -35,11 +35,6 @@ const tabs = [
     value: "sentiment",
     component: <Sentiment />,
   },
-  {
-    label: "Mots-clés",
-    value: "keywords",
-    component: <Keywords />,
-  },
 ];
 
 const Page = () => {
@@ -65,7 +60,7 @@ const Page = () => {
           <TabsList className="grid grid-cols-6 w-full b text-white border dark:border-gray-800 border-gray-200">
             {tabs.map((tab) => (
               <TabsTrigger
-                className="bg-white dark:data-[state=active]:bg-main data-[state=active]:bg-main data-[state=active]:text-white text-gray-700"
+                className="flex-1 bg-white dark:data-[state=active]:bg-main data-[state=active]:bg-main data-[state=active]:text-white text-gray-700"
                 key={tab.label}
                 value={tab.value}
               // onClick={() => {

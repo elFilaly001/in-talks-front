@@ -7,6 +7,7 @@ import TopEditorialSource from "../dashboard/TopEditorialSource";
 import TopSharedLinks from "../dashboard/TopSharedLinks";
 import TopBlogs from "../dashboard/TopBlogs";
 import MentionsBySource from "../dashboard/MentionsBySource";
+import TopOccupations from "../dashboard/TopOccupations";
 // import Mentions from "../fil-actualites/Mentions";
 
 // const followersData = [
@@ -97,7 +98,7 @@ const MentionsFeed = () => {
             />
           )}
         </div>
-        
+        <TopOccupations />
         <MentionsBySentimentCard />
         <WordCloud />
       </div>
