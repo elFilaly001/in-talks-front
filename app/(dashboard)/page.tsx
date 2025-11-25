@@ -1,4 +1,5 @@
 "use client";
+
 import Profil from "@/components/media/Profil";
 import React, { Suspense, useEffect, useState } from "react";
 import Overview from "@/components/media/Overview";
@@ -49,38 +50,10 @@ const Page = () => {
     if (p !== tabValue) setTabValue(p);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams?.toString()]);
-
   return (
-    <Suspense>
-      <div className="@container/main flex flex-col">
-        <Profil />
-        <Tabs value={tabValue} onValueChange={(val) => {
-          setTabValue(val);
-          router.push(`/?tab=${val}`);
-        }} className="my-2">
-          <TabsList className="grid grid-cols-6 w-full b text-white border dark:border-gray-800 border-gray-200">
-            {tabs.map((tab) => (
-              <TabsTrigger
-                className="flex-1 bg-white dark:data-[state=active]:bg-main data-[state=active]:bg-main data-[state=active]:text-white text-gray-700"
-                key={tab.label}
-                value={tab.value}
-              // onClick={() => {
-              //   handlechange(tab.value);
-              // }}
-              >
-                {tab.label}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-          {tabs.map((tab) => (
-            <TabsContent key={tab.value} value={tab.value}>
-              {tab.component}
-            </TabsContent>
-          ))}
-        </Tabs>
-      </div>
-    </Suspense>
+    <main className="p-6">
+      <h1 className="text-3xl font-bold">Welcome to InTalks</h1>
+      <p className="mt-3 text-neutral-600">This is your workspace. Use the sidebar to open different dashboard sections.</p>
+    </main>
   );
-};
-
-export default Page;
+}

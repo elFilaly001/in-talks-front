@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import PostsTable, { PostRow } from "./PostsTable";
 import PostCard from "./PostCard";
 import Image from "next/image";
@@ -688,8 +688,8 @@ const PostsGrid = () => {
         metric === "followers"
           ? "Followers"
           : metric === "likers"
-          ? "Likers"
-          : metric,
+            ? "Likers"
+            : metric,
     });
     rows.push({
       key: "Date From",
@@ -797,16 +797,14 @@ const PostsGrid = () => {
                 variant="outline"
                 size="sm"
                 onClick={() => setViewMode("grid")}
-                className={`rounded-r-none ${
-                  viewMode === "grid"
+                className={`rounded-r-none ${viewMode === "grid"
                     ? "bg-[#7b61f9] text-white border-[#7b61f9]"
                     : "text-gray-600"
-                }`}
+                  }`}
               >
                 <LayoutGrid
-                  className={`h-4 w-4 ${
-                    viewMode === "grid" ? "text-white" : "text-gray-600"
-                  }`}
+                  className={`h-4 w-4 ${viewMode === "grid" ? "text-white" : "text-gray-600"
+                    }`}
                 />
               </Button>
 
@@ -814,16 +812,14 @@ const PostsGrid = () => {
                 variant="outline"
                 size="sm"
                 onClick={() => setViewMode("list")}
-                className={`rounded-l-none ${
-                  viewMode === "list"
+                className={`rounded-l-none ${viewMode === "list"
                     ? "bg-[#7b61f9] text-white border-[#7b61f9]"
                     : "text-gray-600"
-                }`}
+                  }`}
               >
                 <List
-                  className={`h-4 w-4 ${
-                    viewMode === "list" ? "text-white" : "text-gray-600"
-                  }`}
+                  className={`h-4 w-4 ${viewMode === "list" ? "text-white" : "text-gray-600"
+                    }`}
                 />
               </Button>
             </div>
@@ -831,7 +827,9 @@ const PostsGrid = () => {
 
           {/* Right side: controls group */}
           <div className="flex items-center gap-2">
-            <OrderByFilter />
+            <Suspense fallback={<div />}>
+              <OrderByFilter />
+            </Suspense>
 
             <Select value={source} onValueChange={(v) => setSource(v)}>
               <SelectTrigger className="w-40 bg-white">

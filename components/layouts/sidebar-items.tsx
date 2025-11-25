@@ -41,31 +41,31 @@ export interface NavGroup {
 export const sidebarItems: NavGroup[] = [
   {
     id: 1,
-    label: "Tableaux de bord",
+    label: "Tableau de bord",
     items: [
       {
-        title: "Écoute Sociale ",
-        url: "/?tab=overView",
+        title: "Écoute sociale",
+        url: "/dashboard/overView",
         icon: Headphones,
       },
       {
         title: "Audience",
-        url: "/?tab=audience",
+        url: "/dashboard/audience",
         icon: Users,
       },
       {
         title: "Publications",
-        url: "/?tab=posts",
+        url: "/dashboard/posts",
         icon: FileText,
       },
       {
         title: "Mentions",
-        url: "/?tab=mentions",
+        url: "/dashboard/mentions",
         icon: AtSign,
       },
       {
         title: "Sentiment",
-        url: "/?tab=sentiment",
+        url: "/dashboard/sentiment",
         icon: Smile,
       },
       // {
@@ -80,13 +80,13 @@ export const sidebarItems: NavGroup[] = [
     label: "Veille & Benchmark",
     items: [
       {
-        title: "Veille marque",
-        url: "/reseaux-sociaux/vue-ensemble",
+        title: "Veille de marque",
+        url: "/reseaux-sociaux/brand-watch",
         icon: Eye, // brand overview / monitoring
       },
       {
         title: "Veille concurrentielle",
-        url: "/reseaux-sociaux/ranking",
+        url: "/reseaux-sociaux/wranking",
         icon: BarChart2, // benchmarking / comparison charts
       },
       // {
@@ -102,12 +102,12 @@ export const sidebarItems: NavGroup[] = [
     items: [
       {
         title: "Rapports automatiques",
-        url: "/reseaux-sociaux/vue-ensemble",
+        url: "/reports",
         icon: RefreshCw, // automatic / recurring reports
       },
       {
         title: "Rapports personnalisés",
-        url: "/reseaux-sociaux/vue-ensemble",
+        url: "",
         icon: Sliders, // custom / configurable reports
       },
     ],
@@ -123,8 +123,8 @@ export const sidebarItems: NavGroup[] = [
         comingSoon: true,
       },
       {
-        title: "IA Analyste",
-        url: "/integrations/ia-analyste",
+        title: "Analyste IA",
+        url: "",
         icon: Cpu,
         comingSoon: true,
       },

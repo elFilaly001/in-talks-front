@@ -1,4 +1,5 @@
 import React, { useCallback } from "react";
+"use client";
 import {
   Select,
   SelectContent,

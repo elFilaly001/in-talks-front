@@ -164,6 +164,29 @@ function Sidebar({
   collapsible?: "offcanvas" | "icon" | "none"
 }) {
   const { isMobile, state, openMobile, setOpenMobile, setOpen, open } = useSidebar()
+  // Ref to the fixed sidebar container used to determine clicks outside the sidebar.
+  const containerRef = React.useRef<HTMLDivElement | null>(null)
+
+  // Collapse the sidebar when clicking outside of it on desktop.
+  React.useEffect(() => {
+    function handleDocumentClick(e: MouseEvent) {
+      if (!open || isMobile) return
+
+      const target = e.target as Node | null
+      // If click inside the sidebar container do nothing
+      if (containerRef.current && target && containerRef.current.contains(target)) return
+
+      // If click is on the sidebar trigger button, ignore (so toggle works to open)
+      const el = e.target as Element | null
+      if (el && el.closest('[data-slot="sidebar-trigger"]')) return
+
+      // Otherwise close the sidebar
+      setOpen(false)
+    }
+
+    document.addEventListener("click", handleDocumentClick)
+    return () => document.removeEventListener("click", handleDocumentClick)
+  }, [open, isMobile, setOpen])
 
   // Ref to the fixed sidebar container used to determine clicks outside the sidebar.
   const containerRef = React.useRef<HTMLDivElement | null>(null)
@@ -228,7 +251,6 @@ function Sidebar({
       </Sheet>
     )
   }
-
   return (
     <div
       className="group peer text-sidebar-foreground hidden md:block"
@@ -548,7 +570,7 @@ function SidebarMenuButton({
   // Make clicking a sidebar option collapse the sidebar.
   const { onClick, ...rest } = props
 
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     try {
       onClick?.(e as React.MouseEvent<HTMLButtonElement>)
     } finally {

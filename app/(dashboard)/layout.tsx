@@ -1,10 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import AppSideBar from "@/components/layouts/AppSideBar";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
@@ -35,7 +31,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         >
           <div className="flex w-full items-center justify-between px-4 lg:px-6">
             <div className="flex items-center gap-1 lg:gap-2">
-              <SidebarTrigger className="-ml-1" />
               <Separator
                 orientation="vertical"
                 className="mx-2 data-[orientation=vertical]:h-4"

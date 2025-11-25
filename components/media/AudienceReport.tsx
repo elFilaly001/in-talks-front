@@ -216,8 +216,8 @@ const AudienceReport = () => {
         metric === "followers"
           ? "Followers"
           : metric === "likers"
-          ? "Likers"
-          : metric,
+            ? "Likers"
+            : metric,
     });
     rows.push({
       key: "Date From",
@@ -282,7 +282,7 @@ const AudienceReport = () => {
   };
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="w-350 flex flex-col gap-5">
       <div className="flex justify-between items-center pt-4 pb-4">
         {/* Left side: Export button */}
         <div className="flex items-center">
@@ -403,21 +403,22 @@ const AudienceReport = () => {
       )} */}
 
       {data && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <QualitySplit
-            percentages={{
-              fakePeople: data.fakePercentage,
-              realPeople: data?.realPercentage,
-            }}
-          />
-          <ChartGenderSplit
-            percentages={{
-              male: data.malePercentage,
-              female: data?.femalePercentage,
-              unknown: data?.unknownPercentage,
-            }}
-          />
-          
+        <div className="overflow-x-auto">
+          <div className="min-w-full grid grid-cols-1 md:grid-cols-2 gap-5">
+            <QualitySplit
+              percentages={{
+                fakePeople: data.fakePercentage,
+                realPeople: data?.realPercentage,
+              }}
+            />
+            <ChartGenderSplit
+              percentages={{
+                male: data.malePercentage,
+                female: data?.femalePercentage,
+                unknown: data?.unknownPercentage,
+              }}
+            />
+
             <Card className="relative">
               <CardHeader>
                 <div className="flex items-center gap-2">
@@ -455,12 +456,12 @@ const AudienceReport = () => {
               </CardContent>
               <div className="absolute bottom-4 left-6">
                 <div className="relative">
-                  <div 
+                  <div
                     className="text-sm text-black flex items-center gap-2 cursor-pointer"
                     onMouseEnter={() => setShowInsight(true)}
                     onMouseLeave={() => setShowInsight(false)}
                   >
-                    <Image src="/icons/IN-TALKS-logo.png-2.webp" alt="IN-TALKS Logo" width={22} height={22} style={{display: 'inline-block', verticalAlign: 'middle'}} />
+                    <Image src="/icons/IN-TALKS-logo.png-2.webp" alt="IN-TALKS Logo" width={22} height={22} style={{ display: 'inline-block', verticalAlign: 'middle' }} />
                     <span
                       className="font-semibold"
                       style={{
@@ -486,43 +487,47 @@ const AudienceReport = () => {
               </div>
             </Card>
 
-          {/* {data.ageSplit && (
+            {/* {data.ageSplit && (
             <ChartAgeSplit
               data={
                 JSON.parse(data.ageSplit.toString()) as Record<string, number>
               }
             />
           )} */}
-          <AgeGenderBreakdown />
+            <AgeGenderBreakdown />
 
-          {/* Group the last three cards into a single full-width row with an inner 3-column grid */}
-          
-              {data.interest && (
-                <Interset
-                  title="Affinité d&apos;intérêt de l&apos;audience"
-                  data={JSON.parse(data.interest.toString())}
-                />
-              )}
+            {/* Group the last three cards into a single full-width row with an inner 3-column grid */}
+            <div className="col-span-1 md:col-span-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                {data.interest && (
+                  <Interset
+                    title="Affinité d&apos;intérêt de l&apos;audience"
+                    data={JSON.parse(data.interest.toString())}
+                  />
+                )}
 
-              {data.countries && (
-                <CountriesSplit
-                  title="Abonnés par pays"
-                  data={JSON.parse(data.countries.toString())}
-                  tooltip={`Localisation de l&apos;audience par pays.`}
-                />
-              )}
+                {data.countries && (
+                  <CountriesSplit
+                    title="Abonnés par pays"
+                    data={JSON.parse(data.countries.toString())}
+                    tooltip={`Localisation de l&apos;audience par pays.`}
+                  />
+                )}
 
-              {data.cities && (
-                <CountriesSplit
-                  title="Abonnés par ville"
-                  data={JSON.parse(data.cities.toString())}
-                  tooltip={`Localisation de l&apos;audience par ville.`}
-                />
-              )}
+                {data.cities && (
+                  <CountriesSplit
+                    title="Abonnés par ville"
+                    data={JSON.parse(data.cities.toString())}
+                    tooltip={`Localisation de l&apos;audience par ville.`}
+                  />
+                )}
 
-              {data.language && JSON.stringify(data.language) !== "{}" && (
-                <ChartLangage data={JSON.parse(data.language.toString())} />
-              )} 
+                {data.language && JSON.stringify(data.language) !== "{}" && (
+                  <ChartLangage data={JSON.parse(data.language.toString())} />
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>
