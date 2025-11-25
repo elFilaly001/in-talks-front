@@ -20,9 +20,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <SidebarInset
         data-content-layout={"centered"}
         className={cn(
-          "bg-[#ebebeb] data-[content-layout=centered]:!mx-auto data-[content-layout=centered]:max-w-screen-2xl",
-          // Adds right margin for inset sidebar in centered layout up to 113rem.
-          // On wider screens with collapsed sidebar, removes margin and sets margin auto for alignment.
+          // Base background and ensure content takes full width regardless of sidebar state
+          "bg-[#ebebeb] !mx-0 !max-w-full w-full",
+          // Preserve existing responsive adjustments that are specific to the inset variant
           "max-[113rem]:peer-data-[variant=inset]:!mr-2 min-[101rem]:peer-data-[variant=inset]:peer-data-[state=collapsed]:!mr-auto"
         )}
       >
@@ -30,7 +30,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           // data-navbar-style={navbarStyle}
           className={cn(
             " sticky top-0 backdrop-blur-3xl bg-[#ebebeb] z-10 flex h-12 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12",
-            // Handle sticky navbar style with conditional classes so blur, background, z-index, and rounded corners remain consistent across all SidebarVariant layouts.
             "data-[navbar-style=sticky]:bg-background/50 data-[navbar-style=sticky]:sticky data-[navbar-style=sticky]:top-0 data-[navbar-style=sticky]:z-50 data-[navbar-style=sticky]:overflow-hidden data-[navbar-style=sticky]:rounded-t-[inherit] data-[navbar-style=sticky]:backdrop-blur-md"
           )}
         >
@@ -54,7 +53,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                   </span>
                   <Bell className="size-4" />
                 </button>
-                
+
                 {showNotifications && (
                   <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50">
                     <div className="p-4 border-b border-gray-200 dark:border-gray-700">

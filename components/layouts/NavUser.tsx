@@ -5,6 +5,7 @@ import {
   CircleUser,
   CreditCard,
   MessageSquareDot,
+  LifeBuoy,
   LogOut,
 } from "lucide-react";
 import Link from "next/link";
@@ -86,6 +87,10 @@ export function NavUser() {
               <DropdownMenuItem>
                 <MessageSquareDot />
                 Notifications
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <LifeBuoy />
+                Support
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
