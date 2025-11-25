@@ -54,7 +54,7 @@ function useSidebar() {
 }
 
 function SidebarProvider({
-  defaultOpen = true,
+  defaultOpen = false,
   open: openProp,
   onOpenChange: setOpenProp,
   className,
@@ -163,7 +163,7 @@ function Sidebar({
   variant?: "sidebar" | "floating" | "inset"
   collapsible?: "offcanvas" | "icon" | "none"
 }) {
-  const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
+  const { isMobile, state, openMobile, setOpenMobile, setOpen, open } = useSidebar()
 
   if (collapsible === "none") {
     return (
@@ -205,6 +205,30 @@ function Sidebar({
     )
   }
 
+  // Ref to the fixed sidebar container used to determine clicks outside the sidebar.
+  const containerRef = React.useRef<HTMLDivElement | null>(null)
+
+  // Collapse the sidebar when clicking outside of it on desktop.
+  React.useEffect(() => {
+    function handleDocumentClick(e: MouseEvent) {
+      if (!open || isMobile) return
+
+      const target = e.target as Node | null
+      // If click inside the sidebar container do nothing
+      if (containerRef.current && target && containerRef.current.contains(target)) return
+
+      // If click is on the sidebar trigger button, ignore (so toggle works to open)
+      const el = e.target as Element | null
+      if (el && el.closest('[data-slot="sidebar-trigger"]')) return
+
+      // Otherwise close the sidebar
+      setOpen(false)
+    }
+
+    document.addEventListener("click", handleDocumentClick)
+    return () => document.removeEventListener("click", handleDocumentClick)
+  }, [open, isMobile, setOpen])
+
   return (
     <div
       className="group peer text-sidebar-foreground hidden md:block"
@@ -217,8 +241,11 @@ function Sidebar({
       {/* This is what handles the sidebar gap on desktop */}
       <div
         data-slot="sidebar-gap"
+        // The gap element used to reserve width for the sidebar.
+        // We force the gap to be 0 by default so the main content always occupies full width.
         className={cn(
-          "relative w-(--sidebar-width) bg-transparent transition-[width] duration-200 ease-linear",
+          "relative w-0 bg-transparent transition-[width] duration-200 ease-linear",
+          // Keep compatibility for offcanvas (completely hidden) and icon collapsed states where we still may want specific widths
           "group-data-[collapsible=offcanvas]:w-0",
           "group-data-[side=right]:rotate-180",
           variant === "floating" || variant === "inset"
@@ -228,8 +255,10 @@ function Sidebar({
       />
       <div
         data-slot="sidebar-container"
+        // Fixed container overlays the page. Raise z-index so it sits above main content and header.
+        ref={containerRef}
         className={cn(
-          "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex",
+          "fixed inset-y-0 z-20 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex",
           side === "left"
             ? "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]"
             : "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]",
@@ -509,7 +538,23 @@ function SidebarMenuButton({
   tooltip?: string | React.ComponentProps<typeof TooltipContent>
 } & VariantProps<typeof sidebarMenuButtonVariants>) {
   const Comp = asChild ? Slot : "button"
-  const { isMobile, state } = useSidebar()
+  const { isMobile, state, setOpen, setOpenMobile } = useSidebar()
+
+  // Make clicking a sidebar option collapse the sidebar.
+  const { onClick, ...rest } = props as any
+
+  const handleClick = (e: React.MouseEvent) => {
+    try {
+      onClick?.(e)
+    } finally {
+      // Close mobile sheet if on mobile, otherwise collapse the desktop sidebar
+      if (isMobile) {
+        setOpenMobile?.(false)
+      } else {
+        setOpen?.(false)
+      }
+    }
+  }
 
   const button = (
     <Comp
@@ -518,7 +563,8 @@ function SidebarMenuButton({
       data-size={size}
       data-active={isActive}
       className={cn(sidebarMenuButtonVariants({ variant, size }), className)}
-      {...props}
+      onClick={handleClick}
+      {...rest}
     />
   )
 

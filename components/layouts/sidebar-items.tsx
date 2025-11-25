@@ -38,7 +38,7 @@ export interface NavGroup {
 export const sidebarItems: NavGroup[] = [
   {
     id: 1,
-    label: "Dashboard",
+    label: "Tableaux de bord",
     items: [
       {
         title: "Écoute Sociale ",
@@ -58,12 +58,12 @@ export const sidebarItems: NavGroup[] = [
       {
         title: "Mentions",
         url: "/reports",
-        icon: AtSign, // mentions use @ sign
+        icon: AtSign, 
       },
       {
         title: "Sentiment",
         url: "/reseaux-sociaux/ranking",
-        icon: Smile, // sentiment / mood
+        icon: Smile, 
       },
       // {
       //   title: "Brand Watch",
