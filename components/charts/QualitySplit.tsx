@@ -31,15 +31,15 @@ type ChartGenderSplitProps = {
 
 const chartConfig = {
   gender: {
-    label: "Gender Split",
+    label: "Répartition par type",
   },
   realPeople: {
-    label: "Real People",
-    color: "#4CAF50", // Blue
+    label: "Personnes réelles",
+    color: "#4CAF50", // Bleu
   },
   fakePeople: {
-    label: "Fake People",
-    color: "#F44336", // Pink
+    label: "Faux comptes",
+    color: "#F44336", // Rose
   },
 } satisfies ChartConfig;
 
@@ -49,12 +49,12 @@ function QualitySplit({ percentages }: ChartGenderSplitProps) {
   // Convert props to chart-friendly array
   const chartData = [
     {
-      category: "Real People",
+      category: "Personnes réelles",
       percentage: percentages.realPeople,
       fill: chartConfig.realPeople.color,
     },
     {
-      category: "Fake People",
+      category: "Faux comptes",
       percentage: percentages.fakePeople,
       fill: chartConfig.fakePeople.color,
     },
@@ -70,9 +70,9 @@ function QualitySplit({ percentages }: ChartGenderSplitProps) {
 
       <CardHeader className="pb-0">
         <div className="flex items-center gap-2">
-          <CardTitle className="">Account Type</CardTitle>
+          <CardTitle className="">Type de compte</CardTitle>
           <ToolTipsProvider
-            title={`To determine the followers credibility score for historical accounts, we evaluate several factors, including the presence of a profile picture and bio, the number of posts, and the ratio between followers and following. Brands with an authentic audience typically achieve scores of 80 or higher.`}
+            title={`Pour déterminer le score de crédibilité des abonnés pour les comptes historiques, nous évaluons plusieurs facteurs, dont la présence d&apos;une photo de profil et d&apos;une bio, le nombre de publications et le ratio entre abonnés et abonnements. Les marques avec une audience authentique atteignent généralement des scores de 80 ou plus.`}
           />
         </div>
       </CardHeader>
@@ -170,13 +170,13 @@ function QualitySplit({ percentages }: ChartGenderSplitProps) {
                 display: 'inline-block',
               }}
             >
-              AI-powered insight
+              Insights boostés par IA
             </span>
           </div>
           {showInsight && (
             <div className="absolute bottom-full left-0 mb-2 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50 w-auto min-w-80 max-w-xl">
               <p className="text-sm text-gray-700 dark:text-gray-300">
-                Account quality analysis shows 63% real followers, indicating good audience authenticity. Focus on strategies to increase genuine engagement and reduce fake accounts for better brand credibility.
+                L&apos;analyse de la qualité des comptes montre que 63% des abonnés sont des personnes réelles, ce qui indique une bonne authenticité de l&apos;audience. Misez sur des stratégies pour augmenter l&apos;engagement authentique et réduire les faux comptes afin d&apos;améliorer la crédibilité de la marque.
               </p>
             </div>
           )}

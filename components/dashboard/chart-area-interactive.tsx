@@ -115,16 +115,16 @@ const chartConfig = {
     label: "Mentions",
   },
   positive: {
-    label: "Positive",
-    color: "#22C55E", // Green — Positive (Tailwind's green-500)
+    label: "Positif",
+    color: "#22C55E", // Vert — Positif
   },
   neutral: {
     label: "Mentions",
-    color: "#A3A3A3", // Gray — Neutral (Tailwind's neutral-400)
+    color: "#A3A3A3", // Gris — Neutre
   },
   negative: {
-    label: "Negative",
-    color: "#EF4444", // Red — Negative (Tailwind's red-500)
+    label: "Négatif",
+    color: "#EF4444", // Rouge — Négatif
   },
 } satisfies ChartConfig;
 
@@ -137,10 +137,10 @@ const ChartAreaInteractive = () => {
       <CardHeader className="flex flex-col items-stretch border-b dark:border-gray-800 border-gray-200 p-0! sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1 px-6 pt-4 pb-3 sm:py-0!">
           <div className="flex items-center gap-2">
-            <CardTitle>Total Mentions</CardTitle>
+            <CardTitle>Mentions totales</CardTitle>
             <div className="bg-transparent">
               <ToolTipsProvider
-                title={`Shows the total number of mentions over the selected period and quick growth metrics. Use this to monitor volume changes and spot spikes or drops in attention.`}
+                title={`Affiche le nombre total de mentions sur la période sélectionnée et les indicateurs de croissance rapide. Utilisez cela pour surveiller les variations de volume et repérer les pics ou baisses d'attention.`}
               />
             </div>
           </div>
@@ -148,7 +148,7 @@ const ChartAreaInteractive = () => {
         <div className="flex flex-1">
           <button className="data-[active=true]:bg-muted/50 relative z-30 flex flex-1 flex-col text-center justify-center gap-1 border-t dark:border-gray-800 border-gray-200 px-6 py-4 even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6">
             <span className="text-gray-500 text-xs capitalize">
-              Total Mentions
+              Mentions totales
             </span>
             <span className="text-lg leading-none font-bold sm:text-3xl dark:text-gray-200 text-gray-600">
               202
@@ -156,7 +156,7 @@ const ChartAreaInteractive = () => {
           </button>
           <button className="data-[active=true]:bg-muted/50 relative z-30 flex flex-1 flex-col text-center justify-center gap-1 border-t dark:border-gray-800 border-gray-200 px-6 py-4 even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6">
             <span className="text-gray-500 text-xs capitalize">
-              Daily Average
+              Moyenne quotidienne
             </span>
             <span className="text-lg leading-none font-bold sm:text-3xl dark:text-gray-200 text-gray-600">
               10
@@ -251,16 +251,13 @@ const ChartAreaInteractive = () => {
               display: 'inline-block',
             }}
           >
-            AI-powered insight
+            Insights boostés par IA
           </span>
         </div>
         {showInsight && (
           <div className="absolute bottom-full left-0 mb-2 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50 max-w-md">
             <p className="text-sm text-gray-700 dark:text-gray-300">
-              Overall mentions increased 14% vs the previous period. Daily average
-              is 120 (up 13%). The series peaks on Dec 20 with 350 mentions. The
-              largest day-to-day change was a decrease of 300 mentions from Dec 20
-              to Dec 21.
+              Les mentions globales ont augmenté de 14% par rapport à la période précédente. La moyenne quotidienne est de 120 (hausse de 13%). La série atteint un pic le 20 décembre avec 350 mentions. Le plus grand changement d&apos;un jour à l&apos;autre a été une baisse de 300 mentions entre le 20 et le 21 décembre.
             </p>
           </div>
         )}

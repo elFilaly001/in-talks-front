@@ -32,19 +32,19 @@ type ChartGenderSplitProps = {
 
 const chartConfig = {
   gender: {
-    label: "Gender Split",
+    label: "Répartition par genre",
   },
   male: {
-    label: "Male",
-    color: "#2196F3", // Blue
+    label: "Homme",
+    color: "#2196F3", // Bleu
   },
   female: {
-    label: "Female",
-    color: "#E91E63", // Pink
+    label: "Femme",
+    color: "#E91E63", // Rose
   },
   unknown: {
-    label: "Unknown",
-    color: "#9E9E9E", // Gray
+    label: "Inconnu",
+    color: "#9E9E9E", // Gris
   },
 } satisfies ChartConfig;
 
@@ -54,17 +54,17 @@ function ChartGenderSplit({ percentages }: ChartGenderSplitProps) {
   // Convert props to chart-friendly array
   const chartData = [
     {
-      category: "Male",
+      category: "Homme",
       percentage: percentages.male,
       fill: chartConfig.male.color,
     },
     {
-      category: "Female",
+      category: "Femme",
       percentage: percentages.female,
       fill: chartConfig.female.color,
     },
     {
-      category: "Unknown",
+      category: "Inconnu",
       percentage: percentages.unknown,
       fill: chartConfig.unknown.color,
     },
@@ -80,9 +80,9 @@ function ChartGenderSplit({ percentages }: ChartGenderSplitProps) {
 
       <CardHeader className="pb-0">
         <div className="flex items-center gap-2">
-          <CardTitle>Gender Distribution</CardTitle>
+          <CardTitle>Répartition par genre</CardTitle>
           <ToolTipsProvider
-            title={`To determine the followers credibility score for historical accounts, we evaluate several factors, including the presence of a profile picture and bio, the number of posts, and the ratio between followers and following. Brands with an authentic audience typically achieve scores of 80 or higher.`}
+            title={`Pour déterminer le score de crédibilité des abonnés pour les comptes historiques, nous évaluons plusieurs facteurs, dont la présence d&apos;une photo de profil et d&apos;une bio, le nombre de publications et le ratio entre abonnés et abonnements. Les marques avec une audience authentique atteignent généralement des scores de 80 ou plus.`}
           />
         </div>
       </CardHeader>
@@ -104,33 +104,30 @@ function ChartGenderSplit({ percentages }: ChartGenderSplitProps) {
               strokeWidth={20}
             >
               <Label
-                content={({ viewBox }) => {
-                  if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                    return (
+                content={({ viewBox }) =>
+                  viewBox && "cx" in viewBox && "cy" in viewBox ? (
+                    <g>
                       <text
                         x={viewBox.cx}
                         y={viewBox.cy}
                         textAnchor="middle"
                         dominantBaseline="middle"
+                        className="text-3xl font-bold dark:fill-white/80"
                       >
-                        <tspan
-                          x={viewBox.cx}
-                          y={viewBox.cy}
-                          className="text-3xl font-bold  dark:fill-white/80"
-                        >
-                          {maxCategory.percentage} %
-                        </tspan>
-                        <tspan
-                          x={viewBox.cx}
-                          y={(viewBox.cy || 0) + 24}
-                          className="fill-muted-foreground text-white"
-                        >
-                          {maxCategory.category}
-                        </tspan>
+                        {maxCategory.percentage} %
                       </text>
-                    );
-                  }
-                }}
+                      <text
+                        x={viewBox.cx}
+                        y={(viewBox.cy || 0) + 24}
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                        className="fill-muted-foreground text-white"
+                      >
+                        {maxCategory.category}
+                      </text>
+                    </g>
+                  ) : null
+                }
               />
             </Pie>
           </PieChart>
@@ -180,13 +177,13 @@ function ChartGenderSplit({ percentages }: ChartGenderSplitProps) {
                 display: 'inline-block',
               }}
             >
-              AI-powered insight
+              Insights boostés par IA
             </span>
           </div>
           {showInsight && (
             <div className="absolute bottom-full left-0 mb-2 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50 w-auto min-w-80 max-w-xl">
               <p className="text-sm text-gray-700 dark:text-gray-300">
-                Gender distribution shows female audience dominance at 55%, suggesting content strategies should prioritize female-focused topics. Consider inclusive marketing approaches to engage male and unknown gender segments for broader reach.
+                La répartition par genre montre une dominance de l&apos;audience féminine à 55%, ce qui suggère de privilégier des contenus orientés vers les femmes. Pensez à des approches marketing inclusives pour engager les segments masculins et inconnus afin d&apos;élargir la portée.
               </p>
             </div>
           )}

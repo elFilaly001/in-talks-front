@@ -43,9 +43,9 @@ function ShareOfVoice() {
     <Card className="flex flex-col justify-between relative">
       <CardHeader className="items-center">
         <div className="flex items-center gap-2">
-          <CardTitle>Share of voice</CardTitle>
+          <CardTitle>Part de voix</CardTitle>
           <ToolTipsProvider
-            title={`Displays how conversation is shared between categories (or competitors). It highlights the largest contributor to the overall share and helps assess relative visibility.`}
+            title={`Affiche comment la conversation est répartie entre les catégories (ou concurrents). Cela met en avant le plus grand contributeur à la part globale et aide à évaluer la visibilité relative.`}
           />
         </div>
       </CardHeader>
@@ -105,13 +105,13 @@ function ShareOfVoice() {
                 display: 'inline-block',
               }}
             >
-              AI-powered insight
+              Insights boostés par IA
             </span>
           </div>
           {showInsight && (
             <div className="absolute bottom-full left-0 mb-2 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50 w-auto min-w-80 max-w-xl">
               <p className="text-sm text-gray-700 dark:text-gray-300">
-                Fast-food dominates the share of voice at 35%, indicating strong consumer interest in this category. Delivery services follow closely at 29%, showing the importance of logistics in consumer decision-making.
+                La restauration rapide domine la part de voix avec 35%, indiquant un fort intérêt des consommateurs pour cette catégorie. Les services de livraison suivent de près avec 29%, montrant l&apos;importance de la logistique dans le choix des consommateurs.
               </p>
             </div>
           )}

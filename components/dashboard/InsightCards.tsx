@@ -126,9 +126,9 @@ export function InsightCards() {
       <Card className="col-span-1 xl:col-span-2 relative">
         <CardHeader>
           <div className="flex items-center gap-2">
-            <CardTitle>Mentions Distribution by Source</CardTitle>
+            <CardTitle>Répartition des mentions par source</CardTitle>
             <ToolTipsProvider
-              title="Breakdown of mentions across different sources (e.g., Facebook, X, Instagram) over time. Use this to see which channels drive the most conversation."
+              title="Répartition des mentions sur différentes sources (ex : Facebook, X, Instagram) au fil du temps. Utilisez cela pour voir quels canaux génèrent le plus de conversations."
             />
           </div>
         </CardHeader>
@@ -207,13 +207,13 @@ export function InsightCards() {
                   display: 'inline-block',
                 }}
               >
-                AI-powered insight
+                Insights boostés par IA
               </span>
             </div>
             {showInsight1 && (
               <div className="absolute bottom-full left-0 mb-2 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50 w-auto min-w-80 max-w-xl">
                 <p className="text-sm text-gray-700 dark:text-gray-300">
-                  Facebook dominates social media mentions with 38% share, indicating strong brand presence on this platform. The stacked bar chart shows consistent engagement across all platforms over the three periods.
+                  Facebook domine les mentions sur les réseaux sociaux avec une part de 38%, indiquant une forte présence de la marque sur cette plateforme. Le graphique en barres empilées montre un engagement constant sur tous les réseaux au cours des trois périodes.
                 </p>
               </div>
             )}
@@ -223,9 +223,9 @@ export function InsightCards() {
       <Card className="col-span-1 xl:col-span-2 relative">
         <CardHeader>
           <div className="flex items-center gap-2">
-            <CardTitle>Last Mentions</CardTitle>
+            <CardTitle>Dernières mentions</CardTitle>
             <ToolTipsProvider
-              title="Latest mentions from various sources, providing quick access to recent conversations and insights."
+              title="Dernières mentions provenant de différentes sources, offrant un accès rapide aux conversations et insights récents."
             />
           </div>
         </CardHeader>
@@ -279,13 +279,13 @@ export function InsightCards() {
                   display: 'inline-block',
                 }}
               >
-                AI-powered insight
+                Insights boostés par IA
               </span>
             </div>
             {showInsight2 && (
               <div className="absolute bottom-full left-0 mb-2 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50 w-auto min-w-80 max-w-xl">
                 <p className="text-sm text-gray-700 dark:text-gray-300">
-                  Social media mentions show a 25% increase in positive sentiment for delivery services. Facebook leads with 40% of total mentions, followed by Instagram at 30%. Key topics include service expansion, partnerships, and customer satisfaction improvements.
+                  Les mentions sur les réseaux sociaux montrent une augmentation de 25% du sentiment positif pour les services de livraison. Facebook arrive en tête avec 40% du total des mentions, suivi d&apos;Instagram à 30%. Les sujets clés incluent l&apos;expansion du service, les partenariats et l&apos;amélioration de la satisfaction client.
                 </p>
               </div>
             )}

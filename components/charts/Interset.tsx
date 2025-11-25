@@ -17,7 +17,7 @@ const Interset = ({ title, data }: { title: string; data: JSON }) => {
         <div className="flex items-center gap-2">
           <CardTitle>{title}</CardTitle>
           <ToolTipsProvider
-            title={`Interset displays the percentage distribution of mentions from different countries, helping to identify key geographic areas of interest and engagement.`}
+            title={`Interset affiche la répartition en pourcentage des mentions selon les pays, permettant d'identifier les zones géographiques clés d'intérêt et d'engagement.`}
           />
         </div>
       </CardHeader>
@@ -64,13 +64,13 @@ const Interset = ({ title, data }: { title: string; data: JSON }) => {
                 display: 'inline-block',
               }}
             >
-              AI-powered insight
+              Insights boostés par IA
             </span>
           </div>
           {showInsight && (
             <div className="absolute bottom-full left-0 mb-2 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50 w-auto min-w-80 max-w-xl">
               <p className="text-sm text-gray-700 dark:text-gray-300">
-                Interest affinity analysis shows &quot;Friends, Family &amp; Relationships&quot; as the top category at 45.65%, indicating strong audience engagement with social and personal content. This suggests content strategies should prioritize relationship-focused topics for maximum resonance.
+                L&apos;analyse d&apos;affinité d&apos;intérêt montre que la catégorie « Amis, Famille &amp; Relations » est en tête avec 45,65 %, indiquant un fort engagement de l&apos;audience envers le contenu social et personnel. Cela suggère que les stratégies de contenu devraient privilégier les sujets axés sur les relations pour une résonance maximale.
               </p>
             </div>
           )}

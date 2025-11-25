@@ -22,9 +22,9 @@ const ChartSetiment = () => {
   const [showInsight, setShowInsight] = useState(false);
 
   const mentionsBySentimentChartData = [
-    { sentiment: "positive", mentions: 275, fill: "#10B981" },
-    { sentiment: "neutral", mentions: 120, fill: "#6B7280" },
-    { sentiment: "negative", mentions: 80, fill: "#EF4444" },
+  { sentiment: "positif", mentions: 275, fill: "#10B981" },
+  { sentiment: "neutre", mentions: 120, fill: "#6B7280" },
+  { sentiment: "négatif", mentions: 80, fill: "#EF4444" },
   ];
 
   const mentionsBySentimentChartConfig = {
@@ -32,7 +32,7 @@ const ChartSetiment = () => {
       label: "Mentions",
     },
     positive: {
-      label: "Positives",
+      label: "Positifs",
       color: "var(--chart-1)",
     },
     neutral: {
@@ -40,7 +40,7 @@ const ChartSetiment = () => {
       color: "var(--chart-2)",
     },
     negative: {
-      label: "Négatives",
+      label: "Négatifs",
       color: "var(--chart-3)",
     },
   } as ChartConfig;
@@ -54,9 +54,9 @@ const ChartSetiment = () => {
     <Card className="col-span-1 relative">
       <CardHeader>
         <div className="flex items-center gap-2">
-          <CardTitle className="">Sentiment Trend</CardTitle>
+          <CardTitle className="">Tendance du sentiment</CardTitle>
           <ToolTipsProvider
-            title={`Shows the overall sentiment breakdown (positive/neutral/negative) for the selected period and highlights the dominant sentiment. Helpful to track shifts in how people feel about the topic.`}
+            title={`Affiche la répartition globale des sentiments (positif/neutre/négatif) pour la période sélectionnée et met en avant le sentiment dominant. Utile pour suivre l'évolution de la perception du sujet.`}
           />
         </div>
       </CardHeader>
@@ -155,13 +155,13 @@ const ChartSetiment = () => {
                 display: 'inline-block',
               }}
             >
-              AI-powered insight
+              Insights boostés par IA
             </span>
           </div>
           {showInsight && (
             <div className="absolute bottom-full left-0 mb-2 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50 w-auto min-w-80 max-w-xl">
               <p className="text-sm text-gray-700 dark:text-gray-300">
-                Sentiment analysis shows positive mentions dominate at 49% (275 mentions), indicating overall favorable perception. Negative sentiment represents 16% (80 mentions), suggesting areas for potential improvement in customer experience.
+                L&apos;analyse des sentiments montre que les mentions positives dominent à 49% (275 mentions), indiquant une perception globalement favorable. Le sentiment négatif représente 16% (80 mentions), ce qui suggère des axes d&apos;amélioration pour l&apos;expérience client.
               </p>
             </div>
           )}

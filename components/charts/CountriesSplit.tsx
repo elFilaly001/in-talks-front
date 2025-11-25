@@ -85,13 +85,13 @@ const CountriesSplit = ({
                 display: 'inline-block',
               }}
             >
-              AI-powered insight
+              Insights boostés par IA
             </span>
           </div>
           {showInsight && (
             <div className="absolute bottom-full left-0 mb-2 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50 w-auto min-w-80 max-w-xl">
               <p className="text-sm text-gray-700 dark:text-gray-300">
-                Geographic distribution analysis reveals France as the dominant market at 45.23%, followed by Spain at 23.45%. This concentration suggests targeted content strategies should prioritize French-speaking audiences while maintaining Spanish content for secondary market penetration.
+                L&apos;analyse de la répartition géographique révèle la France comme marché dominant à 45,23 %, suivie de l&apos;Espagne à 23,45 %. Cette concentration suggère que les stratégies de contenu ciblé devraient privilégier les audiences francophones tout en maintenant du contenu espagnol pour une pénétration secondaire du marché.
               </p>
             </div>
           )}

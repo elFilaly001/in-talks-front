@@ -16,9 +16,9 @@ const ChartLangage = ({ data }: { data: JSON }) => {
     <Card className="flex flex-col rounded-md gap-5 relative">
       <CardHeader className="pb-0">
         <div className="flex items-center gap-2">
-          <CardTitle>Top Languages</CardTitle>
+          <CardTitle>Langues principales</CardTitle>
           <ToolTipsProvider
-            title={`This chart illustrates the distribution of languages used in mentions, providing insights into the linguistic diversity and reach of the content.`}
+            title={`Ce graphique illustre la répartition des langues utilisées dans les mentions, offrant des informations sur la diversité linguistique et la portée du contenu.`}
           />
         </div>
       </CardHeader>
@@ -62,13 +62,13 @@ const ChartLangage = ({ data }: { data: JSON }) => {
                 display: 'inline-block',
               }}
             >
-              AI-powered insight
+              Insights boostés par IA
             </span>
           </div>
           {showInsight && (
             <div className="absolute bottom-full left-0 mb-2 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50 w-auto min-w-80 max-w-xl">
               <p className="text-sm text-gray-700 dark:text-gray-300">
-                Language distribution analysis shows French as the primary language at 67.45%, followed by English at 18.32%. This linguistic concentration indicates content should be primarily in French while maintaining English support for international reach and accessibility.
+                L&apos;analyse de la répartition des langues montre que le français est la langue principale à 67,45 %, suivi de l&apos;anglais à 18,32 %. Cette concentration linguistique indique que le contenu doit être principalement en français tout en maintenant un support en anglais pour une portée et une accessibilité internationale.
               </p>
             </div>
           )}

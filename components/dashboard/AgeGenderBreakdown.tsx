@@ -53,9 +53,9 @@ function AgeGenderBreakdown() {
     <Card className="relative">
         <CardHeader>
           <div className="flex items-center gap-2">
-            <CardTitle>Age & Gender Breakdown</CardTitle>
+            <CardTitle>Répartition par âge et genre</CardTitle>
             <ToolTipsProvider
-              title={`Age and Gender Breakdown provides insights into the distribution of your audience across different age groups and genders, helping tailor content and marketing strategies.`}
+              title={`La répartition par âge et genre fournit des informations sur la distribution de votre audience selon les groupes d'âge et les genres, afin d'adapter vos contenus et stratégies marketing.`}
             />
           </div>
         </CardHeader>
@@ -65,8 +65,8 @@ function AgeGenderBreakdown() {
               accessibilityLayer
               data={chartData}
               margin={{ top: 10, right: 10, left: 10, bottom: 10 }}
-              barSize={10} // Smaller bar size
-              barGap={2} // Reduced gap between bars
+              barSize={10}
+              barGap={2}
             >
               <CartesianGrid vertical={false} />
               <XAxis
@@ -112,13 +112,13 @@ function AgeGenderBreakdown() {
                   display: 'inline-block',
                 }}
               >
-                AI-powered insight
+                Insights boostés par IA
               </span>
             </div>
             {showInsight && (
               <div className="absolute bottom-full left-0 mb-2 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50 w-auto min-w-80 max-w-xl">
                 <p className="text-sm text-gray-700 dark:text-gray-300">
-                  Age and gender analysis shows the 25-34 age group as the largest segment with balanced gender distribution. Female audience slightly dominates across most age groups, suggesting content strategies should focus on this demographic for maximum engagement.
+                  L&apos;analyse par âge et genre montre que le groupe 25-34 ans est le segment le plus important avec une répartition équilibrée entre les genres. L&apos;audience féminine domine légèrement la plupart des groupes d&apos;âge, ce qui suggère d&apos;orienter les stratégies de contenu vers ce public pour maximiser l&apos;engagement.
                 </p>
               </div>
             )}

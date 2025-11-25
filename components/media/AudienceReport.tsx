@@ -293,7 +293,7 @@ const AudienceReport = () => {
             className=""
           >
             <DownloadCloud className="mr-2 h-4 w-4" />
-            Export CSV
+            Exporter CSV
           </Button>
         </div>
 
@@ -349,11 +349,11 @@ const AudienceReport = () => {
 
           <Select value={source} onValueChange={(v) => setSource(v)}>
             <SelectTrigger className="w-40 bg-white">
-              <SelectValue placeholder="By source" />
+              <SelectValue placeholder="Par source" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>By source</SelectLabel>
+                <SelectLabel>Par source</SelectLabel>
                 {media.map((item) => (
                   <SelectItem key={item.label} value={item.label}>
                     {item.image ? (
@@ -374,7 +374,7 @@ const AudienceReport = () => {
           </Select>
 
           <p className="text-xs">
-            The audience data is based on {source ?? "All Social Medias"}
+            Les données d&apos;audience sont basées sur {source ?? "Tous les réseaux sociaux"}
           </p>
         </div>
       </div>
@@ -398,13 +398,13 @@ const AudienceReport = () => {
               unknown: data?.unknownPercentage,
             }}
           />
-          {metric !== "likers" && (
+          
             <Card className="relative">
               <CardHeader>
                 <div className="flex items-center gap-2">
-                  <CardTitle>Audience Reach Distribution</CardTitle>
+                  <CardTitle>Répartition de la portée de l&apos;audience</CardTitle>
                   <ToolTipsProvider
-                    title={`To determine the followers credibility score for historical accounts, we evaluate several factors, including the presence of a profile picture and bio, the number of posts, and the ratio between followers and following. Brands with an authentic audience typically achieve scores of 80 or higher.`}
+                    title={`Pour déterminer le score de crédibilité des abonnés pour les comptes historiques, nous évaluons plusieurs facteurs, dont la présence d&apos;une photo de profil et d&apos;une bio, le nombre de publications et le ratio entre abonnés et abonnements. Les marques avec une audience authentique atteignent généralement des scores de 80 ou plus.`}
                   />
                 </div>
               </CardHeader>
@@ -453,20 +453,19 @@ const AudienceReport = () => {
                         display: 'inline-block',
                       }}
                     >
-                      AI-powered insight
+                      Insights boostés par IA
                     </span>
                   </div>
                   {showInsight && (
                     <div className="absolute bottom-full left-0 mb-2 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50 w-auto min-w-80 max-w-xl">
                       <p className="text-sm text-gray-700 dark:text-gray-300">
-                        Audience reach analysis shows 60% of followers have less than 500 connections, indicating strong potential for organic reach. Focus on engaging this highly reachable segment to maximize content visibility and interaction.
+                        L&apos;analyse de la portée de l&apos;audience montre que 60% des abonnés ont moins de 500 connexions, ce qui indique un fort potentiel de portée organique. Concentrez-vous sur l&apos;engagement de ce segment très accessible pour maximiser la visibilité et l&apos;interaction du contenu.
                       </p>
                     </div>
                   )}
                 </div>
               </div>
             </Card>
-          )}
 
           {/* {data.ageSplit && (
             <ChartAgeSplit
@@ -482,26 +481,26 @@ const AudienceReport = () => {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
               {data.interest && (
                 <Interset
-                  title="Audience interest affinity"
+                  title="Affinité d&apos;intérêt de l&apos;audience"
                   data={JSON.parse(data.interest.toString())}
                 />
               )}
 
               {data.countries && (
                 <CountriesSplit
-                  title="Followers by Country"
+                  title="Abonnés par pays"
                   data={JSON.parse(data.countries.toString())}
-                  tooltip={`The audience location by country.`}
+                  tooltip={`Localisation de l&apos;audience par pays.`}
                 />
               )}
 
-              {/* {data.cities && (
+              {data.cities && (
                 <CountriesSplit
-                  title="Followers by City"
+                  title="Abonnés par ville"
                   data={JSON.parse(data.cities.toString())}
-                  tooltip={`The audience location by city.`}
+                  tooltip={`Localisation de l&apos;audience par ville.`}
                 />
-              )} */}
+              )}
 
               {data.language && JSON.stringify(data.language) !== "{}" && (
                 <ChartLangage data={JSON.parse(data.language.toString())} />

@@ -21,7 +21,7 @@ export interface Network {
 const SocialCoverage = ({ networks }: { networks: Network[] }) => {
   const columns: TableColumn<Network>[] = [
     {
-      name: "Social Media",
+      name: "Réseau social",
       sortable: true,
       selector: (row) => row.network,
       width: "350px",
@@ -73,22 +73,22 @@ const SocialCoverage = ({ networks }: { networks: Network[] }) => {
       ),
     },
     {
-      name: "Growth (90 days)",
+      name: "Croissance (90 jours)",
       width: "150px",
       cell() {
         return (
           <Badge className="flex gap-1 items-center bg-emerald-500/20 text-black px-3 py-2 rounded-md">
             <span className="circle h-2 w-2 bg-green-500 rounded-full"></span>
-            +5.2%
+            +5,2%
           </Badge>
         );
       },
     },
     {
-      name: "Activity (90 days)",
+      name: "Activité (90 jours)",
       width: "150px",
       cell() {
-        return <p>10 Posts / month</p>;
+        return <p>10 publications / mois</p>;
       },
     },
 
@@ -107,7 +107,7 @@ const SocialCoverage = ({ networks }: { networks: Network[] }) => {
       ),
     },
     {
-      name: "Followers",
+      name: "Abonnés",
       sortable: true,
       selector: (row) => row.followers ?? 0,
       cell: (row) => (
@@ -117,7 +117,7 @@ const SocialCoverage = ({ networks }: { networks: Network[] }) => {
       ),
     },
     {
-      name: "Last Activity",
+      name: "Dernière activité",
       width: "150px",
       sortable: true,
       selector: (row) => row.followers ?? 0,
@@ -125,13 +125,13 @@ const SocialCoverage = ({ networks }: { networks: Network[] }) => {
         <div className="">
           <Badge className="flex gap-1 items-center bg-emerald-500/20 text-black px-3 py-2 rounded-md text-xs">
             <span className="circle h-2 w-2 bg-green-500 rounded-full"></span>
-            This week
+            Cette semaine
           </Badge>
         </div>
       ),
     },
     {
-      name: "ER %",
+      name: "Taux d&apos;engagement %",
       sortable: true,
       selector: (row) => row.er ?? 0,
       cell: (row) => (
@@ -142,7 +142,7 @@ const SocialCoverage = ({ networks }: { networks: Network[] }) => {
       ),
     },
     {
-      name: "Avg. Engage.",
+      name: "Moy. interactions",
       width: "150px",
       sortable: true,
       selector: (row) => row.avgEngage ?? 0,
@@ -154,7 +154,7 @@ const SocialCoverage = ({ networks }: { networks: Network[] }) => {
       ),
     },
     {
-      name: "Avg. Views",
+      name: "Moy. vues",
       width: "150px",
       sortable: true,
       selector: (row) => row.avgViews ?? 0,
@@ -166,10 +166,10 @@ const SocialCoverage = ({ networks }: { networks: Network[] }) => {
       ),
     },
     {
-      name: "Posting Habits",
+      name: "Habitudes de publication",
       width: "250px",
       cell() {
-        return <p>twice a week at 6PM</p>;
+        return <p>deux fois par semaine à 18h</p>;
       },
     },
   ];
