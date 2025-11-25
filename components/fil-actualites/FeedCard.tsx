@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Badge } from "../ui/badge";
-import { Calendar } from "lucide-react";
+import { Calendar, Trash, ChevronDown } from "lucide-react";
 import moment from "moment";
 import Image from "next/image";
 import { Card, CardContent } from "../ui/card";
@@ -15,20 +15,57 @@ interface Mention {
   source: string;
   type: string;
 }
-const FeedCard = ({ feed }: { feed: Mention }) => {
+const FeedCard = ({ feed, onDelete, onUpdateSentiment }: { feed: Mention; onDelete?: (id: string) => void; onUpdateSentiment?: (id: string, newType: string) => void }) => {
+  const [showDropdown, setShowDropdown] = useState(false);
+  const normalizedType = feed.type === "Article" ? "NEUTRAL" : feed.type;
+
   return (
     <Card className="relative h-40 overflow-hidden">
-      <Badge
-        className={`absolute top-3 right-3 z-10 ${
-          feed.type === "POSITIVE"
-            ? "bg-green-500 text-white"
-            : feed.type === "NEGATIVE"
-            ? "bg-red-500 text-white"
-            : "bg-gray-500 text-white"
-        }`}
-      >
-        {feed.type}
-      </Badge>
+      {onDelete && (
+        <button
+          onClick={() => onDelete(feed.id)}
+          className="absolute bottom-3 right-3 z-10 p-1 bg-white rounded-full shadow hover:bg-gray-100"
+        >
+          <Trash className="h-4 w-4 text-red-500" />
+        </button>
+      )}
+      <div className="absolute top-3 right-3 z-10">
+        <Badge
+          onClick={() => setShowDropdown(!showDropdown)}
+          className={`cursor-pointer flex items-center gap-1 ${
+            normalizedType === "POSITIVE"
+              ? "bg-green-500 text-white"
+              : normalizedType === "NEGATIVE"
+              ? "bg-red-500 text-white"
+              : "bg-gray-500 text-white"
+          }`}
+        >
+          {normalizedType}
+          <ChevronDown className="h-3 w-3" />
+        </Badge>
+        {showDropdown && (
+          <div className="absolute top-full mt-1 bg-white border rounded shadow-lg z-20">
+            {["POSITIVE", "NEGATIVE", "NEUTRAL"].map((type) => (
+              <button
+                key={type}
+                onClick={() => {
+                  onUpdateSentiment?.(feed.id, type);
+                  setShowDropdown(false);
+                }}
+                className={`block w-full px-3 py-1 text-left hover:bg-gray-100 ${
+                  type === "POSITIVE"
+                    ? "text-green-600"
+                    : type === "NEGATIVE"
+                    ? "text-red-600"
+                    : "text-gray-600"
+                }`}
+              >
+                {type}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
       <CardContent className="relative rounded-md flex items-center gap-4 p-4 h-full">
         <a
           key={feed.id}

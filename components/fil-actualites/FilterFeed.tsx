@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -14,15 +14,16 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { Button } from "../ui/button";
-import { Filter, RotateCcw, Search } from "lucide-react";
+import { Filter, RotateCcw } from "lucide-react";
 import Link from "next/link";
-import { Input } from "../ui/input";
+// import { Input } from "../ui/input";
 import Image from "next/image";
+import { CompactDatePicker } from "../ui/CompactDatePicker";
 
 const FilterFeed = () => {
   return (
-    <div className="flex flex-col gap-5 h-[500px] sticky top-5">
-      <Card>
+    <div className="flex flex-col gap-5 h-[600px] sticky top-5 overflow-y-auto">
+      {/* <Card>
         <CardHeader>
           <CardTitle className="font-semibold">Fil d’actualités</CardTitle>
         </CardHeader>
@@ -32,10 +33,14 @@ const FilterFeed = () => {
             <Search className=" size-4 absolute right-3 text-gray-700 transform -translate-y-1/2 top-1/2" />
           </div>
         </CardContent>
-      </Card>
+      </Card> */}
       <OrderBy />
       <FilterSource />
       <FilterSentiment />
+      <FilterAuthor />
+      <FilterCity />
+      <FilterPeriod />
+      <FilterLangue />
       <div className="bg-white border rounded-md p-5 flex gap-2">
         <Button
           asChild
@@ -211,6 +216,191 @@ const FilterSentiment = () => {
             </div>
           ))}
         </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+// ---------------- FILTER PERIOD ----------------
+const FilterPeriod = () => {
+
+  const [dateRange, setDateRange] = useState({
+        from: undefined as Date | undefined,
+        to: undefined as Date | undefined,
+      });
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className=" font-semibold">Period</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <CompactDatePicker
+                          dateRange={dateRange}
+                          onDateRangeChange={setDateRange}
+                        />
+      </CardContent>
+    </Card>
+  );
+};
+
+// ---------------- FILTER AUTHOR ----------------
+const FilterAuthor = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const selectedAuthors = searchParams.get("authors")?.split(",") || [];
+
+  const authors = [
+    { label: "Grand public", value: "grandpublic" },
+    { label: "Influenceurs", value: "influenceurs" },
+    { label: "Médias", value: "medias" },
+    { label: "Concurrents", value: "concurrents" },
+  ];
+
+  const handleToggle = (value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    let newAuthors = [...selectedAuthors];
+
+    if (newAuthors.includes(value)) {
+      newAuthors = newAuthors.filter((v) => v !== value);
+    } else {
+      newAuthors.push(value);
+    }
+
+    if (newAuthors.length === 0) {
+      params.delete("authors");
+    } else {
+      params.set("authors", newAuthors.join(","));
+    }
+
+    router.push(`?${params.toString()}`, { scroll: false });
+  };
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className=" font-semibold">Author</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="grid grid-cols-2 gap-5">
+          {authors.map((author) => (
+            <div key={author.value} className="flex items-center space-x-2">
+              <Checkbox
+                id={author.value}
+                checked={selectedAuthors.includes(author.value)}
+                onCheckedChange={() => handleToggle(author.value)}
+              />
+              <Label htmlFor={author.value}>{author.label}</Label>
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+// ---------------- FILTER LANGUE ----------------
+const FilterLangue = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const selectedLanguages = searchParams.get("languages")?.split(",") || [];
+
+  const languages = [
+    { label: "Tous", value: "all", image: "https://flagcdn.com/48x36/un.png" },
+    { label: "Arabe", value: "ar", image: "https://flagcdn.com/48x36/sa.png" },
+    { label: "Français", value: "fr", image: "https://flagcdn.com/48x36/fr.png" },
+    { label: "Anglais", value: "en", image: "https://flagcdn.com/48x36/gb.png" },
+  ];
+
+  const handleToggle = (value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    let newLanguages = [...selectedLanguages];
+
+    if (newLanguages.includes(value)) {
+      newLanguages = newLanguages.filter((v) => v !== value);
+    } else {
+      newLanguages.push(value);
+    }
+
+    if (newLanguages.length === 0) {
+      params.delete("languages");
+    } else {
+      params.set("languages", newLanguages.join(","));
+    }
+
+    router.push(`?${params.toString()}`, { scroll: false });
+  };
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className=" font-semibold">Langue</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="grid grid-cols-2 gap-5">
+          {languages.map((language) => (
+            <div key={language.value} className="flex items-center space-x-2">
+              <Checkbox
+                id={language.value}
+                checked={selectedLanguages.includes(language.value)}
+                onCheckedChange={() => handleToggle(language.value)}
+              />
+              <Label htmlFor={language.value}>
+                <Image src={language.image} alt={language.label} width={20} height={15} />
+                {language.label}
+              </Label>
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+// ---------------- FILTER CITY ----------------
+const FilterCity = () => {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className=" font-semibold">Ville</CardTitle>
+      </CardHeader>
+      <CardContent>
+        
+                        <Select>
+                          <SelectTrigger className="w-full bg-white">
+                            <SelectValue placeholder="Par ville" />
+                          </SelectTrigger>
+                          <SelectContent className="h-[400px]">
+                            <SelectGroup>
+                              <SelectLabel>Par ville </SelectLabel>
+                              {[
+                                "Casablanca",
+                                "Rabat",
+                                "Fes",
+                                "Marrakech",
+                                "Tangier",
+                                "Agadir",
+                                "Meknes",
+                                "Oujda",
+                                "Kenitra",
+                                "Tetouan",
+                                "Safi",
+                                "Mohammedia",
+                                "Khouribga",
+                                "El Jadida",
+                                "Beni Mellal",
+                                "Nador",
+                                "Taza",
+                                "Settat",
+                                "Larache",
+                                "Ksar El Kebir",
+                              ].map((item) => (
+                                <SelectItem key={item} value={item}>
+                                  {item}
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
       </CardContent>
     </Card>
   );
