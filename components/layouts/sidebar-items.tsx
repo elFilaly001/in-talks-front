@@ -46,27 +46,27 @@ export const sidebarItems: NavGroup[] = [
     items: [
       {
         title: "Écoute Sociale ",
-        url: "/",
+        url: "/?tab=overView",
         icon: Headphones,
       },
       {
         title: "Audience",
-        url: "/competitive-intelligence",
+        url: "/?tab=audience",
         icon: Users,
       },
       {
         title: "Publications",
-        url: "/social-listening/fil-actualites",
+        url: "/?tab=posts",
         icon: FileText,
       },
       {
         title: "Mentions",
-        url: "/reports",
+        url: "/?tab=mentions",
         icon: AtSign,
       },
       {
         title: "Sentiment",
-        url: "/reseaux-sociaux/ranking",
+        url: "/?tab=sentiment",
         icon: Smile,
       },
       // {
