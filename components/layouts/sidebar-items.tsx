@@ -7,6 +7,10 @@ import {
   Eye,
   BarChart2,
   Database,
+  RefreshCw,
+  Sliders,
+  Cpu,
+  Megaphone,
   type LucideIcon,
 } from "lucide-react";
 
@@ -46,24 +50,24 @@ export const sidebarItems: NavGroup[] = [
         icon: Headphones,
       },
       {
-        title: "Analyse d’Audience",
+        title: "Audience",
         url: "/competitive-intelligence",
         icon: Users,
       },
       {
-        title: "Analyse des Publications",
+        title: "Publications",
         url: "/social-listening/fil-actualites",
         icon: FileText,
       },
       {
         title: "Mentions",
         url: "/reports",
-        icon: AtSign, 
+        icon: AtSign,
       },
       {
         title: "Sentiment",
         url: "/reseaux-sociaux/ranking",
-        icon: Smile, 
+        icon: Smile,
       },
       // {
       //   title: "Brand Watch",
@@ -95,12 +99,34 @@ export const sidebarItems: NavGroup[] = [
   },
   {
     id: 3,
+    label: "Insights & Rapports",
+    items: [
+      {
+        title: "Rapports automatiques",
+        url: "/reseaux-sociaux/vue-ensemble",
+        icon: RefreshCw, // automatic / recurring reports
+      },
+      {
+        title: "Rapports personnalisés",
+        url: "/reseaux-sociaux/vue-ensemble",
+        icon: Sliders, // custom / configurable reports
+      },
+    ],
+  },
+  {
+    id: 4,
     label: "Intégrations",
     items: [
       {
         title: "Données et API",
         url: "/integrations/donnees-api",
         icon: Database,
+        comingSoon: true,
+      },
+      {
+        title: "IA Analyste",
+        url: "/integrations/ia-analyste",
+        icon: Cpu,
         comingSoon: true,
       },
     ],
