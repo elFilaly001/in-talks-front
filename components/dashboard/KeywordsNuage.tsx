@@ -20,8 +20,9 @@ const KeywordsNuage = ({ keywords }: { keywords: KeywordData[] }) => {
   // Font size range
   const minFont = 14;
   const maxFont = 64;
-  const colors = ["#1DA1F2", "#FF4500", "#FFAA00", "#6A5ACD", "#17A589"];
-  const highlightColors = ["#e91e63", "#009688", "#ff9800"];
+  // Palette taken from provided image
+  const colors = ["#ffbf26", "#ea1c80", "#8b0b6f", "#40bb3c", "#aea6cf", "#ff0c00"];
+  const highlightColors = ["#ff0c00", "#ea1c80", "#40bb3c"];
 
   // Quadratic scale for font size
   const getStyles = (count: number, idx: number, sortedIdx: number): React.CSSProperties => {
@@ -69,7 +70,7 @@ const KeywordsNuage = ({ keywords }: { keywords: KeywordData[] }) => {
       </CardContent>
       <div className="absolute bottom-4 left-6">
         <div className="relative">
-          <div 
+          <div
             className="text-sm text-black flex items-center gap-2 cursor-pointer"
             onMouseEnter={() => setShowInsight(true)}
             onMouseLeave={() => setShowInsight(false)}

@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
+import { MapPin } from "lucide-react";
 import { getCountryCode } from "@/lib/country";
 import ToolTipsProvider from "./ToolTipsProvider";
 
@@ -34,35 +35,46 @@ const CountriesSplit = ({
         </div>
       </CardHeader>
       <CardContent className="justify-center pb-16 bg-transparent mt-5 flex flex-col gap-2.5 ">
-        {countries.map((country, index) => (
-          <div key={index} className="flex flex-col gap-2.5">
-            <div className="flex items-center text-sm justify-between">
-              <div className="flex gap-2 items-center">
-                <div className="flex items-center gap-2">
-                  <Image
-                    src={getCountryCode(country.country)}
-                    width={25}
-                    height={25}
-                    className="rounded-br-md rounded-tl-md"
-                    alt={country.country}
-                  />
+        {countries.map((country, index) => {
+          const isCity = title?.toLowerCase().includes("ville") || title?.toLowerCase().includes("city");
+          const name = String(country.country || "");
+          const isUndetermined = name.toLowerCase().includes("undetermined") || name.toLowerCase().includes("undetermined");
+
+          return (
+            <div key={index} className="flex flex-col gap-2.5">
+              <div className="flex items-center text-sm justify-between">
+                <div className="flex gap-2 items-center">
+                  <div className="flex items-center gap-2">
+                    {isCity ? (
+
+                      <MapPin className="h-5 w-5 text-gray-600" />
+                    ) : (
+                      <Image
+                        src={getCountryCode(name)}
+                        width={25}
+                        height={25}
+                        className=""
+                        alt={name}
+                      />
+                    )}
+                  </div>
+                  <p>{name}</p>
                 </div>
-                <p>{country.country}</p>
+                <p>{country.value?.toFixed(2)} %</p>
               </div>
-              <p>{country.value?.toFixed(2)} %</p>
+              <span
+                className="w-full block h-[4px] rounded-full bg-[#ea1c80]"
+                style={{
+                  width: `${country.value?.toFixed(2)}%`,
+                }}
+              ></span>
             </div>
-            <span
-              className="w-full block h-[4px] rounded-full bg-[#36a2eb]"
-              style={{
-                width: `${country.value?.toFixed(2)}%`,
-              }}
-            ></span>
-          </div>
-        ))}
+          );
+        })}
       </CardContent>
       <div className="absolute bottom-4 left-6">
         <div className="relative">
-          <div 
+          <div
             className="text-sm text-black flex items-center gap-2 cursor-pointer"
             onMouseEnter={() => setShowInsight(true)}
             onMouseLeave={() => setShowInsight(false)}

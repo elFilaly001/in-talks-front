@@ -35,11 +35,11 @@ const chartConfig = {
   },
   realPeople: {
     label: "Personnes réelles",
-    color: "#4CAF50", // Bleu
+    color: "#ff0c00", // Image red
   },
   fakePeople: {
     label: "Faux comptes",
-    color: "#F44336", // Rose
+    color: "#ffbf26", // Image green
   },
 } satisfies ChartConfig;
 
@@ -90,7 +90,7 @@ function QualitySplit({ percentages }: ChartGenderSplitProps) {
               data={chartData}
               dataKey="percentage"
               nameKey="category"
-              innerRadius={85}
+              innerRadius={70}
               strokeWidth={20}
             >
               <Label

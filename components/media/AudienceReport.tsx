@@ -140,10 +140,39 @@ const chartData2 = [
   { month: "<1k", desktop: 214 },
 ];
 
+const totalChart2 = chartData2.reduce((s, it) => s + (it.desktop || 0), 0);
+
+function CustomBarTooltip({
+  active,
+  payload,
+  label,
+}: {
+  active?: boolean;
+  payload?: any[];
+  label?: string | number;
+}) {
+  if (!active || !payload || !payload.length) return null;
+
+  const item = payload[0];
+  const value = item?.value ?? item?.payload?.desktop ?? 0;
+  const percent = totalChart2 ? Math.round((value / totalChart2) * 100) : 0;
+  const color = item?.color || item?.payload?.fill || "var(--color-desktop)";
+
+  return (
+    <div className="bg-gray-900 text-white text-xs rounded-md px-2 py-1 shadow-lg flex items-center gap-2 whitespace-nowrap">
+      <span className="w-3 h-3 rounded-sm shrink-0" style={{ backgroundColor: color }} />
+      <div className="leading-none">
+        <div className="font-medium">{label}</div>
+        <div className="text-[11px] opacity-90">Audience %: {percent}</div>
+      </div>
+    </div>
+  );
+}
+
 const chartConfig2 = {
   desktop: {
     label: "Desktop",
-    color: "#2dbaf6",
+    color: "#aea6cf",
   },
 } satisfies ChartConfig;
 
@@ -424,32 +453,30 @@ const AudienceReport = () => {
                 <div className="flex items-center gap-2">
                   <CardTitle>Répartition de la portée de l&apos;audience</CardTitle>
                   <ToolTipsProvider
-                    title={`Pour déterminer le score de crédibilité des abonnés pour les comptes historiques, nous évaluons plusieurs facteurs, dont la présence d&apos;une photo de profil et d&apos;une bio, le nombre de publications et le ratio entre abonnés et abonnements. Les marques avec une audience authentique atteignent généralement des scores de 80 ou plus.`}
+                    title={`Affiche le pourcentage d’abonnés segmentés selon le nombre de comptes qu’ils suivent : plus de 1 500, entre 1 000 et 1 500, 500 à 1 000, et moins de 500. Les abonnés qui suivent plus de 1 500 comptes sont moins susceptibles de voir du contenu sponsorisé.`}
                   />
                 </div>
               </CardHeader>
               <CardContent>
-                <ChartContainer config={chartConfig2}>
-                  <BarChart
-                    accessibilityLayer
-                    data={chartData2}
-                    layout="vertical"
-                  >
-                    <XAxis type="number" dataKey="desktop" hide />
-                    <YAxis
+                <ChartContainer config={chartConfig2} className="aspect-none h-[340px] w-full">
+                  <BarChart accessibilityLayer data={chartData2}>
+                    <XAxis
                       dataKey="month"
                       type="category"
                       tickLine={false}
                       axisLine={false}
+                      tick={{ fontSize: 11 }}
                     />
+                    <YAxis type="number" />
                     <ChartTooltip
                       cursor={false}
-                      content={<ChartTooltipContent hideLabel />}
+                      content={<CustomBarTooltip />}
                     />
                     <Bar
                       dataKey="desktop"
                       fill="var(--color-desktop)"
                       radius={5}
+                      barSize={50}
                     />
                   </BarChart>
                 </ChartContainer>

@@ -31,7 +31,7 @@ const Interset = ({ title, data }: { title: string; data: JSON }) => {
               <p>{country.value?.toFixed(2)} %</p>
             </div>
             <span
-              className="w-full block h-1 rounded-full bg-[#36a2eb]"
+              className="w-full block h-1 rounded-full bg-[#ea1c80]"
               style={{
                 width: `${country.value?.toFixed(2)}%`,
               }}

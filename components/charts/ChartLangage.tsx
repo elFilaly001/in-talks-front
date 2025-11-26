@@ -22,7 +22,7 @@ const ChartLangage = ({ data }: { data: JSON }) => {
           />
         </div>
       </CardHeader>
-      <CardContent className="justify-center pb-0 bg-transparent mt-5 flex flex-col gap-2.5 ">
+      <CardContent className="justify-center pb-0 bg-transparent flex flex-col gap-2 ">
         {countries.map((country, index) => (
           <div key={index} className="flex flex-col gap-2.5">
             <div className="flex items-center text-sm justify-between">
@@ -35,7 +35,7 @@ const ChartLangage = ({ data }: { data: JSON }) => {
               <p>{country.value?.toFixed(2)} %</p>
             </div>
             <span
-              className="w-full block h-1 rounded-full bg-[#36a2eb] "
+              className="w-full block h-1 rounded-full bg-[#ea1c80] "
               style={{
                 width: `${country.value?.toFixed(2)}%`,
               }}
@@ -43,13 +43,14 @@ const ChartLangage = ({ data }: { data: JSON }) => {
           </div>
         ))}
       </CardContent>
+      <div className="mt-4">
       <div className="absolute bottom-4 left-6">
         <div className="relative">
           <div 
             className="text-sm text-black flex items-center gap-2 cursor-pointer"
             onMouseEnter={() => setShowInsight(true)}
             onMouseLeave={() => setShowInsight(false)}
-          >
+            >
             <Image src="/icons/IN-TALKS-logo.png-2.webp" alt="IN-TALKS Logo" width={22} height={22} style={{display: 'inline-block', verticalAlign: 'middle'}} />
             <span
               className="font-semibold"
@@ -61,7 +62,7 @@ const ChartLangage = ({ data }: { data: JSON }) => {
                 color: 'transparent',
                 display: 'inline-block',
               }}
-            >
+              >
               Insights boostés par IA
             </span>
           </div>
@@ -74,6 +75,7 @@ const ChartLangage = ({ data }: { data: JSON }) => {
           )}
         </div>
       </div>
+          </div>
     </Card>
   );
 };
