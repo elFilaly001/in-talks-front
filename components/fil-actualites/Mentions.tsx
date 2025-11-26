@@ -2,6 +2,25 @@ import React, { useState } from "react";
 import FeedCard from "./FeedCard";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import ToolTipsProvider from "../charts/ToolTipsProvider";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Checkbox } from "../ui/checkbox";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "../ui/select";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "../ui/dialog";
 
 const mentionsData = [
   {
@@ -282,6 +301,18 @@ const mentionsData = [
 ];
 const Mentions = () => {
   const [mentions, setMentions] = useState(mentionsData);
+  const [open, setOpen] = useState(false);
+
+  const [form, setForm] = useState({
+    link: "",
+    title: "",
+    snippet: "",
+    source: "",
+    sentiment: "",
+    date: new Date().toISOString().slice(0, 10),
+    thumbnail: "",
+    notify: false,
+  });
 
   const handleDelete = (id: string) => {
     setMentions(mentions.filter((mention) => mention.id !== id));
@@ -295,12 +326,182 @@ const Mentions = () => {
     );
   };
 
+  // Export mentions as CSV and trigger download
+  const handleDownloadMentions = () => {
+    try {
+      const headers = [
+        "id",
+        "title",
+        "link",
+        "postedDate",
+        "thumbnail",
+        "snippet",
+        "source",
+        "type",
+      ];
+
+      const rows = mentions.map((m) =>
+        headers
+          .map((h) => {
+            const val = (m as Record<string, unknown>)[h] ?? "";
+            // escape double quotes
+            return `"${String(val).replace(/"/g, '""')}"`;
+          })
+          .join(",")
+      );
+
+      const csv = [headers.join(","), ...rows].join("\n");
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `mentions-${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch (e) {
+      // silent fail for now - could show UI toast later
+      console.error(e);
+    }
+  };
+
   return (
     <Card className="flex flex-col relative">
       <CardHeader className="flex-shrink-0">
-        <div className="flex items-center gap-2">
-          <CardTitle className="text-lg">Mentions Feed</CardTitle>
-          <ToolTipsProvider title="Recent mentions feed displaying the latest social media conversations and insights." />
+        <div className="flex items-center gap-2 justify-between w-full">
+          <div className="flex items-center gap-2">
+            <CardTitle className="text-lg">Mentions Feed</CardTitle>
+            <ToolTipsProvider title="Recent mentions feed displaying the latest social media conversations and insights." />
+          </div>
+          <div className="flex items-center gap-2">
+            <Button size="sm" variant="outline" onClick={handleDownloadMentions}>Télécharger</Button>
+            <Dialog open={open} onOpenChange={setOpen}>
+              <DialogTrigger asChild>
+                <Button size="sm" variant="outline">Ajouter une mention</Button>
+              </DialogTrigger>
+              <DialogContent className="w-full max-w-5xl">
+                <DialogHeader>
+                  <DialogTitle className="text-center">Ajouter une mention</DialogTitle>
+                  {/* <DialogDescription>
+                    Remplissez le formulaire ci-dessous pour ajouter une mention manuellement.
+                  </DialogDescription> */}
+                </DialogHeader>
+
+                <div className="grid grid-cols-1 gap-3 mt-2">
+                  <label className="text-sm">Link</label>
+                  <Input
+                    placeholder="Link"
+                    value={form.link}
+                    onChange={(e) => setForm({ ...form, link: e.target.value })}
+                  />
+
+                  <label className="text-sm">Titre de la mention</label>
+                  <Input
+                    placeholder="Titre de la mention"
+                    value={form.title}
+                    onChange={(e) => setForm({ ...form, title: e.target.value })}
+                  />
+
+                  <label className="text-sm">Snippet</label>
+                  <textarea
+                    placeholder="Snippet"
+                    className="min-h-[80px] resize-y rounded-md border bg-transparent px-3 py-2 text-base"
+                    value={form.snippet}
+                    onChange={(e) => setForm({ ...form, snippet: e.target.value })}
+                  />
+
+                  <div className="grid grid-cols-3 gap-3">
+                    <div>
+                      <label className="text-sm">Source</label>
+                      <Input
+                        placeholder="Source"
+                        value={form.source}
+                        onChange={(e) => setForm({ ...form, source: e.target.value })}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-sm">Sentiment</label>
+                      <Select onValueChange={(val) => setForm({ ...form, sentiment: val })}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Sentiment" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="POSITIVE">POSITIVE</SelectItem>
+                          <SelectItem value="NEGATIVE">NEGATIVE</SelectItem>
+                          <SelectItem value="Article">Article</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div>
+                      <label className="text-sm">Date</label>
+                      <Input
+                        type="date"
+                        value={form.date}
+                        onChange={(e) => setForm({ ...form, date: e.target.value })}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-3">
+                    <div>
+                      <label className="text-sm">Miniature</label>
+                      <Input
+                        placeholder="/mentions/thumb.png"
+                        value={form.thumbnail}
+                        onChange={(e) => setForm({ ...form, thumbnail: e.target.value })}
+                      />
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <Checkbox
+                        checked={form.notify}
+                        onCheckedChange={(val) => setForm({ ...form, notify: !!val })}
+                      />
+                      <span className="text-sm">Send the notification by email & Whatsapp</span>
+                    </div>
+                  </div>
+
+                </div>
+
+                <DialogFooter>
+                  <div className="flex w-full gap-2">
+                    <Button className="w-full bg-main" size="sm" onClick={() => {
+                      // minimal validation
+                      if (!form.title || !form.snippet) {
+                        // simple client-side guard
+                        return;
+                      }
+                      const newMention = {
+                        id: Date.now().toString(),
+                        title: form.title,
+                        link: form.link || "#",
+                        postedDate: form.date,
+                        thumbnail: form.thumbnail || "/mentions/glovo.webp",
+                        snippet: form.snippet,
+                        source: form.source || "unknown",
+                        type: form.sentiment || "Article",
+                      };
+                      setMentions((prev) => [newMention, ...prev]);
+                      setForm({
+                        link: "",
+                        title: "",
+                        snippet: "",
+                        source: "",
+                        sentiment: "",
+                        date: new Date().toISOString().slice(0, 10),
+                        thumbnail: "",
+                        notify: false,
+                      });
+                      setOpen(false);
+                    }}>Ajouter</Button>
+                  </div>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          </div>
         </div>
       </CardHeader>
       <CardContent className="flex-none h-[2600px] overflow-y-auto">
