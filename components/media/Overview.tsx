@@ -11,6 +11,13 @@ import FilterOverView from "./FilterOverView";
 const Overview = () => {
   return (
     <div className="flex flex-col gap-10 ">
+      <div>
+            <h2 className="text-4xl my-3 font-bold">Ecoute Sociale</h2>
+            <p className="text-sm text-gray-700 dark:text-gray-300">
+              {/* Générez et téléchargez des rapports détaillés sur vos performances sur
+              les réseaux sociaux, les insights d&apos;audience et plus encore. */}
+            </p> 
+          </div>
       <FilterOverView />
       <div className="@container/main flex flex-col gap-4 md:gap-6">
         <SectionCards />

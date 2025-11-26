@@ -10,7 +10,13 @@ const data = [
   "/maserati.jpg",
   "/arma.jpg",
   "/cih.jpg",
-
+  "/bp.jpg",
+  "/Afriquia-01.png",
+  "/MARJANE.jpg",
+  "/Logo-Lydec-1.jpg",
+  "/ocp-group.png",
+  // "/bmci.png",
+  "/inwi.png",
 ];
 const Circle = () => {
   return (
@@ -28,7 +34,7 @@ const Circle = () => {
               className=""
               size={560}
               duration={30}
-              data={data.slice(5, 10)}
+              data={data.slice(5, 11)}
             />
             <BoxCreators
               className="transform rotate-75"
@@ -75,8 +81,13 @@ const BoxCreators = ({
               src={`${item}`}
               width={74}
               height={74}
-              className="rounded-full mx-auto w-[74px] h-[74px] bg-contain p-0.5"
+              className="rounded-full mx-auto w-[74px] h-[74px] p-0.5"
               alt=""
+              objectFit="contain"
+              onError={(e) => {
+                console.error(`Failed to load image: ${item}`);
+                e.currentTarget.style.display = "none";
+              }}
             />
 
             {/* 
@@ -100,7 +111,7 @@ const MiddleElement = () => {
   return (
     <div className="inset-1/2 z-50 -translate-x-1/2 -top-10 -translate-y-1/2 absolute w-[340px] text-center flex flex-col gap-2">
       <h2 className="text-xl font-semibold">Network Watch</h2>
-      <p className="text-whiteColor">Explore Creator Partnerships & Networks</p>
+      <p className="text-whiteColor">Explore Brand Partnerships & Networks</p>
 
       <div className="flex items-center relative">
         <div className="relative">

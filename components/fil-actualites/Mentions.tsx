@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import FeedCard from "./FeedCard";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import ToolTipsProvider from "../charts/ToolTipsProvider";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+  DialogClose,
+} from "../ui/dialog";
+import { Input } from "../ui/input";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectGroup,
+  SelectLabel,
+  SelectItem,
+} from "../ui/select";
+import { Button } from "../ui/button";
+import { Label } from "../ui/label";
+import { Plus, Download } from "lucide-react";
 
 const mentions = [
   {
@@ -280,20 +302,204 @@ const mentions = [
     type: "Article",
   },
 ];
-
 const Mentions = () => {
+  const [currentMentions, setCurrentMentions] = useState(mentions);
+  // Modal / form state
+  const [link, setLink] = useState("");
+  const [title, setTitle] = useState("");
+  const [snippet, setSnippet] = useState("");
+  const [source, setSource] = useState("");
+  const [sentiment, setSentiment] = useState("");
+  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
+  const [thumbnail, setThumbnail] = useState("");
+
+  const handleDelete = (id: string) => {
+    setCurrentMentions((prev) => prev.filter((mention) => mention.id !== id));
+  };
+
+  const handleUpdateSentiment = (id: string, newType: string) => {
+    setCurrentMentions((prev) =>
+      prev.map((mention) =>
+        mention.id === id ? { ...mention, type: newType } : mention
+      )
+    );
+  };
+
+  const handleAddMention = () => {
+    if (!title) return; // minimal validation
+
+    const newMention = {
+      id: Date.now().toString(),
+      title: title,
+      link: link || "#",
+      postedDate: date,
+      thumbnail: thumbnail || "/mentions/glovo.webp",
+      snippet: snippet,
+      source: source || "facebook",
+      type: sentiment || "NEUTRAL",
+    };
+
+    setCurrentMentions((prev) => [newMention, ...prev]);
+
+    // reset form
+    setLink("");
+    setTitle("");
+    setSnippet("");
+    setSource("");
+    setSentiment("");
+    setDate(new Date().toISOString().slice(0, 10));
+    setThumbnail("");
+
+    // dialog will be closed by DialogClose wrapping the button
+  };
+
+  const handleExportMentions = () => {
+    const csv = [
+      ["ID", "Title", "Link", "Posted Date", "Source", "Type", "Snippet"].join(","),
+      ...currentMentions.map((mention) => [
+        mention.id,
+        `"${mention.title.replace(/"/g, '""')}"`,
+        mention.link,
+        mention.postedDate,
+        mention.source,
+        mention.type,
+        `"${mention.snippet.replace(/"/g, '""')}"`,
+      ].join(",")),
+    ].join("\n");
+
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    const ts = new Date().toISOString().replace(/[:.]/g, "-");
+    a.href = url;
+    a.download = `mentions-${ts}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  };
+  
   return (
     <Card className="flex flex-col relative">
       <CardHeader className="flex-shrink-0">
-        <div className="flex items-center gap-2">
-          <CardTitle className="text-lg">Mentions Feed</CardTitle>
-          <ToolTipsProvider title="Recent mentions feed displaying the latest social media conversations and insights." />
+        <div className="flex items-center justify-between w-full">
+          <div className="flex items-center gap-2">
+            <CardTitle className="text-lg">Feed des Mentions</CardTitle>
+            <ToolTipsProvider title="Recent mentions feed displaying the latest social media conversations and insights." />
+          </div>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleExportMentions}
+              className="flex items-center gap-2"
+            >
+              <Download className="size-4" />
+              Télécharger
+            </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="outline" size="sm" className="flex items-center gap-2">
+                  <Plus className="size-4" />
+                  Ajouter une mention
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="w-[90vw] max-w-none p-8">
+                <DialogHeader>
+                  <DialogTitle className="text-center">Ajouter une mention</DialogTitle>
+                  {/* <DialogDescription>
+                    Remplissez les champs pour ajouter manuellement une mention.
+                  </DialogDescription> */}
+                </DialogHeader>
+
+                <div className="grid gap-3">
+                  <Label>Link</Label>
+                  <Input value={link} onChange={(e) => setLink(e.target.value)} placeholder="Link" />
+
+                  <Label>Titre de la mention</Label>
+                  <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Titre de la mention" />
+
+                  <Label>Snippet</Label>
+                  <textarea
+                    value={snippet}
+                    onChange={(e) => setSnippet(e.target.value)}
+                    className="w-full rounded-md border px-3 py-2 text-sm"
+                    placeholder="Snippet"
+                  />
+
+                  <div className="grid grid-cols-3 gap-3">
+                    <div>
+                      <Label>Source</Label>
+                      <Select onValueChange={(v) => setSource(v)} defaultValue={source}>
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Source" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectLabel>Source</SelectLabel>
+                            <SelectItem value="facebook">Facebook</SelectItem>
+                            <SelectItem value="instagram">Instagram</SelectItem>
+                            <SelectItem value="twitter">Twitter</SelectItem>
+                            <SelectItem value="tiktok">Tiktok</SelectItem>
+                            <SelectItem value="linkedin">LinkedIn</SelectItem>
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div>
+                      <Label>Sentiment</Label>
+                      <Select onValueChange={(v) => setSentiment(v)} defaultValue={sentiment}>
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Sentiment" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectLabel>Sentiment</SelectLabel>
+                            <SelectItem value="POSITIVE">Positive</SelectItem>
+                            <SelectItem value="NEGATIVE">Negative</SelectItem>
+                            <SelectItem value="NEUTRAL">Neutral</SelectItem>
+                            <SelectItem value="Article">Article</SelectItem>
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div>
+                      <Label>Date</Label>
+                      <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+                    </div>
+                  </div>
+
+                  <Label>Miniature (URL)</Label>
+                  <Input value={thumbnail} onChange={(e) => setThumbnail(e.target.value)} placeholder="Image URL" />
+
+                  <div className="flex items-center gap-2">
+                    <input id="notify" type="checkbox" className="w-4 h-4" />
+                    <Label htmlFor="notify">Send the notification by email & Whatsapp</Label>
+                  </div>
+                </div>
+
+                <DialogFooter>
+                  {/* Use a button that closes dialog after adding */}
+                  <DialogClose asChild>
+                    <Button
+                      onClick={() => handleAddMention()}
+                      className="bg-main text-white w-full"
+                    >
+                      Ajouter
+                    </Button>
+                  </DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          </div>
         </div>
       </CardHeader>
       <CardContent className="flex-none h-[2600px] overflow-y-auto">
         <div className="flex flex-col gap-2.5">
-          {mentions.map((mention) => (
-            <FeedCard key={mention.id} feed={mention} />
+          {currentMentions.map((mention) => (
+            <FeedCard key={mention.id} feed={mention} onDelete={handleDelete} onUpdateSentiment={handleUpdateSentiment} />
           ))}
         </div>
       </CardContent>

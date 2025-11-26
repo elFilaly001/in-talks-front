@@ -18,7 +18,7 @@ const reports = [
   {
     id: "overview",
     title: "Overview Report",
-    desc: "Get a complete view of your brand's digital presence — mentions, reach, sentiment, and engagement, all in one dashboard.",
+    desc: "Get a complete view of your brand&apos;s digital presence — mentions, reach, sentiment, and engagement, all in one dashboard.",
     href: "/reports/overview",
     Icon: Eye,
     image: "/image-report.png",
@@ -34,7 +34,7 @@ const reports = [
   {
     id: "sentiment",
     title: "Sentiment Report",
-    desc: "Analyze the tone of conversations to identify positive, neutral, and negative trends shaping your brand's reputation.",
+    desc: "Analyze the tone of conversations to identify positive, neutral, and negative trends shaping your brand&apos;s reputation.",
     href: "/reports/sentiment",
     Icon: Smile,
     image: "/image-report.png",
@@ -50,7 +50,7 @@ const reports = [
   {
     id: "competitive",
     title: "Competitive Intelligence Report",
-    desc: "Compare your brand's performance with competitors through mentions, share of voice, and sentiment to spot opportunities and threats.",
+    desc: "Compare your brand&apos;s performance with competitors through mentions, share of voice, and sentiment to spot opportunities and threats.",
     href: "/reports/share-of-voice",
     Icon: TrendingUp,
     image: "/image-report.png",
@@ -66,12 +66,12 @@ const Page = () => {
     <div className="@container/main mx-auto py-8">
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-center">
-          <div>
-            {/* <h1 className="text-2xl font-semibold mb-2">Reports</h1>
-            <p className="text-sm text-muted-foreground mb-6">
-              Generate and download concise reports for Share of Voice, Mentions
-              and Exports.
-            </p> */}
+          <div className="px-2">
+            <h2 className="text-2xl my-3 font-semibold text-purple-700">Rapports</h2>
+            <p className="text-sm text-gray-700 dark:text-gray-300">
+              Générez et téléchargez des rapports détaillés sur vos performances sur
+              les réseaux sociaux, les insights d&apos;audience et plus encore.
+            </p>
           </div>
           <CompactDatePicker
             dateRange={dateRange}
@@ -101,8 +101,9 @@ const Page = () => {
 
                   <p className="text-sm text-muted-foreground mb-2">{r.desc}</p>
 
-                  <div className="flex justify-center">
-                    <div className="w-8 h-8 rounded-full bg-sky-50 border border-sky-100 flex items-center justify-center">
+                  <div className="mt-4">
+                    <div className="w-full h-8 rounded-full bg-sky-50 border border-sky-100 flex items-center justify-center gap-2 text-sky-600 font-medium hover:bg-sky-100 cursor-pointer transition">
+                      Télécharger
                       <Download className="w-4 h-4 text-sky-600" />
                     </div>
                   </div>

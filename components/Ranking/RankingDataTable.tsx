@@ -121,6 +121,9 @@ type NetworkInfo = {
 // }
 
 const DataTableInfluencersRanking = () => {
+  const [selectedNiche, setSelectedNiche] = useState<string | null>(null);
+  const [uniqueNiches, setUniqueNiches] = useState<string[]>([]);
+
   const columns: TableColumn<Account>[] = [
     {
       name: "Ranking",
@@ -151,7 +154,7 @@ const DataTableInfluencersRanking = () => {
       },
     },
     {
-      name: "Creator",
+      name: "Brand",
       sortable: true,
       id: "name",
       selector: (row) => row.full_name,
@@ -200,8 +203,21 @@ const DataTableInfluencersRanking = () => {
       },
     },
     {
-      name: "Niche",
-      sortable: true,
+      name: (
+        <select
+          value={selectedNiche || ""}
+          onChange={(e) => setSelectedNiche(e.target.value || null)}
+          className="bg-bgDarkColor text-whiteColor rounded-md p-1 text-xs border-2 border-blue-500"
+        >
+          <option value="">All Niches</option>
+          {uniqueNiches.map((niche) => (
+            <option key={niche} value={niche}>
+              {niche}
+            </option>
+          ))}
+        </select>
+      ),
+      sortable: false,
       id: "niche",
       width: "200px",
       selector: (row) => row.title,
@@ -212,7 +228,7 @@ const DataTableInfluencersRanking = () => {
               <Button
                 key={category.name}
                 size={"sm"}
-                className="text-xs capitalize bg-bgDarkColor text-whiteColor rounded-md"
+                className="text-xs capitalize bg-bgDarkColor text-whiteColor rounded-md mr-1 mb-1"
               >
                 {category.name}
               </Button>
@@ -270,7 +286,22 @@ const DataTableInfluencersRanking = () => {
   const [data, setData] = useState<any[]>();
   useEffect(() => {
     setData(ranking.influencers);
+    setUniqueNiches(
+      Array.from(
+        new Set(
+          ranking.influencers.flatMap((account) =>
+            account.brand_categories.map((cat: any) => cat.name)
+          )
+        )
+      )
+    );
   }, []);
+
+  const filteredData = selectedNiche
+    ? data?.filter((account) =>
+        account.brand_categories.some((cat: any) => cat.name === selectedNiche)
+      )
+    : data;
 
   return (
     <>
@@ -278,11 +309,9 @@ const DataTableInfluencersRanking = () => {
         <DataTable
           columns={columns}
           // progressPending={}
-          data={data || []}
+          data={filteredData || []}
           progressComponent={<Loading />}
           pagination={true}
-          paginationServer
-          paginationTotalRows={200}
         />
       </div>
     </>

@@ -16,11 +16,19 @@ import Image from "next/image";
 export default function AppSideBar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
-  const { state } = useSidebar();
+  const { state, setOpen, isMobile } = useSidebar();
 
   return (
-    <Sidebar {...props}>
-      <div className=" h-20">
+    <Sidebar
+      {...props}
+      onMouseEnter={() => {
+        if (!isMobile) setOpen?.(true)
+      }}
+      onMouseLeave={() => {
+        if (!isMobile) setOpen?.(false)
+      }}
+    >
+      <div className=" h-[60px]">
         {state == "expanded" ? (
           <Image
             src={"/logo.webp"}
@@ -31,10 +39,10 @@ export default function AppSideBar({
           />
         ) : (
           <Image
-            src={"/logo.webp"}
-            className="py-5"
+            src={"/icons/IN-TALKS-logo.png-2.webp"}
+            className="py-2"
             alt="Logo"
-            width={120}
+            width={75}
             height={75}
           />
         )}

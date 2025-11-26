@@ -7,6 +7,25 @@ import TopEditorialSource from "../dashboard/TopEditorialSource";
 import TopSharedLinks from "../dashboard/TopSharedLinks";
 import TopBlogs from "../dashboard/TopBlogs";
 import MentionsBySource from "../dashboard/MentionsBySource";
+import TopOccupations from "../dashboard/TopOccupations";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  BookmarkIcon,
+  // Heart,
+  // Users,
+} from "lucide-react";
+// import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { CompactDatePicker } from "../ui/CompactDatePicker";
+import Image from "next/image";
 // import Mentions from "../fil-actualites/Mentions";
 
 // const followersData = [
@@ -74,10 +93,104 @@ const data = {
   networkId: "cmhjwf16z0002kqz0qttwcbp8",
 };
 
-const MentionsFeed = () => {
+const media = [
+  {
+    label: "All Social Medias",
+    // no image for the 'All' option - render an icon instead
+  },
+  {
+    label: "Instagram",
+    image: "/media/instagram.png",
+  },
+  {
+    label: "Youtube",
+    image: "/media/youtube.png",
+  },
+  {
+    label: "X",
+    image: "/media/x.png",
+  },
+  {
+    label: "Tiktok",
+    image: "/media/tiktok.png",
+  },
+  {
+    label: "Facebook",
+    image: "/media/facebook.png",
+  },
+  {
+    label: "Linkedin",
+    image: "/media/linkedin.png",
+  },
+];
 
+const MentionsFeed = () => {
+  const [dateRange, setDateRange] = useState({
+    from: undefined as Date | undefined,
+    to: undefined as Date | undefined,
+  });
+
+  const [source, setSource] = useState<string | undefined>(undefined);
   return (
     <div className="grid grid-cols-3 gap-5">
+      <div className="col-span-2">
+        {/* Left content can go here if needed */}
+      </div>
+      <div className="flex justify-end items-center gap-2">
+        <CompactDatePicker
+          dateRange={dateRange}
+          onDateRangeChange={setDateRange}
+        />
+
+        <Select value={source} onValueChange={(v) => setSource(v)}>
+          <SelectTrigger className="w-40 bg-white">
+            <SelectValue placeholder="Par source" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Par source</SelectLabel>
+              {media.map((item) => (
+                <SelectItem key={item.label} value={item.label}>
+                  {item.label === "X" ? (
+                    <Image
+                      src="/media/x.png"
+                      alt="X logo"
+                      width={20}
+                      height={20}
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                        const parent = e.currentTarget.parentElement;
+                        if (parent) {
+                          const svg = document.createElementNS(
+                            "http://www.w3.org/2000/svg",
+                            "svg"
+                          );
+                          svg.setAttribute("width", "20");
+                          svg.setAttribute("height", "20");
+                          svg.setAttribute("viewBox", "0 0 24 24");
+                          svg.innerHTML =
+                            '<path fill="black" d="M17.53 3H21L14.19 10.63L22.09 21H15.63L10.77 14.62L5.29 21H2L9.13 13L1.61 3H8.24L12.68 8.87L17.53 3ZM16.41 19H18.23L7.75 5H5.81L16.41 19Z"/>';
+                          parent.insertBefore(svg, parent.firstChild);
+                        }
+                      }}
+                    />
+                  ) : item.image ? (
+                    <Image
+                      src={item.image}
+                      alt={item.label}
+                      width={20}
+                      height={20}
+                    />
+                  ) : (
+                    <BookmarkIcon className="h-4 w-4 text-gray-500 mr-2" />
+                  )}
+                  {item.label}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
       <div className="flex flex-col gap-5 col-span-3">
         <div className="grid grid-cols-2 gap-5">
           <MentionsBySource />
@@ -89,7 +202,7 @@ const MentionsFeed = () => {
         </div>
         <div className="grid grid-cols-2 gap-5">
           <TopEditorialSource />
-            {data.countries && (
+          {data.countries && (
             <CountriesSplit
               title="Top Locations"
               data={JSON.parse(data.countries.toString())}
@@ -97,7 +210,7 @@ const MentionsFeed = () => {
             />
           )}
         </div>
-        
+        <TopOccupations />
         <MentionsBySentimentCard />
         <WordCloud />
       </div>

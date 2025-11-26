@@ -59,18 +59,26 @@ const dataNetworks = [
 
 const Sentiment = () => {
   return (
-    <div className="@container/main flex flex-col gap-4 md:gap-6">
-      <MentionsBySentiments />
-      <KeywordsWithSentiment />
-      <div className="grid grid-cols-4 gap-6">
-        <KeywordWithSetiments
-          label="Sentiment by Source Type"
-          data={dataNetworks}
-          tooltip={`Shows the sentiment breakdown by source type for the last 7 days. Hover over each bar to see the count and percentage for each sentiment type. Use this data to identify which sources drive positive or negative conversations.`}
-        />
-        <TopLocationsWithSentiment/>
-      </div>
-      
+    <div>
+        <div className="px-2">
+            <h2 className="text-3xl my-3 font-bold">Sentiments</h2>
+            {/* <p className="text-sm text-gray-700 dark:text-gray-300">
+                Générez et téléchargez des rapports détaillés sur vos performances sur
+                les réseaux sociaux, les insights d&apos;audience et plus encore.
+            </p> */}
+        </div>
+        <div className="@container/main flex flex-col gap-4 md:gap-6">
+            <MentionsBySentiments />
+            <KeywordsWithSentiment />
+            <div className="grid grid-cols-4 gap-6">
+                <KeywordWithSetiments
+                    label="Sentiment by Source Type"
+                    data={dataNetworks}
+                    tooltip={`Shows the sentiment breakdown by source type for the last 7 days. Hover over each bar to see the count and percentage for each sentiment type. Use this data to identify which sources drive positive or negative conversations.`}
+                />
+                <TopLocationsWithSentiment/>
+            </div>
+        </div>
     </div>
   );
 };

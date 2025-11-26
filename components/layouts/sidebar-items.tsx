@@ -1,12 +1,16 @@
 import {
-  LayoutDashboard,
-  Newspaper,
+  Headphones,
+  Users,
+  FileText,
+  AtSign,
+  Smile,
+  Eye,
+  BarChart2,
   Database,
+  RefreshCw,
+  Sliders,
+  Cpu,
   type LucideIcon,
-  Megaphone,
-  Medal,
-  Brain,
-  Tag,
 } from "lucide-react";
 
 export interface NavSubItem {
@@ -37,69 +41,91 @@ export interface NavGroup {
 export const sidebarItems: NavGroup[] = [
   {
     id: 1,
-    label: "",
+    label: "Tableau de bord",
     items: [
       {
-        title: "Dashboard",
-        url: "/",
-        icon: LayoutDashboard,
+        title: "Écoute sociale",
+        url: "/dashboard/overView",
+        icon: Headphones,
       },
       {
-        title: "Competitive Intelligence",
-        url: "/competitive-intelligence",
-        icon: Brain,
+        title: "Audience",
+        url: "/dashboard/audience",
+        icon: Users,
+      },
+      {
+        title: "Publications",
+        url: "/dashboard/posts",
+        icon: FileText,
       },
       {
         title: "Mentions",
-        url: "/social-listening/fil-actualites",
-        icon: Tag,
+        url: "/dashboard/mentions",
+        icon: AtSign,
       },
       {
-        title: "Reports",
-        url: "/reports",
-        icon: Newspaper, // fil d’actu = news feed
+        title: "Sentiment",
+        url: "/dashboard/sentiment",
+        icon: Smile,
       },
+      // {
+      //   title: "Brand Watch",
+      //   url: "/reseaux-sociaux/brand-watch",
+      //   icon: Megaphone, // brand monitoring
+      // },
+    ],
+  },
+  {
+    id: 2,
+    label: "Veille & Benchmark",
+    items: [
       {
-        title: "Ranking",
-        url: "/reseaux-sociaux/ranking",
-        icon: Medal, // you can replace with Trophy if you prefer
-      },
-      {
-        title: "Brand Watch",
+        title: "Veille de marque",
         url: "/reseaux-sociaux/brand-watch",
-        icon: Megaphone, // brand monitoring
+        icon: Eye, // brand overview / monitoring
+      },
+      {
+        title: "Veille concurrentielle",
+        url: "/reseaux-sociaux/ranking",
+        icon: BarChart2, // benchmarking / comparison charts
+      },
+      // {
+      //   title: "Brand Watch",
+      //   url: "/reseaux-sociaux/brand-watch",
+      //   icon: Megaphone, // brand monitoring
+      // }
+    ],
+  },
+  {
+    id: 3,
+    label: "Insights & Rapports",
+    items: [
+      {
+        title: "Rapports automatiques",
+        url: "/reports",
+        icon: RefreshCw, // automatic / recurring reports
+      },
+      {
+        title: "Rapports personnalisés",
+        url: "",
+        icon: Sliders, // custom / configurable reports
       },
     ],
   },
-  // {
-  //   id: 2,
-  //   label: "Réseaux sociaux",
-  //   items: [
-  //     {
-  //       title: "Vue d’ensemble",
-  //       url: "/reseaux-sociaux/vue-ensemble",
-  //       icon: BarChart3, // overview analytics
-  //     },
-  //     {
-  //       title: "Ranking",
-  //       url: "/reseaux-sociaux/ranking",
-  //       icon: Medal, // you can replace with Trophy if you prefer
-  //     },
-  //     {
-  //       title: "Brand Watch",
-  //       url: "/reseaux-sociaux/brand-watch",
-  //       icon: Megaphone, // brand monitoring
-  //     },
-  //   ],
-  // },
   {
-    id: 3,
+    id: 4,
     label: "Intégrations",
     items: [
       {
         title: "Données et API",
         url: "/integrations/donnees-api",
         icon: Database,
+        comingSoon: true,
+      },
+      {
+        title: "Analyste IA",
+        url: "",
+        icon: Cpu,
         comingSoon: true,
       },
     ],
