@@ -20,7 +20,7 @@ const reports = [
     desc: "Obtenez une vue complète de la présence digitale de votre marque — mentions, portée, sentiment et engagement, le tout sur un seul tableau de bord.",
     href: "/reports/overview",
     Icon: Eye,
-    image: "/image-report.png",
+    image: "/In-talks-ReportProject.webp",
   },
   {
     id: "mentions",
@@ -28,7 +28,7 @@ const reports = [
     desc: "Suivez les mentions totales et journalières sur l'ensemble des canaux pour comprendre les pics de visibilité et les tendances d'activité de l'audience.",
     href: "/reports/mentions-summary",
     Icon: MessageCircle,
-    image: "/image-report.png",
+    image: "/In-talks-ReportProject.webp",
   },
   {
     id: "sentiment",
@@ -36,7 +36,7 @@ const reports = [
     desc: "Analysez le ton des conversations pour identifier les tendances positives, neutres et négatives qui influencent la réputation de votre marque.",
     href: "/reports/sentiment",
     Icon: Smile,
-    image: "/image-report.png",
+    image: "/In-talks-ReportProject.webp",
   },
   {
     id: "competitive",
@@ -44,7 +44,7 @@ const reports = [
     desc: "Comparez la performance de votre marque à celle de vos concurrents via les mentions, la part de voix et le sentiment pour repérer opportunités et menaces.",
     href: "/reports/share-of-voice",
     Icon: TrendingUp,
-    image: "/image-report.png",
+    image: "/In-talks-ReportProject.webp",
   },
 ];
 
@@ -79,13 +79,13 @@ const Page = () => {
                 <Image
                   src={r.image}
                   alt={r.title}
-                  width={400}
-                  height={128}
-                  className="w-full h-32 object-cover"
+                  width={480}
+                  height={256}
+                  className="w-full h-64 object-cover"
                 />
 
-                <CardContent className="pt-2 pb-4">
-                  <CardHeader className="p-0 mb-1">
+                <CardContent className="pt-0 pb-1">
+                  <CardHeader className="p-0 mb-0">
                     <CardTitle className="flex items-center gap-2 text-base">
                       <r.Icon className="w-5 h-5 text-sky-600" />
                       <span className="font-medium">{r.title}</span>
@@ -94,7 +94,7 @@ const Page = () => {
 
                   <p className="text-sm text-muted-foreground mb-2">{r.desc}</p>
 
-                  <div className="mt-4">
+                  <div className="mt-6">
                     <div className="w-full h-8 rounded-full bg-sky-50 border border-sky-100 flex items-center justify-center gap-2 text-sky-600 font-medium hover:bg-sky-100 cursor-pointer transition">
                       Télécharger
                       <Download className="w-4 h-4 text-sky-600" />

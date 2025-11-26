@@ -34,6 +34,7 @@ import ToolTipsProvider from "../charts/ToolTipsProvider";
 import { CompactDatePicker } from "../ui/CompactDatePicker";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import BrandAffinity from "../charts/BrandAffinity";
 type DataType = {
   id: string;
   femalePercentage: number;
@@ -546,6 +547,7 @@ const AudienceReport = () => {
                 data={JSON.parse(data.interest.toString())}
               />
             )}
+            <BrandAffinity/>
 
             {data.language && JSON.stringify(data.language) !== "{}" && (
               <ChartLangage data={JSON.parse(data.language.toString())} />

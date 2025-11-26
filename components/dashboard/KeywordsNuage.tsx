@@ -48,7 +48,7 @@ const KeywordsNuage = ({ keywords }: { keywords: KeywordData[] }) => {
       <CardHeader>
         <div className="flex items-center gap-2">
           <CardTitle className="font-semibold">
-            Words Cloud
+            Nuage de Mots
           </CardTitle>
           <ToolTipsProvider
             title={`A visual representation of the most frequently mentioned keywords related to Glovo Maroc, highlighting trending topics and themes.`}
