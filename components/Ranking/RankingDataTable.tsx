@@ -126,7 +126,7 @@ const DataTableInfluencersRanking = () => {
 
   const columns: TableColumn<Account>[] = [
     {
-      name: "Ranking",
+      name: "Classement",
       sortable: true,
       id: "rank",
       width: "110px",
@@ -154,7 +154,7 @@ const DataTableInfluencersRanking = () => {
       },
     },
     {
-      name: "Brand",
+      name: "Marque",
       sortable: true,
       id: "name",
       selector: (row) => row.full_name,
@@ -209,7 +209,7 @@ const DataTableInfluencersRanking = () => {
           onChange={(e) => setSelectedNiche(e.target.value || null)}
           className="bg-bgDarkColor text-whiteColor rounded-md p-1 text-xs border-2 border-blue-500"
         >
-          <option value="">All Niches</option>
+          <option value="">Toutes les niches</option>
           {uniqueNiches.map((niche) => (
             <option key={niche} value={niche}>
               {niche}
@@ -238,7 +238,7 @@ const DataTableInfluencersRanking = () => {
       },
     },
     {
-      name: "Country",
+      name: "Pays",
       sortable: true,
       id: "country",
       cell(row) {
@@ -252,13 +252,13 @@ const DataTableInfluencersRanking = () => {
               height={25}
               width={25}
             />
-            <p className="capitalize">Morocco</p>
+            <p className="capitalize">Maroc</p>
           </div>
         );
       },
     },
     {
-      name: "Followers",
+      name: "Abonnés",
       sortable: true,
       id: "followers",
       cell(row) {

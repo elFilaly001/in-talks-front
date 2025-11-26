@@ -109,9 +109,9 @@ const BoxCreators = ({
 
 const MiddleElement = () => {
   return (
-    <div className="inset-1/2 z-50 -translate-x-1/2 -top-10 -translate-y-1/2 absolute w-[340px] text-center flex flex-col gap-2">
-      <h2 className="text-xl font-semibold">Network Watch</h2>
-      <p className="text-whiteColor">Explore Brand Partnerships & Networks</p>
+  <div className="inset-1/2 z-50 -translate-x-1/2 -top-10 -translate-y-1/2 absolute w-[340px] text-center flex flex-col gap-2">
+  <h2 className="text-xl font-semibold">Veille des réseaux</h2>
+  <p className="text-whiteColor">Explorez les partenariats de marque et les réseaux</p>
 
       <div className="flex items-center relative">
         <div className="relative">
