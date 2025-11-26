@@ -49,7 +49,7 @@ const sampleData: OccupationItem[] = [
 
 export default function TopOccupations({
   data = sampleData,
-  title = "Top Occupations",
+  title = "Top des professions",
   tooltip,
   insight,
 }: {
@@ -72,7 +72,7 @@ export default function TopOccupations({
       <CardHeader className="items-center">
         <div className="flex items-center gap-2">
           <CardTitle>{title}</CardTitle>
-          <ToolTipsProvider title={tooltip ?? "Breakdown of occupations among your audience."} />
+          <ToolTipsProvider title={tooltip ?? "Répartition des professions au sein de votre audience."} />
         </div>
       </CardHeader>
 

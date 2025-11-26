@@ -29,11 +29,11 @@ import ToolTipsProvider from "../charts/ToolTipsProvider";
 
 export const projectRevenueChartConfig = {
   actual: {
-    label: "Actual",
+    label: "Actuel",
     color: "var(--chart-1)",
   },
   remaining: {
-    label: "Remaining",
+    label: "Restant",
     color: "var(--chart-2)",
   },
   label: {

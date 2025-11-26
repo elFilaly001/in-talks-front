@@ -131,15 +131,15 @@ const chartConfig = {
     label: "Mentions",
   },
   positive: {
-    label: "Positive",
+    label: "Positif",
     color: palette[0],
   },
   neutral: {
-    label: "Neutral",
+    label: "Neutre",
     color: palette[1],
   },
   negative: {
-    label: "Negative",
+    label: "Négatif",
     color: palette[2],
   },
 } satisfies ChartConfig;
@@ -151,9 +151,9 @@ function MentionsBySentiments() {
     <Card className="@container/card col-span-2 relative">
       <CardHeader>
         <div className="flex items-center gap-2">
-          <CardTitle>Sentiment Trend</CardTitle>
+          <CardTitle>Tendance des sentiments</CardTitle>
           <ToolTipsProvider
-            title={`Shows the sentiment trend for the last 7 days. Hover over each point to see the number of mentions for each sentiment type. Use this data to track changes in audience mood and identify key events.`}
+            title={`Affiche la tendance des sentiments sur les 7 derniers jours. Survolez chaque point pour voir le nombre de mentions par type de sentiment. Utilisez ces données pour suivre l'évolution de l'humeur du public et identifier les événements clés.`}
           />
         </div>
       </CardHeader>
@@ -186,7 +186,7 @@ function MentionsBySentiments() {
               minTickGap={32}
               tickFormatter={(value) => {
                 const date = new Date(value);
-                return date.toLocaleDateString("en-US", {
+                return date.toLocaleDateString("fr-FR", {
                   month: "short",
                   day: "numeric",
                 });
@@ -198,7 +198,7 @@ function MentionsBySentiments() {
               content={
                 <ChartTooltipContent
                   labelFormatter={(value) => {
-                    return new Date(value).toLocaleDateString("en-US", {
+                    return new Date(value).toLocaleDateString("fr-FR", {
                       month: "short",
                       day: "numeric",
                       year: "numeric",

@@ -41,9 +41,9 @@ const palette = [
 ];
 
 const chartConfig = {
-  positive: { label: "Positive", color: palette[0] },
-  neutral: { label: "Neutral", color: palette[1] },
-  negative: { label: "Negative", color: palette[2] },
+  positive: { label: "Positif", color: palette[0] },
+  neutral: { label: "Neutre", color: palette[1] },
+  negative: { label: "Négatif", color: palette[2] },
 } satisfies ChartConfig;
 
 export default function MentionsBySentimentCard() {
@@ -65,8 +65,8 @@ export default function MentionsBySentimentCard() {
     <Card className="@container/card col-span-2 relative">
       <CardHeader>
         <div className="flex items-center gap-2">
-          <CardTitle>Mentions by Sentiment</CardTitle>
-          <ToolTipsProvider title="Daily mentions split by sentiment (Positive / Neutral / Negative). Use this view to quickly spot days with higher negative mentions or surges in positive engagement." />
+          <CardTitle>Mentions par sentiment</CardTitle>
+          <ToolTipsProvider title="Mentions quotidiennes réparties par sentiment (Positif / Neutre / Négatif). Utilisez cette vue pour repérer rapidement les jours avec plus de mentions négatives ou des pics d'engagement positif." />
         </div>
       </CardHeader>
 
@@ -78,21 +78,21 @@ export default function MentionsBySentimentCard() {
               className="h-3 w-3 rounded-sm block"
               style={{ background: "linear-gradient(90deg,#34d399,#10b981)" }}
             />
-            <span className="text-sm text-muted-foreground">Positive</span>
+            <span className="text-sm text-muted-foreground">Positif</span>
           </div>
           <div className="flex items-center gap-2">
             <span
               className="h-3 w-3 rounded-sm block"
               style={{ background: "linear-gradient(90deg,#9ca3af,#6b7280)" }}
             />
-            <span className="text-sm text-muted-foreground">Neutral</span>
+            <span className="text-sm text-muted-foreground">Neutre</span>
           </div>
           <div className="flex items-center gap-2">
             <span
               className="h-3 w-3 rounded-sm block"
               style={{ background: "linear-gradient(90deg,#f87171,#ef4444)" }}
             />
-            <span className="text-sm text-muted-foreground">Negative</span>
+            <span className="text-sm text-muted-foreground">Négatif</span>
           </div>
         </div>
         <ChartContainer config={chartConfig} className="aspect-auto h-[260px] w-full">

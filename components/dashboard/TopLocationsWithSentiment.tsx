@@ -47,9 +47,9 @@ const palette = [
 
 const chartConfig = {
   visitors: { label: "Mentions" },
-  positive: { label: "Positive", color: palette[0] },
-  neutral: { label: "Neutral", color: palette[1] },
-  negative: { label: "Negative", color: palette[2] },
+  positive: { label: "Positif", color: palette[0] },
+  neutral: { label: "Neutre", color: palette[1] },
+  negative: { label: "Négatif", color: palette[2] },
 } satisfies ChartConfig;
 
 export default function TopLocationsWithSentiment() {
@@ -67,8 +67,8 @@ export default function TopLocationsWithSentiment() {
     <Card className="@container/card col-span-2 relative">
       <CardHeader>
         <div className="flex items-center gap-2">
-          <CardTitle>Top Locations with Sentiment</CardTitle>
-          <ToolTipsProvider title="Distribution of sentiment across top Moroccan cities. Hover for context." />
+          <CardTitle>Top des localisations par sentiment</CardTitle>
+          <ToolTipsProvider title="Distribution des sentiments pour les principales villes marocaines. Survolez pour le contexte." />
         </div>
       </CardHeader>
 

@@ -13,7 +13,7 @@ type Props = {
 };
 
 const MentionsNumberCard: React.FC<Props> = ({
-  title = "Mentions By Gender",
+  title = "Mentions par genre",
   malePercent,
   femalePercent,
 }) => {
@@ -22,8 +22,8 @@ const MentionsNumberCard: React.FC<Props> = ({
   const femaleColor = "#f161f9ff";
 
   const genderData = [
-    { label: "Male", percent: malePercent, color: maleColor, icon: <FaMale size={96} color={maleColor} /> },
-    { label: "Female", percent: femalePercent, color: femaleColor, icon: <FaFemale size={96} color={femaleColor} /> },
+    { label: "Homme", percent: malePercent, color: maleColor, icon: <FaMale size={96} color={maleColor} /> },
+    { label: "Femme", percent: femalePercent, color: femaleColor, icon: <FaFemale size={96} color={femaleColor} /> },
   ];
 
   return (
@@ -31,7 +31,7 @@ const MentionsNumberCard: React.FC<Props> = ({
       <CardHeader>
         <div className="flex items-center gap-2">
           <CardTitle className="text-gray-700">{title}</CardTitle>
-          <ToolTipsProvider title={`Breakdown of mentions by gender. Shows the share of mentions attributed to each gender based on available profile data.`} />
+          <ToolTipsProvider title={`Répartition des mentions par genre. Affiche la part des mentions attribuée à chaque genre selon les données de profil disponibles.`} />
         </div>
       </CardHeader>
 

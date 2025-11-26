@@ -27,22 +27,22 @@ const OrderByFilter = () => {
   );
 
   const data = [
-    { value: "updated_at", label: "Most popular" },
-    { value: "followers_desc", label: "Publication date" },
-    { value: "followers_asc", label: "Most liked" },
-    { value: "engagement_desc", label: "Most commented" },
-    { value: "engagement_asc", label: "Most shared" },
-    { value: "engagement_asc2", label: "Most viewed" },
+    { value: "updated_at", label: "Le plus populaire" },
+    { value: "followers_desc", label: "Date de publication" },
+    { value: "followers_asc", label: "Les plus aimés" },
+    { value: "engagement_desc", label: "Les plus commentés" },
+    { value: "engagement_asc", label: "Les plus partagés" },
+    { value: "engagement_asc2", label: "Les plus vus" },
   ];
 
   return (
     <Select value={current} onValueChange={handleChange}>
       <SelectTrigger className="w-60 bg-white">
-        <SelectValue placeholder="Order By" />
+        <SelectValue placeholder="Trier par" />
       </SelectTrigger>
       <SelectContent className=" text-sm">
         <SelectGroup>
-          <SelectLabel>Order By</SelectLabel>
+          <SelectLabel>Trier par</SelectLabel>
           {data &&
             data.length > 0 &&
             data.map((item) => (

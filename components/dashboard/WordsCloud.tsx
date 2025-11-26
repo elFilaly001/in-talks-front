@@ -228,12 +228,18 @@ const WordCloud = () => {
     return minSize + ((value - minValue) / (maxValue - minValue)) * (maxSize - minSize);
   };
 
+  const themeLabels: Record<string, string> = {
+    emerging: 'Émergent',
+    decreasing: 'En baisse',
+    new: 'Nouveaux',
+  };
+
   return (
     <Card className="@container/card col-span-2 relative">
       <CardHeader>
         <div className="flex items-center gap-2">
           <CardTitle>Nuage des Thématiques</CardTitle>
-          <ToolTipsProvider title="Interactive word cloud showing top food delivery mentions with color-coded themes. Emerging cuisines (green), declining preferences (red), and new food trends (blue). Hover over words to see their popularity and theme categorization across Arabic, French, and English languages." />
+          <ToolTipsProvider title="Nuage de mots interactif affichant les mentions principales liées à la livraison de nourriture avec des thèmes codés par couleur. Cuisines émergentes (vert), préférences en baisse (rouge) et nouvelles tendances (bleu). Survolez les mots pour voir leur popularité et leur catégorisation en arabe, français et anglais." />
         </div>
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
@@ -269,7 +275,7 @@ const WordCloud = () => {
                       className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-slate-700 text-white text-xs px-3 py-1 rounded-full whitespace-nowrap"
                       style={{ transform: `translateX(-50%) rotate(${-word.rotation}deg)` }}
                     >
-                      Weight: {word.value}
+                      Poids : {word.value}
                     </div>
                   )}
                 </div>
@@ -281,7 +287,7 @@ const WordCloud = () => {
         <div className="mt-6 flex justify-center gap-6 flex-wrap">
           {Object.entries(themeColors).map(([theme, colors]) => (
             <div key={theme} className="flex items-center gap-3">
-              <span className="capitalize text-sm font-medium">{theme} Themes</span>
+              <span className="capitalize text-sm font-medium">{themeLabels[theme] ?? theme}</span>
               <div className="flex gap-1">
                 {colors.map((color, i) => (
                   <div key={i} className="w-4 h-4 rounded-sm border border-slate-600" style={{ backgroundColor: color }}></div>
@@ -292,8 +298,8 @@ const WordCloud = () => {
         </div>
 
         <div className="mt-6 text-center">
-          <div className="inline-flex items-center gap-4 bg-slate-700/40 backdrop-blur-sm px-6 py-3 rounded-full border border-slate-700">
-            <span className="text-black text-sm">Total words:</span>
+            <div className="inline-flex items-center gap-4 bg-slate-700/40 backdrop-blur-sm px-6 py-3 rounded-full border border-slate-700">
+            <span className="text-black text-sm">Total de mots :</span>
             <span className="text-white font-semibold">{words.length}</span>
           </div>
         </div>

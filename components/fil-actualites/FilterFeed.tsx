@@ -32,7 +32,7 @@ const FilterFeed = () => {
         </CardHeader>
         <CardContent className=" ">
           <div className="flex justify-center items-center relative w-full">
-            <Input placeholder="Search through mentions" />
+            <Input placeholder="Rechercher dans les mentions" />
             <Search className=" size-4 absolute right-3 text-gray-700 transform -translate-y-1/2 top-1/2" />
           </div>
         </CardContent>
@@ -51,7 +51,7 @@ const FilterFeed = () => {
         >
           <Link href={"/social-listening"}>
             <Filter />
-            Filter
+            Filtrer
           </Link>
         </Button>
         <Button
@@ -85,12 +85,12 @@ const OrderBy = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="font-semibold">Order by</CardTitle>
+        <CardTitle className="font-semibold">Trier</CardTitle>
       </CardHeader>
       <CardContent>
         <Select onValueChange={handleChange} defaultValue={currentOrder}>
           <SelectTrigger className="w-full">
-            <SelectValue placeholder="Order By" />
+            <SelectValue placeholder="Trier par" />
           </SelectTrigger>
           <SelectContent className="">
             <SelectGroup>
@@ -177,9 +177,9 @@ const FilterSentiment = () => {
   const selectedSentiments = searchParams.get("sentiments")?.split(",") || [];
 
   const sentiments = [
-    { label: "Negative", value: "NEGATIVE" },
-    { label: "Positive", value: "POSITIVE" },
-    { label: "Neutral", value: "NEUTRAL" },
+    { label: "Négatif", value: "NEGATIVE" },
+    { label: "Positif", value: "POSITIVE" },
+    { label: "Neutre", value: "NEUTRAL" },
   ];
 
   const handleToggle = (value: string) => {
@@ -234,7 +234,7 @@ const FilterPeriod = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className=" font-semibold">Period</CardTitle>
+        <CardTitle className=" font-semibold">Période</CardTitle>
       </CardHeader>
       <CardContent>
         <CompactDatePicker

@@ -95,7 +95,7 @@ const data = {
 
 const media = [
   {
-    label: "All Social Medias",
+    label: "Tous les réseaux sociaux",
     // no image for the 'All' option - render an icon instead
   },
   {
@@ -204,9 +204,9 @@ const MentionsFeed = () => {
           <TopEditorialSource />
           {data.countries && (
             <CountriesSplit
-              title="Top Locations"
+              title="Top des localisations"
               data={JSON.parse(data.countries.toString())}
-              tooltip={`The distribution of mentions by location, helping to identify key geographic areas of interest and engagement.`}
+              tooltip={`La répartition des mentions par localisation, aidant à identifier les zones géographiques clés d'intérêt et d'engagement.`}
             />
           )}
         </div>

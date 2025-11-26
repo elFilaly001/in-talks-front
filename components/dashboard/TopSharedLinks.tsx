@@ -51,8 +51,8 @@ export default function TopSharedLinks({ feeds = [] as Feed[] }) {
     <Card className="flex-1 relative">
       <CardHeader>
         <div className="flex items-center gap-2">
-          <CardTitle>Top Shared Links</CardTitle>
-          <ToolTipsProvider title="Latest mentions from various sources, providing quick access to recent conversations and insights." />
+          <CardTitle>Top des liens partagés</CardTitle>
+          <ToolTipsProvider title="Mentions récentes provenant de diverses sources, offrant un accès rapide aux conversations et aux insights." />
         </div>
       </CardHeader>
 
@@ -86,11 +86,11 @@ export default function TopSharedLinks({ feeds = [] as Feed[] }) {
       <CardFooter className="gap-2 pb-4">
         <div className="flex justify-between items-center w-full">
           <Button size="sm" variant="outline" onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
-            Previous
+            Précédent
           </Button>
-          <span className="text-sm">Page {currentPage} of {totalPages}</span>
+          <span className="text-sm">Page {currentPage} sur {totalPages}</span>
           <Button size="sm" variant="outline" onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>
-            Next
+            Suivant
           </Button>
         </div>
       </CardFooter>

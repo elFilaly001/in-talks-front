@@ -65,19 +65,19 @@ const Sentiment = () => {
         <h2 className="text-4xl sm:text-5xl md:text-6xl my-3 font-extrabold tracking-tight text-gray-900 dark:text-white">
           Sentiments
         </h2>
-        <p className="mt-1 text-sm sm:text-base text-muted-foreground max-w-3xl">
+        {/* <p className="mt-1 text-sm sm:text-base text-muted-foreground max-w-3xl">
           Générez et téléchargez des rapports détaillés sur vos performances sur
           les re9seaux sociaux, les insights d&apos;audience et plus encore.
-        </p>
+        </p> */}
       </div>
         <div className="@container/main flex flex-col gap-4 md:gap-6">
             <MentionsBySentiments />
             <KeywordsWithSentiment />
             <div className="grid grid-cols-4 gap-6">
                 <KeywordWithSetiments
-                    label="Sentiment by Source Type"
-                    data={dataNetworks}
-                    tooltip={`Shows the sentiment breakdown by source type for the last 7 days. Hover over each bar to see the count and percentage for each sentiment type. Use this data to identify which sources drive positive or negative conversations.`}
+              label="Sentiment par type de source"
+              data={dataNetworks}
+              tooltip={`Montre la répartition des sentiments par type de source pour les 7 derniers jours. Survolez chaque barre pour voir le nombre et le pourcentage par type de sentiment. Utilisez ces données pour identifier quelles sources génèrent des conversations positives ou négatives.`}
                 />
                 <TopLocationsWithSentiment/>
             </div>
