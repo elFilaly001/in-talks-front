@@ -37,9 +37,9 @@ const data = [
 
 // ShareOfVoice palette for consistent chart coloring across the dashboard
 const palette = [
-  "#10B981", // green
-  "#6B7280", // gray
-  "#EF4444", // red
+  "#40bb3c", // green
+  "#ffbf26", // gray
+  "#ff0c00", // red
   "#F59E0B",
   "#8B5CF6",
   "#06B6D4",

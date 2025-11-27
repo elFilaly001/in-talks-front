@@ -5,7 +5,6 @@ import { createPortal } from "react-dom";
 import DataTable, { TableColumn } from "react-data-table-component";
 import formatNumber from "@/lib/numbers";
 import { Badge } from "../ui/badge";
-import Image from "next/image";
 
 export interface Network {
   network: string;
@@ -19,9 +18,66 @@ export interface Network {
   metrics: string;
 }
 
+export interface SocialCoverageProps {
+  networks: Network[];
+  /** When true, sample competitor data will be merged with provided networks. Default: false */
+  includeSamples?: boolean;
+  /** Optional title override */
+  title?: string;
+  /** When true, shows the source filter dropdown (Instagram, Facebook, etc.). Default: false */
+  showSourceFilter?: boolean;
+}
 
-const SocialCoverage = ({ networks }: { networks: Network[] }) => {
-  const [selectedSource, setSelectedSource] = useState<string>("all");
+// sample competitors to append when there are too few rows or when user wants examples
+const SAMPLE_NETWORKS: Network[] = [
+  {
+    network: "instagram",
+    profil: "/media/jumiafood.jpg",
+    username: "jumiafood",
+    name: "JumiaFood",
+    followers: 480000,
+    er: 2.4,
+    avgEngage: 11500,
+    avgViews: 60000,
+    metrics: "78",
+  },
+  {
+    network: "instagram",
+    profil: "/media/careemnow.jpg",
+    username: "careemnow",
+    name: "CareemNow",
+    followers: 210000,
+    er: 1.9,
+    avgEngage: 4000,
+    avgViews: 22000,
+    metrics: "71",
+  },
+  {
+    network: "instagram",
+    profil: "/media/yassir.jpg",
+    username: "yassir",
+    name: "Yassir",
+    followers: 75000,
+    er: 1.5,
+    avgEngage: 1100,
+    avgViews: 6000,
+    metrics: "65",
+  },
+  {
+    network: "instagram",
+    profil: "/media/glovo.jpg",
+    username: "glovo",
+    name: "Glovo",
+    followers: 390000,
+    er: 3.0,
+    avgEngage: 11700,
+    avgViews: 65000,
+    metrics: "82",
+  },
+];
+
+const SocialCoverage = ({ networks, includeSamples = false, title = "Tableau de Performance Multicanal", showSourceFilter = false }: SocialCoverageProps) => {
+  const [selectedSource, setSelectedSource] = useState<string>("instagram");
   const [showSourceMenu, setShowSourceMenu] = useState(false);
   const menuAnchorRef = useRef<HTMLDivElement | null>(null);
   const menuRef = useRef<HTMLUListElement | null>(null);
@@ -61,20 +117,51 @@ const SocialCoverage = ({ networks }: { networks: Network[] }) => {
 
 
 
+  // merge incoming networks with sampleNetworks but avoid duplicates by username (only if includeSamples is true)
+  const mergedNetworks = useMemo(() => {
+    const map = new Map<string, Network>();
+    // add provided networks first
+    (networks || []).forEach((n) => {
+      if (n && n.username) map.set(n.username, n);
+    });
+    // add samples if they don't exist and includeSamples is enabled
+    if (includeSamples) {
+      SAMPLE_NETWORKS.forEach((s) => {
+        if (!map.has(s.username)) map.set(s.username, s);
+      });
+    }
+    return Array.from(map.values());
+  }, [networks, includeSamples]);
+
+  // apply source filter and ensure we have at least 6 rows by appending samples if needed (only when includeSamples is true)
+  const displayedNetworks = useMemo(() => {
+    const filtered = mergedNetworks.filter((n) => n.network === selectedSource);
+
+    if (!includeSamples || filtered.length >= 6) return filtered;
+
+    // append from SAMPLE_NETWORKS to reach 6 rows (avoid duplicates)
+    const result = [...filtered];
+    for (const s of SAMPLE_NETWORKS) {
+      if (result.length >= 6) break;
+      if (!result.find((r) => r.username === s.username)) result.push(s);
+    }
+    return result;
+  }, [mergedNetworks, selectedSource, includeSamples]);
+
   const columns: TableColumn<Network>[] = [
     {
-      name: (
+      name: showSourceFilter ? (
         <div className="flex items-center">
           <div className="relative" ref={menuAnchorRef}>
             <button
               type="button"
               aria-label="Filtrer par source"
               onClick={() => setShowSourceMenu((s) => !s)}
-              className="flex items-center gap-2 border px-2 py-1 rounded-md bg-white text-sm"
+              className="flex items-center gap-2 border px-2 py-1 rounded-md bg-white text-sm w-[120px]"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={selectedSource === "all" ? "/media/instagram.png" : `/media/${selectedSource}.png`}
+                src={selectedSource === "x" ? "/media/twitter.png" : `/media/${selectedSource}.png`}
                 alt={selectedSource}
                 width={16}
                 height={16}
@@ -82,8 +169,8 @@ const SocialCoverage = ({ networks }: { networks: Network[] }) => {
                   (e.target as HTMLImageElement).style.display = "none";
                 }}
               />
-              <span className="capitalize">{selectedSource === "all" ? "Instagram" : selectedSource}</span>
-              <svg className="ml-1 h-3 w-3" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <span className="capitalize flex-1 text-left">{selectedSource === "x" ? "X" : selectedSource}</span>
+              <svg className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.293l3.71-4.06a.75.75 0 111.12 1l-4.25 4.657a.75.75 0 01-1.12 0L5.21 8.27a.75.75 0 01.02-1.06z" clipRule="evenodd" />
               </svg>
             </button>
@@ -102,8 +189,7 @@ const SocialCoverage = ({ networks }: { networks: Network[] }) => {
                     zIndex: 99999,
                   }}
                 >
-                  <li className="px-3 py-2 hover:bg-slate-50 cursor-pointer flex items-center gap-2" onClick={() => { setSelectedSource("all"); setShowSourceMenu(false); }}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <li className="px-3 py-2 hover:bg-slate-50 cursor-pointer flex items-center gap-2" onClick={() => { setSelectedSource("instagram"); setShowSourceMenu(false); }}>
                     <img src="/media/instagram.png" alt="instagram" width={16} height={16} />
                     <span>Instagram</span>
                   </li>
@@ -113,8 +199,7 @@ const SocialCoverage = ({ networks }: { networks: Network[] }) => {
                     <span>TikTok</span>
                   </li>
                   <li className="px-3 py-2 hover:bg-slate-50 cursor-pointer flex items-center gap-2" onClick={() => { setSelectedSource("x"); setShowSourceMenu(false); }}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/media/x.png" alt="x" width={16} height={16} />
+                    <img src="/media/twitter.png" alt="x" width={16} height={16} />
                     <span>X</span>
                   </li>
                   <li className="px-3 py-2 hover:bg-slate-50 cursor-pointer flex items-center gap-2" onClick={() => { setSelectedSource("youtube"); setShowSourceMenu(false); }}>
@@ -137,56 +222,52 @@ const SocialCoverage = ({ networks }: { networks: Network[] }) => {
               )}
           </div>
         </div>
-      ),
+      ) : "Source",
       sortable: true,
       selector: (row) => row.network,
       width: "350px",
-      cell: (row) => (
-        <div className="flex justify-center items-center p-3 gap-3">
-          {/* Always use the network logo for the first icon */}
-          {/* Try to load the network logo, fallback to SVG X icon if not found */}
-          {row.network === "x" ? (
-            <Image
-              src="/media/x.png"
-              alt="X logo"
-              width={25}
-              height={25}
-              onError={(e) => {
-                e.currentTarget.style.display = "none";
-                const parent = e.currentTarget.parentElement;
-                if (parent) {
-                  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-                  svg.setAttribute("width", "25");
-                  svg.setAttribute("height", "25");
-                  svg.setAttribute("viewBox", "0 0 24 24");
-                  svg.innerHTML = '<path fill="black" d="M17.53 3H21L14.19 10.63L22.09 21H15.63L10.77 14.62L5.29 21H2L9.13 13L1.61 3H8.24L12.68 8.87L17.53 3ZM16.41 19H18.23L7.75 5H5.81L16.41 19Z"/>';
-                  parent.insertBefore(svg, parent.firstChild);
-                }
-              }}
-            />
-          ) : (
-            <Image
-              src={`/media/${row.network}.png`}
+      cell: (row) => {
+        // Map network names to actual image files
+        const getNetworkImage = (network: string) => {
+          if (network === "x") return "/media/twitter.png";
+          return `/media/${network}.png`;
+        };
+
+        return (
+          <div className="flex justify-center items-center p-3 gap-3">
+            {/* Network logo */}
+            <img
+              src={getNetworkImage(row.network)}
               alt={row.network + " logo"}
               width={25}
               height={25}
+              style={{ objectFit: 'contain' }}
+              onError={(e) => {
+                const target = e.currentTarget;
+                target.style.display = 'none';
+              }}
             />
-          )}
-          {/* Use the profile image for the second icon */}
-          <Image
-            src={row.profil}
-            alt={row.name + " profile"}
-            width={35}
-            height={35}
-            style={{ borderRadius: "50%" }}
-            onError={(e) => { e.currentTarget.style.display = 'none'; }}
-          />
-          <div className="text-center">
-            <h6>{row.name}</h6>
-            <p className="text-sm">@{row.username}</p>
+            {/* Profile image */}
+            {/* {row.profil && (
+              <img
+                src={row.profil}
+                alt={row.name + " profile"}
+                width={35}
+                height={35}
+                style={{ borderRadius: "50%", objectFit: 'cover' }}
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  target.style.display = 'none';
+                }}
+              />
+            )} */}
+            <div className="text-center">
+              <h6>{row.name}</h6>
+              <p className="text-sm">@{row.username}</p>
+            </div>
           </div>
-        </div>
-      ),
+        );
+      },
     },
     {
       name: "Croissance (90 jours)",
@@ -292,8 +373,8 @@ const SocialCoverage = ({ networks }: { networks: Network[] }) => {
 
   return (
     <div>
-      <h5 className="text-xl font-semibold mb-4">Tableau de Performance Multicanal</h5>
-      <DataTable columns={columns} data={networks} />
+      <h5 className="text-xl font-semibold mb-4">{title}</h5>
+      <DataTable columns={columns} data={displayedNetworks} />
     </div>
   );
 };

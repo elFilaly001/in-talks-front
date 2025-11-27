@@ -21,12 +21,12 @@ import Image from "next/image";
 export const description = "A radar chart with dots";
 
 const chartData = [
-  { month: "Livraison", desktop: 186, fill: "#10B981" },
-  { month: "Restaurants", desktop: 305, fill: "#6B7280" },
-  { month: "Supermarket", desktop: 237, fill: "#EF4444" },
-  { month: "Commande", desktop: 273, fill: "#F59E0B" },
-  { month: "Nourriture", desktop: 209, fill: "#8B5CF6" },
-  { month: "Paiement", desktop: 214, fill: "#06B6D4" },
+  { month: "Livraison", desktop: 186, fill: "#ff2b12" },
+  { month: "Restaurants", desktop: 305, fill: "#e72a86" },
+  { month: "Supermarket", desktop: 237, fill: "#ffc43a" },
+  { month: "Commande", desktop: 273, fill: "#ff5733" },
+  { month: "Nourriture", desktop: 209, fill: "#3fbf43" },
+  { month: "Paiement", desktop: 214, fill: "#b8aedd" },
 ];
 
 const chartConfig = {
@@ -39,8 +39,10 @@ const chartConfig = {
 function ShareOfVoice() {
   const [showInsight, setShowInsight] = useState(false);
 
+  const total = chartData.reduce((sum, item) => sum + item.desktop, 0);
+
   return (
-    <Card className="flex flex-col justify-between relative">
+    <Card className="flex flex-col relative">
       <CardHeader className="items-center">
         <div className="flex items-center gap-2">
           <CardTitle>Part de voix</CardTitle>
@@ -49,8 +51,11 @@ function ShareOfVoice() {
           />
         </div>
       </CardHeader>
-      <CardContent className="pb-16">
-        <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[300px]">
+      <CardContent className="pb-16 flex-1 flex flex-col items-center justify-center">
+        <ChartContainer
+          config={chartConfig}
+          className="mx-auto !aspect-square w-full max-w-[300px]"
+        >
           <PieChart>
             <ChartTooltip
               cursor={false}
@@ -67,6 +72,10 @@ function ShareOfVoice() {
               paddingAngle={2}
               cornerRadius={4}
             />
+            <text x="50%" y="50%" textAnchor="middle" dominantBaseline="central" pointerEvents="none">
+              <tspan x="50%" dy={-6} style={{ fontSize: 18, fontWeight: 700, fill: '#0f172a' }}>{total}</tspan>
+              <tspan x="50%" dy={18} style={{ fontSize: 12, fill: '#64748b' }}>Mentions</tspan>
+            </text>
           </PieChart>
         </ChartContainer>
         <div className="flex flex-wrap justify-center w-full items-center gap-3 my-2">
@@ -88,12 +97,12 @@ function ShareOfVoice() {
       </CardContent>
       <div className="absolute bottom-4 left-6">
         <div className="relative">
-          <div 
+          <div
             className="text-sm text-black flex items-center gap-2 cursor-pointer"
             onMouseEnter={() => setShowInsight(true)}
             onMouseLeave={() => setShowInsight(false)}
           >
-            <Image src="/icons/IN-TALKS-logo.png-2.webp" alt="IN-TALKS Logo" width={22} height={22} style={{display: 'inline-block', verticalAlign: 'middle'}} />
+            <Image src="/icons/IN-TALKS-logo.png-2.webp" alt="IN-TALKS Logo" width={22} height={22} style={{ display: 'inline-block', verticalAlign: 'middle' }} />
             <span
               className="font-semibold"
               style={{

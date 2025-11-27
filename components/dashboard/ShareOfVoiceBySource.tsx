@@ -32,30 +32,33 @@ const palette = [
   "#06B6D4",
 ];
 
-// Sample palette and brands (keeps parity with other share-of-voice components)
-const brands = [
-  { key: "jumia", label: "JumiaFood", color: palette[0] },
-  { key: "careem", label: "CareemNow", color: palette[1] },
-  { key: "yassir", label: "Yassir", color: palette[2] },
-  { key: "koul", label: "Koul", color: palette[3] },
-  { key: "livry", label: "Livry", color: palette[4] },
-  { key: "glovo", label: "Glovo", color: palette[5] },
+// Company list used elsewhere in the dashboard (keeps parity with ShareOfVoiceByMention)
+const companies = [
+  { key: "JumiaFood", label: "JumiaFood", color: "var(--chart-1)" },
+  { key: "CareemNow", label: "CareemNow", color: "var(--chart-2)" },
+  { key: "Yassir", label: "Yassir", color: "var(--chart-3)" },
+  { key: "Koul", label: "Koul", color: "var(--chart-4)" },
+  {key: "livry", label: "Livry", color: "var(--chart-5)"},
+  { key: "Glovo", label: "Glovo", color: "var(--chart-6)" },
 ];
 
-// Sample data mirroring the screenshot (sources as categories, stacked counts per brand)
-const data = [
-  { source: "Instagram", jumia: 6, careem: 3, yassir: 5, koul: 4, livry: 2, glovo: 3 },
-  { source: "Facebook", jumia: 4, careem: 2, yassir: 6, koul: 3, livry: 5, glovo: 1 },
-  { source: "X", jumia: 8, careem: 7, yassir: 6, koul: 5, livry: 4, glovo: 6 },
-  { source: "TikTok", jumia: 7, careem: 6, yassir: 5, koul: 4, livry: 6, glovo: 3 },
-  { source: "YouTube", jumia: 10, careem: 9, yassir: 8, koul: 7, livry: 6, glovo: 6 },
-  { source: "LinkedIn", jumia: 3, careem: 2, yassir: 4, koul: 3, livry: 2, glovo: 3 },
-];
-
-const chartConfig: ChartConfig = brands.reduce((acc, b) => {
-  acc[b.key] = { label: b.label, color: b.color };
+const chartConfig: ChartConfig = companies.reduce((acc, c) => {
+  acc[c.key] = { label: c.label, color: c.color };
   return acc;
 }, {} as ChartConfig);
+
+// Example competitive data per source (values are illustrative — replace with real data)
+// Raw mention counts per source (these will be normalized to percentage shares per row)
+const rawData: Array<Record<string, number | string>> = [
+  { source: "Instagram", JumiaFood: 320, CareemNow: 220, Yassir: 180, Koul: 150, livry: 90, Glovo: 130 },
+  { source: "Facebook", JumiaFood: 280, CareemNow: 200, Yassir: 180, Koul: 180, livry: 160, Glovo: 160 },
+  { source: "Tiktok", JumiaFood: 350, CareemNow: 250, Yassir: 200, Koul: 120, livry: 80, Glovo: 80 },
+  { source: "X", JumiaFood: 250, CareemNow: 200, Yassir: 150, Koul: 200, livry: 200, Glovo: 200 },
+  { source: "Youtube", JumiaFood: 300, CareemNow: 240, Yassir: 180, Koul: 160, livry: 120, Glovo: 120 },
+  { source: "Press", JumiaFood: 430, CareemNow: 330, Yassir: 180, Koul: 460, livry: 320, Glovo: 320 },
+];
+
+// Normalize counts into percentage shares per source (each row sums to ~100)
 
 export default function ShareOfVoiceBySourceCard() {
   const [showInsight, setShowInsight] = React.useState(false);
@@ -72,33 +75,39 @@ export default function ShareOfVoiceBySourceCard() {
       </CardHeader>
 
       <CardContent className="pb-16">
-  <ChartContainer config={chartConfig} className="h-[260px] w-full">
+        <div className="text-center text-lg font-semibold mb-2">2021</div>
+        <ChartContainer config={chartConfig} className="h-[360px] w-full">
           <ResponsiveContainer>
             <BarChart
-              data={data}
-              layout="vertical"
+              data={rawData}
+              layout="horizontal"
               margin={{ top: 10, right: 20, left: 20, bottom: 20 }}
+              barCategoryGap="20%"
+              barGap={6}
             >
               <CartesianGrid strokeDasharray="3 3" vertical={false} />
-              <XAxis type="number" tickLine={false} axisLine={false} />
-              <YAxis
+              <XAxis
                 dataKey="source"
                 type="category"
                 axisLine={false}
                 tickLine={false}
-                width={110}
+                interval={0}
+                tick={{ fontSize: 12 }}
               />
+              <YAxis type="number" tickLine={false} axisLine={false} width={70} />
               <ChartTooltip content={<ChartTooltipContent />} />
               <ChartLegend content={<ChartLegendContent />} />
 
-              {brands.map((b) => (
+              {companies.map((c) => (
                 <Bar
-                  key={b.key}
-                  dataKey={b.key}
-                  stackId="a"
-                  fill={b.color}
+                  key={c.key}
+                  dataKey={c.key}
+                  barSize={16}
+                  fill={c.color}
                   isAnimationActive={false}
-                />
+                >
+                  {/* <LabelList dataKey={c.key} position="top" /> */}
+                </Bar>
               ))}
             </BarChart>
           </ResponsiveContainer>

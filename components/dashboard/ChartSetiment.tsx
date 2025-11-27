@@ -22,9 +22,9 @@ const ChartSetiment = () => {
   const [showInsight, setShowInsight] = useState(false);
 
   const mentionsBySentimentChartData = [
-  { sentiment: "positif", mentions: 275, fill: "#10B981" },
-  { sentiment: "neutre", mentions: 120, fill: "#6B7280" },
-  { sentiment: "négatif", mentions: 80, fill: "#EF4444" },
+    { sentiment: "positif", mentions: 275, fill: "#40bb3c" },
+    { sentiment: "neutre", mentions: 120, fill: "#ffbf26" },
+    { sentiment: "négatif", mentions: 80, fill: "#ff0c00" },
   ];
 
   const mentionsBySentimentChartConfig = {
@@ -138,12 +138,12 @@ const ChartSetiment = () => {
       </CardContent>
       <div className="absolute bottom-4 left-6">
         <div className="relative">
-          <div 
-                className="text-sm text-black flex items-center gap-2 cursor-pointer"
+          <div
+            className="text-sm text-black flex items-center gap-2 cursor-pointer"
             onMouseEnter={() => setShowInsight(true)}
             onMouseLeave={() => setShowInsight(false)}
           >
-                <Image src="/icons/IN-TALKS-logo.png-2.webp" alt="IN-TALKS Logo" width={22} height={22} className="inline-block align-middle" />
+            <Image src="/icons/IN-TALKS-logo.png-2.webp" alt="IN-TALKS Logo" width={22} height={22} className="inline-block align-middle" />
             <span
               className="font-semibold"
               style={{

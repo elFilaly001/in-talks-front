@@ -4,7 +4,7 @@ import ChartLangage from "../charts/ChartLangage";
 import CountriesSplit from "../charts/CountriesSplit";
 import QualitySplit from "../charts/QualitySplit";
 import AgeGenderBreakdown from "../dashboard/AgeGenderBreakdown";
-import SocialCoverage from "./SocialCoverage";
+import AudienceSocialTable from "./AudienceSocialTable";
 import { Bar, BarChart, XAxis, YAxis } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -136,17 +136,46 @@ const chartData2 = [
   { month: "<1k", desktop: 214 },
 ];
 
+const totalChart2 = chartData2.reduce((s, it) => s + (it.desktop || 0), 0);
+
+function CustomBarTooltip({
+  active,
+  payload,
+  label,
+}: {
+  active?: boolean;
+  payload?: any[];
+  label?: string | number;
+}) {
+  if (!active || !payload || !payload.length) return null;
+
+  const item = payload[0];
+  const value = item?.value ?? item?.payload?.desktop ?? 0;
+  const percent = totalChart2 ? Math.round((value / totalChart2) * 100) : 0;
+  const color = item?.color || item?.payload?.fill || "var(--color-desktop)";
+
+  return (
+    <div className="bg-gray-900 text-white text-xs rounded-md px-2 py-1 shadow-lg flex items-center gap-2 whitespace-nowrap">
+      <span className="w-3 h-3 rounded-sm shrink-0" style={{ backgroundColor: color }} />
+      <div className="leading-none">
+        <div className="font-medium">{label}</div>
+        <div className="text-[11px] opacity-90">Audience %: {percent}</div>
+      </div>
+    </div>
+  );
+}
+
 const chartConfig2 = {
   desktop: {
     label: "Desktop",
-    color: "#2dbaf6",
+    color: "#aea6cf",
   },
 } satisfies ChartConfig;
 
 const networks = [
   {
     network: "instagram",
-    profil: "/media/instagram-profile.png",
+    profil: "/glovo/483195916_1532010537473174_2632696751857179851_n.jpg",
     username: "glovo_maroc",
     name: "Glovo Maroc",
     followers: 122000,
@@ -157,7 +186,7 @@ const networks = [
   },
   {
     network: "x",
-    profil: "/media/x-profile.png",
+    profil: "/glovo/483195916_1532010537473174_2632696751857179851_n.jpg",
     username: "glovo_x",
     name: "Glovo Maroc",
     followers: 45000,
@@ -168,7 +197,7 @@ const networks = [
   },
   {
     network: "facebook",
-    profil: "/media/facebook-profile.png",
+    profil: "/glovo/483195916_1532010537473174_2632696751857179851_n.jpg",
     username: "glovo.fb",
     name: "Glovo Maroc",
     followers: 98000,
@@ -179,7 +208,7 @@ const networks = [
   },
   {
     network: "youtube",
-    profil: "/media/youtube-profile.png",
+    profil: "/glovo/483195916_1532010537473174_2632696751857179851_n.jpg",
     username: "glovo_youtube",
     name: "Glovo Maroc",
     followers: 32000,
@@ -407,10 +436,7 @@ const AudienceReport = () => {
           </p> */}
         </div>
       </div>
-      <SocialCoverage networks={networks} />
-      {/* {postingFrequency && (
-        <PostingFrequency data={postingFrequency.postingFrequency} />
-      )} */}
+      <AudienceSocialTable networks={networks} />
 
       {data && (
         <div className="overflow-x-auto">
@@ -436,32 +462,30 @@ const AudienceReport = () => {
                     Répartition de la portée de l&apos;audience
                   </CardTitle>
                   <ToolTipsProvider
-                    title={`Affiche le pourcentage d’abonnés segmentés selon le nombre de comptes qu’ils suivent : plus de 1 500, entre 1 000 et 1 500, entre 500 et 1 000, et moins de 500. Les abonnés qui suivent plus de 1 500 comptes sont moins susceptibles de voir le contenu sponsorisé.`}
+                    title={`Affiche le pourcentage d’abonnés segmentés selon le nombre de comptes qu’ils suivent : plus de 1 500, entre 1 000 et 1 500, 500 à 1 000, et moins de 500. Les abonnés qui suivent plus de 1 500 comptes sont moins susceptibles de voir du contenu sponsorisé.`}
                   />
                 </div>
               </CardHeader>
-              <CardContent className="pb-12">
-                <ChartContainer config={chartConfig2}>
-                  <BarChart
-                    accessibilityLayer
-                    data={chartData2}
-                    layout="vertical"
-                  >
-                    <XAxis type="number" dataKey="desktop" hide />
-                    <YAxis
+              <CardContent>
+                <ChartContainer config={chartConfig2} className="aspect-none h-[340px] w-full">
+                  <BarChart accessibilityLayer data={chartData2}>
+                    <XAxis
                       dataKey="month"
                       type="category"
                       tickLine={false}
                       axisLine={false}
+                      tick={{ fontSize: 11 }}
                     />
+                    <YAxis type="number" />
                     <ChartTooltip
                       cursor={false}
-                      content={<ChartTooltipContent hideLabel />}
+                      content={<CustomBarTooltip />}
                     />
                     <Bar
                       dataKey="desktop"
                       fill="var(--color-desktop)"
                       radius={5}
+                      barSize={50}
                     />
                   </BarChart>
                 </ChartContainer>
@@ -525,6 +549,7 @@ const AudienceReport = () => {
 
             {/* Group the last three cards into a single full-width row with an inner 3-column grid */}
 
+
             {data.countries && (
               <CountriesSplit
                 title="Abonnés par pays"
@@ -543,11 +568,10 @@ const AudienceReport = () => {
 
             {data.interest && (
               <Interset
-                title="Affinité d'intérêt de l'audience"
+                title="Affinité d&apos;intérêt de l&apos;audience"
                 data={JSON.parse(data.interest.toString())}
               />
             )}
-            <BrandAffinity/>
 
             {data.language && JSON.stringify(data.language) !== "{}" && (
               <ChartLangage data={JSON.parse(data.language.toString())} />

@@ -104,7 +104,7 @@ const KeywordWithSetiments = ({ label, data, tooltip, insight }: Propstype) => {
               stackId="sentiment"
               dataKey="positive"
               layout="vertical"
-                        fill="#10B981"
+                        fill="#40bb3c"
               radius={[6, 0, 0, 6]}
             >
               <LabelList
@@ -126,7 +126,7 @@ const KeywordWithSetiments = ({ label, data, tooltip, insight }: Propstype) => {
               stackId="sentiment"
               dataKey="neutral"
               layout="vertical"
-              fill="#6B7280"
+              fill="#ffbf26"
             >
               <LabelList
                 dataKey="neutral"
@@ -141,7 +141,7 @@ const KeywordWithSetiments = ({ label, data, tooltip, insight }: Propstype) => {
               stackId="sentiment"
               dataKey="negative"
               layout="vertical"
-              fill="#EF4444"
+              fill="#ff0c00"
               radius={[0, 6, 6, 0]}
             >
               <LabelList

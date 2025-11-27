@@ -36,15 +36,15 @@ const chartConfig = {
   },
   male: {
     label: "Homme",
-    color: "#2196F3", // Bleu
+    color: "#ff0c00", // Image red
   },
   female: {
     label: "Femme",
-    color: "#E91E63", // Rose
+    color: "#ea1c80", // Image pink
   },
   unknown: {
     label: "Inconnu",
-    color: "#9E9E9E", // Gris
+    color: "#aea6cf", // Image lilac
   },
 } satisfies ChartConfig;
 
@@ -100,8 +100,8 @@ function ChartGenderSplit({ percentages }: ChartGenderSplitProps) {
               data={chartData}
               dataKey="percentage"
               nameKey="category"
-              innerRadius={85}
-              strokeWidth={20}
+              innerRadius={70}
+              strokeWidth={28}
             >
               <Label
                 content={({ viewBox }) =>
@@ -154,7 +154,7 @@ function ChartGenderSplit({ percentages }: ChartGenderSplitProps) {
       </CardContent>
       <div className="absolute bottom-4 left-6">
         <div className="relative">
-          <div 
+          <div
             className="text-sm text-black flex items-center gap-2 cursor-pointer"
             onMouseEnter={() => setShowInsight(true)}
             onMouseLeave={() => setShowInsight(false)}

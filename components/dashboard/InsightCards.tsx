@@ -1,6 +1,6 @@
-"use client"; 
+"use client";
 
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import { Line, LineChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -23,37 +23,34 @@ import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import ToolTipsProvider from "../charts/ToolTipsProvider";
 
-// Sample data for mentions over periods
+// Sample data for mentions over four sections (S1..S4) to match the target line chart
 const mentionsByPeriodData = [
-  { period: "Period 1", facebook: 350, x: 320, instagram: 250, youtube: 180, tiktok: 150, linkedin: 120 },
-  { period: "Period 2", facebook: 380, x: 340, instagram: 260, youtube: 200, tiktok: 170, linkedin: 140 },
-  { period: "Period 3", facebook: 320, x: 340, instagram: 240, youtube: 190, tiktok: 160, linkedin: 130 },
+  { period: "1 Fev", x: 80, facebook: 40, instagram: 60, tiktok: 90, news: 15 },
+  { period: "2 Mar", x: 95, facebook: 30, instagram: 55, tiktok: 110, news: 12 },
+  { period: "3 Avr", x: 70, facebook: 35, instagram: 58, tiktok: 105, news: 18 },
+  { period: "4 Mai", x: 75, facebook: 38, instagram: 62, tiktok: 98, news: 20 },
 ];
 
 const mentionsByPeriodConfig = {
+  x: {
+    label: "Twitter/X",
+    color: "#000000",
+  },
   facebook: {
     label: "Facebook",
-    color: "#1877f2",
-  },
-  x: {
-    label: "X",
-    color: "#000000",
+    color: "#f97316",
   },
   instagram: {
     label: "Instagram",
-    color: "#e4405f",
-  },
-  youtube: {
-    label: "YouTube",
-    color: "#ff0000",
+    color: "#ec4899",
   },
   tiktok: {
     label: "TikTok",
-    color: "#00f2ea",
+    color: "#d946ef",
   },
-  linkedin: {
-    label: "LinkedIn",
-    color: "#0077b5",
+  news: {
+    label: "News",
+    color: "#38bdf8",
   },
 };
 
@@ -287,7 +284,7 @@ export function InsightCards() {
   const itemsPerPage = 10;
   const totalPages = Math.ceil(mentions.length / itemsPerPage);
 
- 
+
 
   return (
     <div className="grid grid-cols-4 md:gap-6">
@@ -302,7 +299,7 @@ export function InsightCards() {
         </CardHeader>
         <CardContent className="pb-16">
           <ChartContainer config={mentionsByPeriodConfig}>
-            <BarChart data={mentionsByPeriodData}>
+            <LineChart data={mentionsByPeriodData}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} />
               <XAxis
                 dataKey="period"
@@ -317,48 +314,52 @@ export function InsightCards() {
               />
               <ChartTooltip content={<ChartTooltipContent />} />
               <ChartLegend content={<ChartLegendContent />} />
-              <Bar
-                dataKey="facebook"
-                fill={mentionsByPeriodConfig.facebook.color}
-                stackId="a"
-                radius={[0, 0, 0, 0]}
-              />
-              <Bar
+              <Line
+                type="monotone"
                 dataKey="x"
-                fill={mentionsByPeriodConfig.x.color}
-                stackId="a"
-                radius={[0, 0, 0, 0]}
+                stroke={mentionsByPeriodConfig.x.color}
+                strokeWidth={2}
+                dot={false}
+                name={mentionsByPeriodConfig.x.label}
               />
-              <Bar
+              <Line
+                type="monotone"
+                dataKey="facebook"
+                stroke={mentionsByPeriodConfig.facebook.color}
+                strokeWidth={2}
+                dot={false}
+                name={mentionsByPeriodConfig.facebook.label}
+              />
+              <Line
+                type="monotone"
                 dataKey="instagram"
-                fill={mentionsByPeriodConfig.instagram.color}
-                stackId="a"
-                radius={[0, 0, 0, 0]}
+                stroke={mentionsByPeriodConfig.instagram.color}
+                strokeWidth={2}
+                dot={false}
+                name={mentionsByPeriodConfig.instagram.label}
               />
-              <Bar
-                dataKey="youtube"
-                fill={mentionsByPeriodConfig.youtube.color}
-                stackId="a"
-                radius={[0, 0, 0, 0]}
-              />
-              <Bar
+              <Line
+                type="monotone"
                 dataKey="tiktok"
-                fill={mentionsByPeriodConfig.tiktok.color}
-                stackId="a"
-                radius={[0, 0, 0, 0]}
+                stroke={mentionsByPeriodConfig.tiktok.color}
+                strokeWidth={2}
+                dot={false}
+                name={mentionsByPeriodConfig.tiktok.label}
               />
-              <Bar
-                dataKey="linkedin"
-                fill={mentionsByPeriodConfig.linkedin.color}
-                stackId="a"
-                radius={[4, 4, 0, 0]}
+              <Line
+                type="monotone"
+                dataKey="news"
+                stroke={mentionsByPeriodConfig.news.color}
+                strokeWidth={2}
+                dot={false}
+                name={mentionsByPeriodConfig.news.label}
               />
-            </BarChart>
+            </LineChart>
           </ChartContainer>
         </CardContent>
         <div className="absolute bottom-4 left-6">
           <div className="relative">
-            <div 
+            <div
               className="text-sm text-black flex items-center gap-2 cursor-pointer"
               onMouseEnter={() => setShowInsight1(true)}
               onMouseLeave={() => setShowInsight1(false)}
@@ -397,14 +398,14 @@ export function InsightCards() {
             />
           </div>
         </CardHeader>
-        <CardContent className="flex flex-col gap-2.5 pb-8">
-          <div className="max-h-96 overflow-y-auto">
+        <CardContent className="flex flex-col gap-3 mb-3 pb-8">
+          <div className="max-h-96 overflow-y-auto space-y-3">
             {(() => {
               const startIndex = (currentPage - 1) * itemsPerPage;
               const endIndex = startIndex + itemsPerPage;
               const currentItems = mentions.slice(startIndex, endIndex);
               return currentItems.map((feed) => (
-                <div key={feed.id} className="flex items-center gap-5">
+                <div key={feed.id} className="flex items-center gap-2">
                   <div
                     className="h-16 w-16 rounded-md bg-gray-700 bg-cover bg-center"
                     style={{ backgroundImage: `url(${feed.thumbnail})` }}
@@ -443,7 +444,7 @@ export function InsightCards() {
         </CardFooter>
         <div className="absolute bottom-4 left-6">
           <div className="relative">
-            <div 
+            <div
               className="text-sm text-black flex items-center gap-2 cursor-pointer"
               onMouseEnter={() => setShowInsight2(true)}
               onMouseLeave={() => setShowInsight2(false)}

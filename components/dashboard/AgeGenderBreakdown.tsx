@@ -34,15 +34,15 @@ const chartData = [
 const chartConfig = {
   male: {
     label: "Male",
-    color: "hsl(221, 83%, 53%)", // Blue
+    color: "#ff0c00", // Blue
   },
   female: {
     label: "Female",
-    color: "hsl(350, 89%, 60%)", // Pink
+    color: "#9c0274", // Pink
   },
   other: {
     label: "Other",
-    color: "hsl(142, 76%, 36%)", // Green
+    color: "#aea6cf", // Green
   },
 } satisfies ChartConfig;
 
@@ -65,14 +65,14 @@ function AgeGenderBreakdown() {
               accessibilityLayer
               data={chartData}
               margin={{ top: 10, right: 10, left: 10, bottom: 10 }}
-              barSize={10}
+              barSize={20}
               barGap={2}
             >
               <CartesianGrid vertical={false} />
               <XAxis
                 dataKey="ageGroup"
                 tickLine={false}
-                tickMargin={10}
+                tickMargin={15}
                 axisLine={false}
               />
               <ChartTooltip content={<ChartTooltipContent hideLabel />} />

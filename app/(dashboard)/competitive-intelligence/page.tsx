@@ -1,13 +1,13 @@
 
 import ShareOfVoiceByMentionsDonut from "@/components/dashboard/ShareOfVoiceByMentions";
 import ShareOfVoiceBySourceCard from "@/components/dashboard/ShareOfVoiceBySource";
-import SocialCoverage from "@/components/media/SocialCoverage";
+import CompetitiveIntelligenceTable from "@/components/media/CompetitiveIntelligenceTable";
 import React from "react";
 
 const networks = [
   {
     network: "instagram",
-    profil: "/glovo-logo.jpg",
+    profil: "/glovo/483195916_1532010537473174_2632696751857179851_n.jpg",
     username: "glovo_ma",
     name: "Glovo Maroc",
     followers: 122000,
@@ -34,7 +34,10 @@ const page = () => {
   return (
     <div className="@container/main flex flex-col">
       <div className="flex flex-col gap-5 container mx-auto">
-        <SocialCoverage networks={networks} />
+        <CompetitiveIntelligenceTable
+          networks={networks}
+          title="Analyse Concurrentielle"
+        />
         <ShareOfVoiceByMentionsDonut />
         <ShareOfVoiceBySourceCard />
         {/* <div className="grid grid-cols-2 gap-5">

@@ -11,6 +11,7 @@ import {
   Sliders,
   Cpu,
   type LucideIcon,
+  MedalIcon,
 } from "lucide-react";
 
 export interface NavSubItem {
@@ -86,14 +87,14 @@ export const sidebarItems: NavGroup[] = [
       },
       {
         title: "Veille concurrentielle",
-        url: "/reseaux-sociaux/ranking",
-        icon: BarChart2, // benchmarking / comparison charts
+        url: "/competitive-intelligence",
+        icon: BarChart2, 
       },
-      // {
-      //   title: "Brand Watch",
-      //   url: "/reseaux-sociaux/brand-watch",
-      //   icon: Megaphone, // brand monitoring
-      // }
+      {
+        title: "Classements",
+        url: "/reseaux-sociaux/ranking",
+        icon: MedalIcon ,
+      }
     ],
   },
   {
