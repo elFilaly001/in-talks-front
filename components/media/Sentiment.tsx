@@ -75,9 +75,9 @@ const Sentiment = () => {
             <KeywordsWithSentiment />
             <div className="grid grid-cols-4 gap-6">
                 <KeywordWithSetiments
-              label="Sentiment par type de source"
+              label="Répartition des Sentiments par Source"
               data={dataNetworks}
-              tooltip={`Montre la répartition des sentiments par type de source pour les 7 derniers jours. Survolez chaque barre pour voir le nombre et le pourcentage par type de sentiment. Utilisez ces données pour identifier quelles sources génèrent des conversations positives ou négatives.`}
+              tooltip={`Ce graphique montre la répartition des sentiments (positif, neutre, négatif) générés par la marque sur chaque plateforme sociale. Il permet d’identifier les canaux qui suscitent le plus d’engagement positif, ceux où les conversations sont plus mitigées, ainsi que les sources où le sentiment négatif est le plus élevé.`}
                 />
                 <TopLocationsWithSentiment/>
             </div>

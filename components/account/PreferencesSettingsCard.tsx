@@ -18,24 +18,24 @@ export default function PreferencesSettingsCard() {
   return (
     <Card className="rounded-lg border border-gray-200">
       <CardHeader>
-        <h3 className="text-xl font-semibold">Preferences & Settings</h3>
+        <h3 className="text-xl font-semibold">Préférences et paramètres</h3>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Left column */}
           <div className="space-y-6">
             <div>
-              <h4 className="font-medium mb-3">Change Password</h4>
+              <h4 className="font-medium mb-3">Changer le mot de passe</h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <InputWithLabel
-                  label="Current password"
+                  label="Mot de passe actuel"
                   name="currentPassword"
-                  placeHolder="Current password"
+                  placeHolder="Mot de passe actuel"
                 />
                 <InputWithLabel
-                  label="New password"
+                  label="Nouveau mot de passe"
                   name="newPassword"
-                  placeHolder="New password"
+                  placeHolder="Nouveau mot de passe"
                 />
               </div>
             </div>
@@ -50,7 +50,7 @@ export default function PreferencesSettingsCard() {
                     onChange={toggle("alerts")}
                     className="w-4 h-4 rounded"
                   />
-                  Alerts
+                  Alertes
                 </label>
                 <label className="flex items-center gap-3">
                   <input
@@ -59,7 +59,7 @@ export default function PreferencesSettingsCard() {
                     onChange={toggle("rankingDrops")}
                     className="w-4 h-4 rounded"
                   />
-                  Ranking drops
+                  Baisse du classement
                 </label>
                 <label className="flex items-center gap-3">
                   <input
@@ -68,7 +68,7 @@ export default function PreferencesSettingsCard() {
                     onChange={toggle("sentimentSpike")}
                     className="w-4 h-4 rounded"
                   />
-                  Sentiment spike
+                  Pic de sentiment
                 </label>
               </div>
             </div>
@@ -78,36 +78,36 @@ export default function PreferencesSettingsCard() {
           <div className="space-y-6">
             <div className="flex items-start gap-4">
               <div className="flex-1">
-                <h5 className="font-medium">Brand Management</h5>
-                <p className="text-sm text-gray-600">Manage brands and access for your account.</p>
+                <h5 className="font-medium">Gestion des marques</h5>
+                <p className="text-sm text-gray-600">Gérer les marques et les accès pour votre compte.</p>
               </div>
               <div>
                 <Button className="bg-gradient-to-br from-[#3fb3ff] to-[#36a2f0] text-white shadow-lg h-10">
-                  Manage Brands
+                  Gérer les marques
                 </Button>
               </div>
             </div>
 
             <div className="flex items-start gap-4">
               <div className="flex-1">
-                <h5 className="font-medium">Manage Subscription</h5>
-                <p className="text-sm text-gray-600">Change or view subscription details.</p>
+                <h5 className="font-medium">Gérer l&apos;abonnement</h5>
+                <p className="text-sm text-gray-600">Modifier ou consulter les détails de l&apos;abonnement.</p>
               </div>
               <div>
                 <Button className="bg-gradient-to-br from-[#3fb3ff] to-[#36a2f0] text-white shadow-lg h-10">
-                  Upgrade Subscription
+                  Mettre à niveau l&apos;abonnement
                 </Button>
               </div>
             </div>
 
             <div className="flex items-start gap-4">
               <div className="flex-1">
-                <h5 className="font-medium">Add users</h5>
-                <p className="text-sm text-gray-600">Invite new team members and set roles.</p>
+                <h5 className="font-medium">Ajouter des utilisateurs</h5>
+                <p className="text-sm text-gray-600">Inviter de nouveaux membres et définir des rôles.</p>
               </div>
               <div>
                 <Button className="bg-gradient-to-br from-[#3fb3ff] to-[#36a2f0] text-white shadow-lg h-10">
-                  Invite user
+                  Inviter un utilisateur
                 </Button>
               </div>
             </div>

@@ -47,59 +47,59 @@ export default function AccountInformationCard({
   return (
     <Card className="rounded-lg border border-gray-200">
       <CardHeader>
-        <h3 className="text-xl font-semibold">My personal information</h3>
+        <h3 className="text-xl font-semibold">Mes informations personnelles</h3>
       </CardHeader>
       <CardContent className="relative">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <InputWithLabel
-            label="Full name"
+            label="Nom complet"
             name="fullName"
-            placeHolder="John Doe"
+            placeHolder="Jean Dupont"
             value={form.fullName}
             onChange={handleChange("fullName")}
           />
           <InputWithLabel
-            label="Email address"
+            label="Adresse e-mail"
             name="email"
-            placeHolder="john.doe@example.com"
+            placeHolder="jean.dupont@exemple.com"
             type="email"
             value={form.email}
             onChange={handleChange("email")}
           />
 
           <InputWithLabel
-            label="Company name"
+            label="Nom de l'entreprise"
             name="company"
-            placeHolder="Acme Corp"
+            placeHolder="Acme SARL"
             value={form.company}
             onChange={handleChange("company")}
           />
           <InputWithLabel
-            label="Job title"
+            label="Fonction"
             name="jobTitle"
-            placeHolder="Product Manager"
+            placeHolder="Chef de produit"
             value={form.jobTitle}
             onChange={handleChange("jobTitle")}
           />
 
           <InputWithLabel
-            label="Website"
+            label="Site web"
             name="website"
-            placeHolder="https://example.com"
+            placeHolder="https://exemple.com"
             value={form.website}
             onChange={handleChange("website")}
           />
           <InputWithLabel
-            label="Country"
+            label="Pays"
             name="country"
-            placeHolder="Morocco"
+            placeHolder="Maroc"
             value={form.country}
             onChange={handleChange("country")}
           />
 
           <div className="flex flex-col gap-1.5">
             <label htmlFor="language" className="text-xs">
-              Language
+              Langue
             </label>
             <select
               id="language"
@@ -107,10 +107,10 @@ export default function AccountInformationCard({
               onChange={handleChange("language")}
               className="h-10 rounded-md border border-gray-200 px-3 text-sm placeholder:text-gray-600"
             >
-              <option>English</option>
-              <option>Français</option>
-              <option>العربية</option>
-              <option>Español</option>
+              <option value="English">Anglais</option>
+              <option value="Français">Français</option>
+              <option value="العربية">العربية</option>
+              <option value="Español">Español</option>
             </select>
           </div>
         </div>
@@ -121,7 +121,7 @@ export default function AccountInformationCard({
             onClick={handleSave}
             className="bg-gradient-to-br from-[#3fb3ff] to-[#36a2f0] text-white shadow-lg h-10 px-4 rounded-md hover:opacity-95"
           >
-            Save
+            Enregistrer
           </Button>
         </div>
       </CardContent>

@@ -24,7 +24,7 @@ const reports = [
   },
   {
     id: "mentions",
-    title: "Rapport de mentions",
+    title: "Rapport des mentions",
     desc: "Suivez les mentions totales et journalières sur l'ensemble des canaux pour comprendre les pics de visibilité et les tendances d'activité de l'audience.",
     href: "/reports/mentions-summary",
     Icon: MessageCircle,
@@ -32,7 +32,7 @@ const reports = [
   },
   {
     id: "sentiment",
-    title: "Rapport de sentiment",
+    title: "Rapport des sentiments",
     desc: "Analysez le ton des conversations pour identifier les tendances positives, neutres et négatives qui influencent la réputation de votre marque.",
     href: "/reports/sentiment",
     Icon: Smile,
@@ -62,7 +62,7 @@ const Page = () => {
           Rapports
         </h2>
         <p className="mt-1 text-sm sm:text-base text-muted-foreground max-w-3xl">
-          Générez et téléchargez des rapports détaillés sur vos performances sur
+          Téléchargez des rapports détaillés sur vos performances sur
               les réseaux sociaux, les insights d&apos;audience et plus encore.
         </p>
       </div>

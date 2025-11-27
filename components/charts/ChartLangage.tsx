@@ -16,9 +16,9 @@ const ChartLangage = ({ data }: { data: JSON }) => {
     <Card className="flex flex-col rounded-md gap-5 relative">
       <CardHeader className="pb-0">
         <div className="flex items-center gap-2">
-          <CardTitle>Langues principales</CardTitle>
+          <CardTitle>Répartition des Langues</CardTitle>
           <ToolTipsProvider
-            title={`Ce graphique illustre la répartition des langues utilisées dans les mentions, offrant des informations sur la diversité linguistique et la portée du contenu.`}
+            title={`Langues parlées par l’audience.`}
           />
         </div>
       </CardHeader>

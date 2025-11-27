@@ -151,9 +151,9 @@ function MentionsBySentiments() {
     <Card className="@container/card col-span-2 relative">
       <CardHeader>
         <div className="flex items-center gap-2">
-          <CardTitle>Tendance des sentiments</CardTitle>
+          <CardTitle>Tendance des Sentiments</CardTitle>
           <ToolTipsProvider
-            title={`Affiche la tendance des sentiments sur les 7 derniers jours. Survolez chaque point pour voir le nombre de mentions par type de sentiment. Utilisez ces données pour suivre l'évolution de l'humeur du public et identifier les événements clés.`}
+            title={`Visualise l’évolution des sentiments positifs, neutres et négatifs associés à la marque sur une période donnée. Ce graphique permet d’identifier les fluctuations émotionnelles, de repérer les pics d’engagement et de comprendre les moments clés influençant la perception du public.`}
           />
         </div>
       </CardHeader>

@@ -67,8 +67,8 @@ export default function TopLocationsWithSentiment() {
     <Card className="@container/card col-span-2 relative">
       <CardHeader>
         <div className="flex items-center gap-2">
-          <CardTitle>Top des localisations par sentiment</CardTitle>
-          <ToolTipsProvider title="Distribution des sentiments pour les principales villes marocaines. Survolez pour le contexte." />
+          <CardTitle>Analyse des Sentiments par Ville</CardTitle>
+          <ToolTipsProvider title="Ce graphique présente les villes qui génèrent le plus de mentions sur la marque, accompagnées de leur répartition en sentiments positifs, neutres et négatifs. Il permet d’identifier les zones géographiques les plus engagées et de comprendre la perception locale de la marque." />
         </div>
       </CardHeader>
 

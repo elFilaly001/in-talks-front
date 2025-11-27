@@ -51,7 +51,7 @@ const defaultBrands: BrandItem[] = [
   { name: "Adidas", logo: "https://logo.clearbit.com/adidas.com", value: 3 },
 ];
 
-const BrandAffinity = ({ title = "Audience brand affinity", data = defaultBrands }:{ title?: string; data?: BrandItem[] }) => {
+const BrandAffinity = ({ title = "Marques préférées de l’audience", data = defaultBrands }:{ title?: string; data?: BrandItem[] }) => {
   const [showInsight, setShowInsight] = useState(false);
 
   return (
@@ -60,7 +60,7 @@ const BrandAffinity = ({ title = "Audience brand affinity", data = defaultBrands
         <div className="flex items-center gap-2">
           <CardTitle>{title}</CardTitle>
           <ToolTipsProvider
-            title={`Affiche l'affinité de l'audience pour les marques listées — utile pour repérer les marques les plus associées à votre public.`}
+            title={`Identifie les marques préférées de l’audience à partir des légendes, mentions, hashtags et tags de localisation.`}
           />
         </div>
       </CardHeader>

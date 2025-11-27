@@ -6,17 +6,17 @@ import SubscriptionBillingCard from "@/components/account/SubscriptionBillingCar
 
 const tabs = [
   {
-    label: "Account",
+    label: "Compte",
     value: "account",
     component: <AccountInformationCard />,
   },
   {
-    label: "Preference & Settings",
+    label: "Préférences et paramètres",
     value: "preference-settings",
     component: <PreferencesSettingsCard />,
   },
   {
-    label: "Subscription & Billing",
+    label: "Abonnement et facturation",
     value: "subscription-billing",
     component: <SubscriptionBillingCard />,
   },

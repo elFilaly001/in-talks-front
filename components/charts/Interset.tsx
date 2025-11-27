@@ -17,7 +17,7 @@ const Interset = ({ title, data }: { title: string; data: JSON }) => {
         <div className="flex items-center gap-2">
           <CardTitle>{title}</CardTitle>
           <ToolTipsProvider
-            title={`Interset affiche la répartition en pourcentage des mentions selon les pays, permettant d'identifier les zones géographiques clés d'intérêt et d'engagement.`}
+            title={`Ce qui intéresse l’audience, basé sur l’analyse des publications : textes de légende, @mentions, hashtags et tags de localisation.`}
           />
         </div>
       </CardHeader>

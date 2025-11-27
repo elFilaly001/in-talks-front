@@ -115,6 +115,8 @@ const FilterSource = () => {
     { label: "Facebook", value: "Facebook" },
     { label: "Instagram", value: "Instagram" },
     { label: "Tiktok", value: "Tiktok" },
+    { label: "LinkedIn", value: "LinkedIn" },
+    { label: "X", value: "Twitter" },
     { label: "Youtube", value: "YouTube" },
     { label: "Presse", value: "Presse" },
   ];
@@ -204,7 +206,7 @@ const FilterSentiment = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className=" font-semibold">Sentiment</CardTitle>
+        <CardTitle className=" font-semibold">Sentiments</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-3 gap-5">

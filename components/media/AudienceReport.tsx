@@ -436,7 +436,7 @@ const AudienceReport = () => {
                     Répartition de la portée de l&apos;audience
                   </CardTitle>
                   <ToolTipsProvider
-                    title={`Pour déterminer le score de crédibilité des abonnés pour les comptes historiques, nous évaluons plusieurs facteurs, dont la présence d&apos;une photo de profil et d&apos;une bio, le nombre de publications et le ratio entre abonnés et abonnements. Les marques avec une audience authentique atteignent généralement des scores de 80 ou plus.`}
+                    title={`Affiche le pourcentage d’abonnés segmentés selon le nombre de comptes qu’ils suivent : plus de 1 500, entre 1 000 et 1 500, entre 500 et 1 000, et moins de 500. Les abonnés qui suivent plus de 1 500 comptes sont moins susceptibles de voir le contenu sponsorisé.`}
                   />
                 </div>
               </CardHeader>
@@ -529,7 +529,7 @@ const AudienceReport = () => {
               <CountriesSplit
                 title="Abonnés par pays"
                 data={JSON.parse(data.countries.toString())}
-                tooltip={`Localisation de l&apos;audience par pays.`}
+                tooltip={`Localisation de l’audience par pays.`}
               />
             )}
 
@@ -537,7 +537,7 @@ const AudienceReport = () => {
               <CountriesSplit
                 title="Abonnés par ville"
                 data={JSON.parse(data.cities.toString())}
-                tooltip={`Localisation de l&apos;audience par ville.`}
+                tooltip={`Localisation de l’audience par ville`}
               />
             )}
 

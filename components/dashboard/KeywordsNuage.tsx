@@ -51,7 +51,7 @@ const KeywordsNuage = ({ keywords }: { keywords: KeywordData[] }) => {
             Nuage de Mots
           </CardTitle>
           <ToolTipsProvider
-            title={`A visual representation of the most frequently mentioned keywords related to Glovo Maroc, highlighting trending topics and themes.`}
+            title={`Une représentation visuelle des mots-clés les plus fréquemment mentionnés, mettant en avant les sujets et tendances émergents.`}
           />
         </div>
       </CardHeader>

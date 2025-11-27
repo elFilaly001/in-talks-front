@@ -239,7 +239,7 @@ const WordCloud = () => {
       <CardHeader>
         <div className="flex items-center gap-2">
           <CardTitle>Nuage des Thématiques</CardTitle>
-          <ToolTipsProvider title="Nuage de mots interactif affichant les mentions principales liées à la livraison de nourriture avec des thèmes codés par couleur. Cuisines émergentes (vert), préférences en baisse (rouge) et nouvelles tendances (bleu). Survolez les mots pour voir leur popularité et leur catégorisation en arabe, français et anglais." />
+          <ToolTipsProvider title="Visualisation des principaux thèmes associés aux conversations autour de la marque. La taille des mots reflète leur fréquence, tandis que les couleurs indiquent leur dynamique : thèmes émergents, thèmes en baisse, ou nouveaux sujets observés dans les discussions." />
         </div>
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">

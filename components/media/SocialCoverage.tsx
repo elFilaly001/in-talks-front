@@ -1,6 +1,6 @@
 
 "use client";
-import React, { useMemo, useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import DataTable, { TableColumn } from "react-data-table-component";
 import formatNumber from "@/lib/numbers";
@@ -19,53 +19,6 @@ export interface Network {
   metrics: string;
 }
 
-// sample competitors to append when there are too few rows or when user wants examples
-const SAMPLE_NETWORKS: Network[] = [
-  {
-    network: "instagram",
-    profil: "/media/jumiafood.jpg",
-    username: "jumiafood",
-    name: "JumiaFood",
-    followers: 480000,
-    er: 2.4,
-    avgEngage: 11500,
-    avgViews: 60000,
-    metrics: "78",
-  },
-  {
-    network: "instagram",
-    profil: "/media/careemnow.jpg",
-    username: "careemnow",
-    name: "CareemNow",
-    followers: 210000,
-    er: 1.9,
-    avgEngage: 4000,
-    avgViews: 22000,
-    metrics: "71",
-  },
-  {
-    network: "instagram",
-    profil: "/media/yassir.jpg",
-    username: "yassir",
-    name: "Yassir",
-    followers: 75000,
-    er: 1.5,
-    avgEngage: 1100,
-    avgViews: 6000,
-    metrics: "65",
-  },
-  {
-    network: "instagram",
-    profil: "/media/glovo.jpg",
-    username: "glovo",
-    name: "Glovo",
-    followers: 390000,
-    er: 3.0,
-    avgEngage: 11700,
-    avgViews: 65000,
-    metrics: "82",
-  },
-];
 
 const SocialCoverage = ({ networks }: { networks: Network[] }) => {
   const [selectedSource, setSelectedSource] = useState<string>("all");
@@ -108,38 +61,6 @@ const SocialCoverage = ({ networks }: { networks: Network[] }) => {
 
 
 
-  // merge incoming networks with sampleNetworks but avoid duplicates by username
-  const mergedNetworks = useMemo(() => {
-    const map = new Map<string, Network>();
-    // add provided networks first
-    (networks || []).forEach((n) => {
-      if (n && n.username) map.set(n.username, n);
-    });
-    // add samples if they don't exist
-    SAMPLE_NETWORKS.forEach((s) => {
-      if (!map.has(s.username)) map.set(s.username, s);
-    });
-    return Array.from(map.values());
-  }, [networks]);
-
-  // apply source filter and ensure we have at least 6 rows by appending samples if needed
-  const displayedNetworks = useMemo(() => {
-    const filtered =
-      selectedSource === "all"
-        ? mergedNetworks
-        : mergedNetworks.filter((n) => n.network === selectedSource);
-
-    if (filtered.length >= 6) return filtered;
-
-    // append from SAMPLE_NETWORKS to reach 6 rows (avoid duplicates)
-    const result = [...filtered];
-    for (const s of SAMPLE_NETWORKS) {
-      if (result.length >= 6) break;
-      if (!result.find((r) => r.username === s.username)) result.push(s);
-    }
-    return result;
-  }, [mergedNetworks, selectedSource]);
-
   const columns: TableColumn<Network>[] = [
     {
       name: (
@@ -151,6 +72,7 @@ const SocialCoverage = ({ networks }: { networks: Network[] }) => {
               onClick={() => setShowSourceMenu((s) => !s)}
               className="flex items-center gap-2 border px-2 py-1 rounded-md bg-white text-sm"
             >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={selectedSource === "all" ? "/media/instagram.png" : `/media/${selectedSource}.png`}
                 alt={selectedSource}
@@ -181,26 +103,32 @@ const SocialCoverage = ({ networks }: { networks: Network[] }) => {
                   }}
                 >
                   <li className="px-3 py-2 hover:bg-slate-50 cursor-pointer flex items-center gap-2" onClick={() => { setSelectedSource("all"); setShowSourceMenu(false); }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/media/instagram.png" alt="instagram" width={16} height={16} />
                     <span>Instagram</span>
                   </li>
                   <li className="px-3 py-2 hover:bg-slate-50 cursor-pointer flex items-center gap-2" onClick={() => { setSelectedSource("tiktok"); setShowSourceMenu(false); }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/media/tiktok.png" alt="tiktok" width={16} height={16} />
                     <span>TikTok</span>
                   </li>
                   <li className="px-3 py-2 hover:bg-slate-50 cursor-pointer flex items-center gap-2" onClick={() => { setSelectedSource("x"); setShowSourceMenu(false); }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/media/x.png" alt="x" width={16} height={16} />
                     <span>X</span>
                   </li>
                   <li className="px-3 py-2 hover:bg-slate-50 cursor-pointer flex items-center gap-2" onClick={() => { setSelectedSource("youtube"); setShowSourceMenu(false); }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/media/youtube.png" alt="youtube" width={16} height={16} />
                     <span>YouTube</span>
                   </li>
                   <li className="px-3 py-2 hover:bg-slate-50 cursor-pointer flex items-center gap-2" onClick={() => { setSelectedSource("facebook"); setShowSourceMenu(false); }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/media/facebook.png" alt="facebook" width={16} height={16} />
                     <span>Facebook</span>
                   </li>
                   <li className="px-3 py-2 hover:bg-slate-50 cursor-pointer flex items-center gap-2" onClick={() => { setSelectedSource("linkedin"); setShowSourceMenu(false); }}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/media/linkedin.png" alt="linkedin" width={16} height={16} />
                     <span>LinkedIn</span>
                   </li>

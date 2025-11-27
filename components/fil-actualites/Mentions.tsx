@@ -371,7 +371,7 @@ const Mentions = () => {
         <div className="flex items-center gap-2 justify-between w-full">
           <div className="flex items-center gap-2">
             <CardTitle className="text-lg">Feed des Mentions</CardTitle>
-            <ToolTipsProvider title="Recent mentions feed displaying the latest social media conversations and insights." />
+            <ToolTipsProvider title="Flux en temps réel regroupant toutes les mentions de la marque issues des réseaux sociaux et des sources médiatiques." />
           </div>
           <div className="flex items-center gap-2">
             <Button size="sm" variant="outline" onClick={handleDownloadMentions}>Télécharger</Button>
