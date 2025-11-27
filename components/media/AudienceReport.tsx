@@ -4,7 +4,7 @@ import ChartLangage from "../charts/ChartLangage";
 import CountriesSplit from "../charts/CountriesSplit";
 import QualitySplit from "../charts/QualitySplit";
 import AgeGenderBreakdown from "../dashboard/AgeGenderBreakdown";
-import SocialCoverage from "./SocialCoverage";
+import AudienceSocialTable from "./AudienceSocialTable";
 import { Bar, BarChart, XAxis, YAxis } from "recharts";
 import {
   Card,
@@ -179,7 +179,7 @@ const chartConfig2 = {
 const networks = [
   {
     network: "instagram",
-    profil: "/media/instagram-profile.png",
+    profil: "/glovo/483195916_1532010537473174_2632696751857179851_n.jpg",
     username: "glovo_maroc",
     name: "Glovo Maroc",
     followers: 122000,
@@ -190,7 +190,7 @@ const networks = [
   },
   {
     network: "x",
-    profil: "/media/x-profile.png",
+    profil: "/glovo/483195916_1532010537473174_2632696751857179851_n.jpg",
     username: "glovo_x",
     name: "Glovo Maroc",
     followers: 45000,
@@ -201,7 +201,7 @@ const networks = [
   },
   {
     network: "facebook",
-    profil: "/media/facebook-profile.png",
+    profil: "/glovo/483195916_1532010537473174_2632696751857179851_n.jpg",
     username: "glovo.fb",
     name: "Glovo Maroc",
     followers: 98000,
@@ -212,7 +212,7 @@ const networks = [
   },
   {
     network: "youtube",
-    profil: "/media/youtube-profile.png",
+    profil: "/glovo/483195916_1532010537473174_2632696751857179851_n.jpg",
     username: "glovo_youtube",
     name: "Glovo Maroc",
     followers: 32000,
@@ -426,10 +426,7 @@ const AudienceReport = () => {
           </p>
         </div>
       </div>
-      <SocialCoverage networks={networks} />
-      {/* {postingFrequency && (
-        <PostingFrequency data={postingFrequency.postingFrequency} />
-      )} */}
+      <AudienceSocialTable networks={networks} />
 
       {data && (
         <div className="overflow-x-auto">
@@ -524,34 +521,34 @@ const AudienceReport = () => {
             <AgeGenderBreakdown />
 
             {/* Group the last three cards into a single full-width row with an inner 3-column grid */}
-            
 
-                {data.countries && (
-                  <CountriesSplit
-                    title="Abonnés par pays"
-                    data={JSON.parse(data.countries.toString())}
-                    tooltip={`Localisation de l&apos;audience par pays.`}
-                  />
-                )}
 
-                {data.cities && (
-                  <CountriesSplit
-                    title="Abonnés par ville"
-                    data={JSON.parse(data.cities.toString())}
-                    tooltip={`Localisation de l&apos;audience par ville.`}
-                  />
-                )}
+            {data.countries && (
+              <CountriesSplit
+                title="Abonnés par pays"
+                data={JSON.parse(data.countries.toString())}
+                tooltip={`Localisation de l&apos;audience par pays.`}
+              />
+            )}
 
-                {data.interest && (
-                  <Interset
-                    title="Affinité d&apos;intérêt de l&apos;audience"
-                    data={JSON.parse(data.interest.toString())}
-                  />
-                )}
-                
-                {data.language && JSON.stringify(data.language) !== "{}" && (
-                  <ChartLangage data={JSON.parse(data.language.toString())} />
-                )}
+            {data.cities && (
+              <CountriesSplit
+                title="Abonnés par ville"
+                data={JSON.parse(data.cities.toString())}
+                tooltip={`Localisation de l&apos;audience par ville.`}
+              />
+            )}
+
+            {data.interest && (
+              <Interset
+                title="Affinité d&apos;intérêt de l&apos;audience"
+                data={JSON.parse(data.interest.toString())}
+              />
+            )}
+
+            {data.language && JSON.stringify(data.language) !== "{}" && (
+              <ChartLangage data={JSON.parse(data.language.toString())} />
+            )}
           </div>
         </div>
       )}

@@ -38,7 +38,8 @@ const companies = [
   { key: "CareemNow", label: "CareemNow", color: "var(--chart-2)" },
   { key: "Yassir", label: "Yassir", color: "var(--chart-3)" },
   { key: "Koul", label: "Koul", color: "var(--chart-4)" },
-  { key: "Glovo", label: "Glovo", color: "var(--chart-5)" },
+  {key: "livry", label: "Livry", color: "var(--chart-5)"},
+  { key: "Glovo", label: "Glovo", color: "var(--chart-6)" },
 ];
 
 const chartConfig: ChartConfig = companies.reduce((acc, c) => {
@@ -49,12 +50,12 @@ const chartConfig: ChartConfig = companies.reduce((acc, c) => {
 // Example competitive data per source (values are illustrative — replace with real data)
 // Raw mention counts per source (these will be normalized to percentage shares per row)
 const rawData: Array<Record<string, number | string>> = [
-  { source: "Instagram", JumiaFood: 320, CareemNow: 220, Yassir: 180, Koul: 150, Glovo: 130 },
-  { source: "Facebook", JumiaFood: 280, CareemNow: 200, Yassir: 180, Koul: 180, Glovo: 160 },
-  { source: "Tiktok", JumiaFood: 350, CareemNow: 250, Yassir: 200, Koul: 120, Glovo: 80 },
-  { source: "X", JumiaFood: 250, CareemNow: 200, Yassir: 150, Koul: 200, Glovo: 200 },
-  { source: "Youtube", JumiaFood: 300, CareemNow: 240, Yassir: 180, Koul: 160, Glovo: 120 },
-  { source: "Press", JumiaFood: 3430, CareemNow: 3330, Yassir: 4180, Koul: 3460, Glovo: 1320 },
+  { source: "Instagram", JumiaFood: 320, CareemNow: 220, Yassir: 180, Koul: 150, livry: 90, Glovo: 130 },
+  { source: "Facebook", JumiaFood: 280, CareemNow: 200, Yassir: 180, Koul: 180, livry: 160, Glovo: 160 },
+  { source: "Tiktok", JumiaFood: 350, CareemNow: 250, Yassir: 200, Koul: 120, livry: 80, Glovo: 80 },
+  { source: "X", JumiaFood: 250, CareemNow: 200, Yassir: 150, Koul: 200, livry: 200, Glovo: 200 },
+  { source: "Youtube", JumiaFood: 300, CareemNow: 240, Yassir: 180, Koul: 160, livry: 120, Glovo: 120 },
+  { source: "Press", JumiaFood: 430, CareemNow: 330, Yassir: 180, Koul: 460, livry: 320, Glovo: 320 },
 ];
 
 // Normalize counts into percentage shares per source (each row sums to ~100)
