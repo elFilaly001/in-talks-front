@@ -57,7 +57,7 @@ export default function TopEditorialSource() {
       <CardHeader>
         <div className="flex items-center gap-2">
           <CardTitle>Top des sources éditoriales</CardTitle>
-          <ToolTipsProvider title="Mentions récentes provenant de diverses sources, offrant un accès rapide aux conversations et insights." />
+          <ToolTipsProvider title="Affiche les principales sources éditoriales selon le nombre de mentions. Utilisez ces données pour identifier les publications clés pour les relations publiques et la communication." />
         </div>
       </CardHeader>
 

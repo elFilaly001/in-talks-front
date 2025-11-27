@@ -52,7 +52,7 @@ export default function TopSharedLinks({ feeds = [] as Feed[] }) {
       <CardHeader>
         <div className="flex items-center gap-2">
           <CardTitle>Top des liens partagés</CardTitle>
-          <ToolTipsProvider title="Mentions récentes provenant de diverses sources, offrant un accès rapide aux conversations et aux insights." />
+          <ToolTipsProvider title="Affiche les blogs les plus mentionnés. Utilisez ces données pour identifier les blogs les plus référencés par votre audience." />
         </div>
       </CardHeader>
 
