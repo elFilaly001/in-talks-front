@@ -45,7 +45,7 @@ function ShareOfVoice() {
     <Card className="flex flex-col relative">
       <CardHeader className="items-center">
         <div className="flex items-center gap-2">
-          <CardTitle>Part de voix</CardTitle>
+          <CardTitle>Part de Voix</CardTitle>
           <ToolTipsProvider
             title={`Affiche la répartition des conversations par mots-clés. Met en évidence les termes les plus mentionnés et permet d’évaluer leur part de visibilité relative`}
           />

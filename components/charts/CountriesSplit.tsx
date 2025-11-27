@@ -38,7 +38,7 @@ const CountriesSplit = ({
         {countries.map((country, index) => {
           const isCity = title?.toLowerCase().includes("ville") || title?.toLowerCase().includes("city");
           const name = String(country.country || "");
-          const isUndetermined = name.toLowerCase().includes("undetermined") || name.toLowerCase().includes("undetermined");
+          // const isUndetermined = name.toLowerCase().includes("undetermined") || name.toLowerCase().includes("undetermined");
 
           return (
             <div key={index} className="flex flex-col gap-2.5">

@@ -70,7 +70,7 @@ function QualitySplit({ percentages }: ChartGenderSplitProps) {
 
       <CardHeader className="pb-0">
         <div className="flex items-center gap-2">
-          <CardTitle className="">Authenticité de l’audience</CardTitle>
+          <CardTitle className="">Authenticité de l’Audience</CardTitle>
           <ToolTipsProvider
             title={`Pour déterminer le score de crédibilité des abonnés pour les comptes historiques, nous évaluons plusieurs facteurs, notamment la présence d'une photo de profil et d’une bio, le nombre de publications, ainsi que le ratio entre abonnés et abonnements. Les marques disposant d’une audience authentique obtiennent généralement des scores de 80 ou plus.`}
           />

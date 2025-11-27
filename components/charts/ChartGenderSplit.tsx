@@ -80,7 +80,7 @@ function ChartGenderSplit({ percentages }: ChartGenderSplitProps) {
 
       <CardHeader className="pb-0">
         <div className="flex items-center gap-2">
-          <CardTitle>Répartition par genre</CardTitle>
+          <CardTitle>Répartition par Genre</CardTitle>
           <ToolTipsProvider
             title={`La répartition du genre de l’audience est déterminée en analysant plusieurs indicateurs, tels que la photo de profil, le nom, le texte de la bio et les selfies des publications récentes.`}
           />

@@ -19,7 +19,7 @@ export function SectionCards() {
           <MessageSquare className="h-5 w-5 text-blue-600 dark:text-blue-400" />
         </div>
         <CardHeader>
-          <CardDescription>Mentions totales</CardDescription>
+          <CardDescription>Mentions Totales</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
             11,780
           </CardTitle>

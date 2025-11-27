@@ -54,9 +54,9 @@ const ChartSetiment = () => {
     <Card className="col-span-1 relative">
       <CardHeader>
         <div className="flex items-center gap-2">
-          <CardTitle className="">Tendance du sentiment</CardTitle>
+          <CardTitle className="">Répartition des Mentions par Sentiment</CardTitle>
           <ToolTipsProvider
-            title={`Affiche la répartition globale des sentiments (positif/neutre/négatif) pour la période sélectionnée et met en avant le sentiment dominant. Utile pour suivre l'évolution de la perception du sujet.`}
+            title={`Affiche la distribution des mentions selon leur tonalité (positive, neutre ou négative) pour la période sélectionnée, permettant d’identifier le sentiment dominant et d’évaluer la perception globale de la marque.`}
           />
         </div>
       </CardHeader>

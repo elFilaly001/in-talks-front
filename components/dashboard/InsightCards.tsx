@@ -291,7 +291,7 @@ export function InsightCards() {
       <Card className="col-span-1 xl:col-span-2 relative">
         <CardHeader>
           <div className="flex items-center gap-2">
-            <CardTitle>Répartition des mentions par source</CardTitle>
+            <CardTitle>Répartition des Mentions par Source</CardTitle>
             <ToolTipsProvider
               title="Répartition des mentions sur différentes sources (ex : Facebook, X, Instagram) au fil du temps. Utilisez cela pour voir quels canaux génèrent le plus de conversations."
             />
@@ -392,7 +392,7 @@ export function InsightCards() {
       <Card className="col-span-1 xl:col-span-2 relative">
         <CardHeader>
           <div className="flex items-center gap-2">
-            <CardTitle>Dernières mentions</CardTitle>
+            <CardTitle>Dernières Mentions</CardTitle>
             <ToolTipsProvider
               title="Dernières mentions provenant de différentes sources, offrant un accès rapide aux conversations et insights récents."
             />

@@ -463,7 +463,7 @@ const AudienceReport = () => {
               <CardHeader>
                 <div className="flex items-center gap-2">
                   <CardTitle>
-                    Répartition de la portée de l&apos;audience
+                    Répartition de la Portée de l&apos;Audience
                   </CardTitle>
                   <ToolTipsProvider
                     title={`Affiche le pourcentage d’abonnés segmentés selon le nombre de comptes qu’ils suivent : plus de 1 500, entre 1 000 et 1 500, 500 à 1 000, et moins de 500. Les abonnés qui suivent plus de 1 500 comptes sont moins susceptibles de voir du contenu sponsorisé.`}
@@ -556,7 +556,7 @@ const AudienceReport = () => {
 
             {data.countries && (
               <CountriesSplit
-                title="Abonnés par pays"
+                title="Abonnés par Pays"
                 data={JSON.parse(data.countries.toString())}
                 tooltip={`Localisation de l’audience par pays.`}
               />
@@ -564,7 +564,7 @@ const AudienceReport = () => {
 
             {data.cities && (
               <CountriesSplit
-                title="Abonnés par ville"
+                title="Abonnés par Ville"
                 data={JSON.parse(data.cities.toString())}
                 tooltip={`Localisation de l’audience par ville`}
               />
@@ -572,7 +572,7 @@ const AudienceReport = () => {
 
             {data.interest && (
               <Interset
-                title="Affinité d&apos;intérêt de l&apos;audience"
+                title="Affinité d&apos;Intérêt de l&apos;Audience"
                 data={JSON.parse(data.interest.toString())}
               />
             )}

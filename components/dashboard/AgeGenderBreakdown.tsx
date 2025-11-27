@@ -53,7 +53,7 @@ function AgeGenderBreakdown() {
     <Card className="relative">
         <CardHeader>
           <div className="flex items-center gap-2">
-            <CardTitle>Répartition par âge et genre</CardTitle>
+            <CardTitle>Répartition par Age et Genre</CardTitle>
             <ToolTipsProvider
               title={`La répartition par âge et genre fournit des informations sur la distribution de votre audience selon les groupes d'âge et les genres, afin d'adapter vos contenus et stratégies marketing.`}
             />
