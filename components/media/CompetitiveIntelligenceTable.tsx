@@ -4,6 +4,19 @@ import { createPortal } from "react-dom";
 import DataTable, { TableColumn } from "react-data-table-component";
 import formatNumber from "@/lib/numbers";
 import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+    DialogFooter,
+    DialogClose,
+} from "../ui/dialog";
+import { Plus } from "lucide-react";
 
 export interface Network {
     network: string;
@@ -367,6 +380,41 @@ const SAMPLE_NETWORKS: Network[] = [
     },
 ];
 
+const NETWORKS_OPTIONS = [
+    { value: "instagram", label: "Instagram" },
+    { value: "facebook", label: "Facebook" },
+    { value: "tiktok", label: "TikTok" },
+    { value: "x", label: "X" },
+    { value: "youtube", label: "YouTube" },
+    { value: "linkedin", label: "LinkedIn" },
+];
+
+interface NewCompetitorForm {
+    name: string;
+    profil: string;
+    instagram: string;
+    facebook: string;
+    tiktok: string;
+    x: string;
+    youtube: string;
+    linkedin: string;
+}
+
+const extractUsername = (input: string): string => {
+    if (!input) return "";
+    // If it's a URL, extract the username
+    try {
+        const url = new URL(input);
+        const pathname = url.pathname.replace(/^\/+|\/+$/g, ""); // Remove leading/trailing slashes
+        // Handle different URL patterns
+        const parts = pathname.split("/");
+        return parts[0] || "";
+    } catch {
+        // Not a URL, return as-is (remove @ if present)
+        return input.replace(/^@/, "");
+    }
+};
+
 const CompetitiveIntelligenceTable = ({
     networks,
     title = "Analyse Concurrentielle"
@@ -376,6 +424,61 @@ const CompetitiveIntelligenceTable = ({
     const menuAnchorRef = useRef<HTMLDivElement | null>(null);
     const menuRef = useRef<HTMLUListElement | null>(null);
     const [menuPosition, setMenuPosition] = useState<{ top: number; left: number; width: number } | null>(null);
+
+    // State for managing custom competitors
+    const [customCompetitors, setCustomCompetitors] = useState<Network[]>([]);
+    const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+    const [newCompetitor, setNewCompetitor] = useState<NewCompetitorForm>({
+        name: "",
+        profil: "",
+        instagram: "",
+        facebook: "",
+        tiktok: "",
+        x: "",
+        youtube: "",
+        linkedin: "",
+    });
+
+    const handleAddCompetitor = () => {
+        if (!newCompetitor.name) return;
+
+        const newNetworks: Network[] = [];
+        const platforms = ["instagram", "facebook", "tiktok", "x", "youtube", "linkedin"] as const;
+
+        platforms.forEach((platform) => {
+            const usernameOrLink = newCompetitor[platform];
+            if (usernameOrLink) {
+                const username = extractUsername(usernameOrLink);
+                newNetworks.push({
+                    network: platform,
+                    profil: newCompetitor.profil || "",
+                    username: username,
+                    name: newCompetitor.name,
+                    followers: 0,
+                    er: 0,
+                    avgEngage: 0,
+                    avgViews: 0,
+                    metrics: "0",
+                });
+            }
+        });
+
+        if (newNetworks.length > 0) {
+            setCustomCompetitors((prev) => [...prev, ...newNetworks]);
+        }
+
+        setNewCompetitor({
+            name: "",
+            profil: "",
+            instagram: "",
+            facebook: "",
+            tiktok: "",
+            x: "",
+            youtube: "",
+            linkedin: "",
+        });
+        setIsAddDialogOpen(false);
+    };
 
     // position the portal menu when opened
     useEffect(() => {
@@ -418,8 +521,12 @@ const CompetitiveIntelligenceTable = ({
         SAMPLE_NETWORKS.forEach((s) => {
             if (!map.has(s.username)) map.set(s.username, s);
         });
+        // add custom competitors
+        customCompetitors.forEach((c) => {
+            if (!map.has(c.username)) map.set(c.username, c);
+        });
         return Array.from(map.values());
-    }, [networks]);
+    }, [networks, customCompetitors]);
 
     // apply source filter
     const displayedNetworks = useMemo(() => {
@@ -658,7 +765,156 @@ const CompetitiveIntelligenceTable = ({
 
     return (
         <div>
-            <h5 className="text-xl font-semibold mb-4">{title}</h5>
+            <div className="flex justify-between items-center mb-4">
+                <h5 className="text-xl font-semibold">{title}</h5>
+                <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+                    <DialogTrigger asChild>
+                        <Button variant="default" className="flex items-center gap-2">
+                            <Plus className="h-4 w-4" />
+                            Ajouter un concurrent
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[500px]">
+                        <DialogHeader>
+                            <DialogTitle>Ajouter un nouveau concurrent</DialogTitle>
+                        </DialogHeader>
+                        <div className="grid gap-4 py-4">
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="name" className="text-left">
+                                    Nom
+                                </Label>
+                                <Input
+                                    id="name"
+                                    value={newCompetitor.name}
+                                    onChange={(e) =>
+                                        setNewCompetitor((prev) => ({ ...prev, name: e.target.value }))
+                                    }
+                                    className="col-span-3"
+                                    placeholder="Ex: Glovo"
+                                />
+                            </div>
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="profil" className="text-left">
+                                    URL Logo
+                                </Label>
+                                <Input
+                                    id="profil"
+                                    value={newCompetitor.profil}
+                                    onChange={(e) =>
+                                        setNewCompetitor((prev) => ({ ...prev, profil: e.target.value }))
+                                    }
+                                    className="col-span-3"
+                                    placeholder="https://example.com/logo.png (optionnel)"
+                                />
+                            </div>
+                            <div className="border-t pt-4 mt-2">
+                                <p className="text-sm text-muted-foreground mb-3">Réseaux sociaux (username ou lien)</p>
+                            </div>
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="instagram" className="text-left flex items-center justify-start gap-2">
+                                    <img src="/media/instagram.png" alt="instagram" width={16} height={16} />
+                                    Instagram
+                                </Label>
+                                <Input
+                                    id="instagram"
+                                    value={newCompetitor.instagram}
+                                    onChange={(e) =>
+                                        setNewCompetitor((prev) => ({ ...prev, instagram: e.target.value }))
+                                    }
+                                    className="col-span-3"
+                                    placeholder="@username ou https://instagram.com/username"
+                                />
+                            </div>
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="facebook" className="text-left flex items-center justify-start gap-2">
+                                    <img src="/media/facebook.png" alt="facebook" width={16} height={16} />
+                                    Facebook
+                                </Label>
+                                <Input
+                                    id="facebook"
+                                    value={newCompetitor.facebook}
+                                    onChange={(e) =>
+                                        setNewCompetitor((prev) => ({ ...prev, facebook: e.target.value }))
+                                    }
+                                    className="col-span-3"
+                                    placeholder="@username ou https://facebook.com/username"
+                                />
+                            </div>
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="tiktok" className="text-left flex items-center justify-start gap-2">
+                                    <img src="/media/tiktok.png" alt="tiktok" width={16} height={16} />
+                                    TikTok
+                                </Label>
+                                <Input
+                                    id="tiktok"
+                                    value={newCompetitor.tiktok}
+                                    onChange={(e) =>
+                                        setNewCompetitor((prev) => ({ ...prev, tiktok: e.target.value }))
+                                    }
+                                    className="col-span-3"
+                                    placeholder="@username ou https://tiktok.com/@username"
+                                />
+                            </div>
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="x" className="text-left flex items-center justify-start gap-2">
+                                    <img src="/media/twitter.png" alt="x" width={16} height={16} />
+                                    X
+                                </Label>
+                                <Input
+                                    id="x"
+                                    value={newCompetitor.x}
+                                    onChange={(e) =>
+                                        setNewCompetitor((prev) => ({ ...prev, x: e.target.value }))
+                                    }
+                                    className="col-span-3"
+                                    placeholder="@username ou https://x.com/username"
+                                />
+                            </div>
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="youtube" className="text-left flex items-center justify-start gap-2">
+                                    <img src="/media/youtube.png" alt="youtube" width={16} height={16} />
+                                    YouTube
+                                </Label>
+                                <Input
+                                    id="youtube"
+                                    value={newCompetitor.youtube}
+                                    onChange={(e) =>
+                                        setNewCompetitor((prev) => ({ ...prev, youtube: e.target.value }))
+                                    }
+                                    className="col-span-3"
+                                    placeholder="@channel ou https://youtube.com/@channel"
+                                />
+                            </div>
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="linkedin" className="text-left flex items-center justify-start gap-2">
+                                    <img src="/media/linkedin.png" alt="linkedin" width={16} height={16} />
+                                    LinkedIn
+                                </Label>
+                                <Input
+                                    id="linkedin"
+                                    value={newCompetitor.linkedin}
+                                    onChange={(e) =>
+                                        setNewCompetitor((prev) => ({ ...prev, linkedin: e.target.value }))
+                                    }
+                                    className="col-span-3"
+                                    placeholder="company-name ou https://linkedin.com/company/name"
+                                />
+                            </div>
+                        </div>
+                        <DialogFooter>
+                            <DialogClose asChild>
+                                <Button variant="outline">Annuler</Button>
+                            </DialogClose>
+                            <Button
+                                onClick={handleAddCompetitor}
+                                disabled={!newCompetitor.name || (!newCompetitor.instagram && !newCompetitor.facebook && !newCompetitor.tiktok && !newCompetitor.x && !newCompetitor.youtube && !newCompetitor.linkedin)}
+                            >
+                                Ajouter
+                            </Button>
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
+            </div>
             <DataTable columns={columns} data={displayedNetworks} conditionalRowStyles={conditionalRowStyles} />
         </div>
     );

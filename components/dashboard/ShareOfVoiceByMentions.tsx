@@ -1,11 +1,43 @@
 "use client";
 
 import React, { useState } from 'react';
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, TooltipProps } from 'recharts';
 import { Smile, Frown, Meh } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ToolTipsProvider from "../charts/ToolTipsProvider";
 import Image from "next/image";
+
+// Custom tooltip component for the pie charts
+const CustomTooltip = ({ active, payload }: TooltipProps<number, string>) => {
+    if (active && payload && payload.length) {
+        const data = payload[0];
+        const total = payload[0].payload?.total || 0;
+        const percentage = total > 0 ? ((data.value as number) / total * 100).toFixed(1) : 0;
+
+        return (
+            <div className="bg-white dark:bg-gray-900 px-4 py-3 rounded-lg shadow-xl border border-gray-100 dark:border-gray-700 min-w-[160px]">
+                <div className="flex items-center gap-2 mb-2">
+                    <span
+                        className="w-3 h-3 rounded-full"
+                        style={{ backgroundColor: data.payload?.fill }}
+                    />
+                    <span className="font-semibold text-gray-800 dark:text-gray-100 text-sm">
+                        {data.name}
+                    </span>
+                </div>
+                <div className="flex items-baseline justify-between gap-4">
+                    <span className="text-2xl font-bold text-gray-900 dark:text-white">
+                        {(data.value as number).toLocaleString()}
+                    </span>
+                    <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                        {percentage}%
+                    </span>
+                </div>
+            </div>
+        );
+    }
+    return null;
+};
 // ShareOfVoice palette used across the dashboard
 const palette = [
     "#9c0274", // green
@@ -50,11 +82,12 @@ type Props = {
     rows?: BrandRow[]
 }
 
-function buildData(labels: string[], values: number[], colors: string[]) {
+function buildData(labels: string[], values: number[], colors: string[], total?: number) {
     return labels.map((label, index) => ({
         name: label,
         value: values[index],
         fill: colors[index],
+        total: total ?? values.reduce((a, b) => a + b, 0),
     }));
 }
 
@@ -128,7 +161,11 @@ export default function ShareOfVoiceByMentionsDonut({ rows }: Props) {
                                             <Cell key={`cell-${index}`} fill={entry.fill} />
                                         ))}
                                     </Pie>
-                                    <Tooltip />
+                                    <Tooltip
+                                        content={<CustomTooltip />}
+                                        cursor={false}
+                                        wrapperStyle={{ zIndex: 1000 }}
+                                    />
                                 </PieChart>
                             </ResponsiveContainer>
                             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">

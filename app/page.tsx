@@ -1,130 +1,205 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import {
     SidebarInset,
     SidebarProvider,
-    SidebarTrigger,
 } from "@/components/ui/sidebar";
 import AppSideBar from "@/components/layouts/AppSideBar";
-import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import UserNavigation from "@/components/layouts/UserNavigation";
-import { Bell } from "lucide-react";
+import {
+    ArrowRight,
+    Headphones,
+    Users,
+    FileText,
+    AtSign,
+    Smile,
+    Eye,
+    BarChart2,
+    MedalIcon,
+    RefreshCw,
+    Sliders,
+    Sparkles
+} from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function WelcomePage() {
-    const [showNotifications, setShowNotifications] = useState(false);
+    const dashboardItems = [
+        {
+            icon: Headphones,
+            title: "Écoute Sociale",
+            description: "Surveillez les conversations en temps réel",
+            url: "/dashboard/overView",
+        },
+        {
+            icon: Users,
+            title: "Audience",
+            description: "Analysez votre audience et ses comportements",
+            url: "/dashboard/audience",
+        },
+        {
+            icon: FileText,
+            title: "Publications",
+            description: "Gérez et analysez vos publications",
+            url: "/dashboard/posts",
+        },
+        {
+            icon: AtSign,
+            title: "Mentions",
+            description: "Suivez toutes vos mentions",
+            url: "/dashboard/mentions",
+        },
+        {
+            icon: Smile,
+            title: "Sentiment",
+            description: "Comprenez le sentiment de votre audience",
+            url: "/dashboard/sentiment",
+        },
+        {
+            icon: Eye,
+            title: "Veille de Marque",
+            description: "Surveillez votre image de marque",
+            url: "/reseaux-sociaux/brand-watch",
+        },
+        {
+            icon: BarChart2,
+            title: "Veille Concurrentielle",
+            description: "Analysez vos concurrents",
+            url: "/competitive-intelligence",
+        },
+        {
+            icon: MedalIcon,
+            title: "Classements",
+            description: "Découvrez les classements du marché",
+            url: "/reseaux-sociaux/ranking",
+        },
+        {
+            icon: RefreshCw,
+            title: "Rapports Automatiques",
+            description: "Accédez à vos rapports générés",
+            url: "/reports",
+        },
+        {
+            icon: Sliders,
+            title: "Rapports Personnalisés",
+            description: "Créez des rapports sur mesure",
+            url: "/reports/custom",
+        },
+    ];
 
     return (
-        <SidebarProvider className=" relative">
+        <SidebarProvider className="relative">
             <AppSideBar variant="sidebar" collapsible="icon" />
             <SidebarInset
                 data-content-layout={"centered"}
                 className={cn(
-                    "bg-[#ebebeb] !mx-0 !max-w-full w-full",
+                    "bg-[#f8f9fa] !mx-0 !max-w-full w-full",
                     "max-[113rem]:peer-data-[variant=inset]:!mr-2 min-[101rem]:peer-data-[variant=inset]:peer-data-[state=collapsed]:!mr-auto"
                 )}
             >
-                <header
-                    className={cn(
-                        " sticky top-0 backdrop-blur-3xl bg-[#ebebeb] z-90 flex h-12 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12",
-                        "data-[navbar-style=sticky]:bg-background/50 data-[navbar-style=sticky]:sticky data-[navbar-style=sticky]:top-0 data-[navbar-style=sticky]:z-50 data-[navbar-style=sticky]:overflow-hidden data-[navbar-style=sticky]:rounded-t-[inherit] data-[navbar-style=sticky]:backdrop-blur-md"
-                    )}
-                >
-                    <div className="flex w-full items-center justify-between px-4 lg:px-6">
-                        <div className="flex items-center gap-1 lg:gap-2">
-                            <SidebarTrigger className="-ml-1" />
-                            <Separator
-                                orientation="vertical"
-                                className="mx-2 data-[orientation=vertical]:h-4"
-                            />
+                {/* Main Content */}
+                <div className="min-h-screen flex flex-col">
+                    {/* Hero Section */}
+                    <div className="flex-1 flex flex-col items-center px-6 py-12 relative overflow-hidden">
+                        {/* Subtle Background */}
+                        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                            <div className="absolute -top-40 -right-40 w-96 h-96 bg-cyan-50 rounded-full blur-3xl opacity-60"></div>
+                            <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gray-100 rounded-full blur-3xl opacity-60"></div>
                         </div>
-                        <div className="flex items-center justify-center gap-5">
-                            <div className="relative">
-                                <button
-                                    onClick={() => setShowNotifications(!showNotifications)}
-                                    className="relative rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                                >
-                                    <span className="bg-primary text-white -top-2.5 -right-2.5 h-5 w-5 absolute text-center rounded-full flex justify-center items-center text-xs">
-                                        5
-                                    </span>
-                                    <Bell className="size-4" />
-                                </button>
 
-                                {showNotifications && (
-                                    <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50">
-                                        <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-                                            <h3 className="font-semibold text-gray-900 dark:text-gray-100">Notifications</h3>
-                                        </div>
-                                        <div className="max-h-96 overflow-y-auto">
-                                            <div className="p-4 border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
-                                                <div className="flex items-start gap-3">
-                                                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                                                    <div className="flex-1">
-                                                        <p className="text-sm font-medium text-gray-900 dark:text-gray-100">New mention detected</p>
-                                                        <p className="text-xs text-gray-500 dark:text-gray-400">Jumia Food was mentioned in a positive context on Instagram</p>
-                                                        <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">2 minutes ago</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="p-4 border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
-                                                <div className="flex items-start gap-3">
-                                                    <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                                                    <div className="flex-1">
-                                                        <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Sentiment spike alert</p>
-                                                        <p className="text-xs text-gray-500 dark:text-gray-400">Positive mentions increased by 25% in the last hour</p>
-                                                        <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">1 hour ago</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="p-4 border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
-                                                <div className="flex items-start gap-3">
-                                                    <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                                                    <div className="flex-1">
-                                                        <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Negative mention alert</p>
-                                                        <p className="text-xs text-gray-500 dark:text-gray-400">Careem received negative feedback on Twitter</p>
-                                                        <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">3 hours ago</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="p-4 border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
-                                                <div className="flex items-start gap-3">
-                                                    <div className="w-2 h-2 bg-yellow-500 rounded-full mt-2 flex-shrink-0"></div>
-                                                    <div className="flex-1">
-                                                        <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Weekly report ready</p>
-                                                        <p className="text-xs text-gray-500 dark:text-gray-400">Your social listening weekly summary is available</p>
-                                                        <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">1 day ago</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="p-4 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
-                                                <div className="flex items-start gap-3">
-                                                    <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                                                    <div className="flex-1">
-                                                        <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Competitor analysis update</p>
-                                                        <p className="text-xs text-gray-500 dark:text-gray-400">New insights available for Yassir market performance</p>
-                                                        <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">2 days ago</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="p-3 border-t border-gray-200 dark:border-gray-700">
-                                            <button className="w-full text-center text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
-                                                View all notifications
-                                            </button>
-                                        </div>
-                                    </div>
-                                )}
+                        {/* Content */}
+                        <div className="relative z-10 max-w-6xl mx-auto text-center w-full">
+                            {/* Logo/Brand */}
+                            <div className="mb-6 flex justify-center">
+                                <div className="bg-white p-4 rounded-2xl shadow-lg border border-gray-100">
+                                    <Image
+                                        src="/icons/IN-TALKS-logo.png-2.webp"
+                                        alt="InTalks"
+                                        width={60}
+                                        height={60}
+                                        className="w-[60px] h-[60px]"
+                                    />
+                                </div>
                             </div>
-                            <UserNavigation />
+
+                            {/* Badge */}
+                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-50 border border-cyan-100 mb-4">
+                                <Sparkles className="w-4 h-4 text-cyan-500" />
+                                <span className="text-sm font-medium text-cyan-600">
+                                    Plateforme d&apos;Intelligence Sociale propulsée par l&apos;IA
+                                </span>
+                            </div>
+
+                            {/* Heading */}
+                            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+                                Bienvenue sur{" "}
+                                <span className="text-cyan-500">
+                                    InTalks
+                                </span>
+                            </h1>
+
+                            {/* Subheading */}
+                            <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+                                Transformez votre intelligence de marque avec l&apos;écoute sociale en temps réel,
+                                l&apos;analyse concurrentielle et des insights alimentés par l&apos;IA.
+                            </p>
+
+                            {/* CTA Button */}
+                            <div className="flex justify-center mb-12">
+                                <Link
+                                    href="/dashboard/overView"
+                                    className="group inline-flex items-center gap-3 px-8 py-4 bg-cyan-500 text-white font-semibold rounded-xl shadow-lg hover:bg-cyan-600 hover:shadow-xl transition-all duration-300"
+                                >
+                                    <span>Commencer l&apos;expérience</span>
+                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                </Link>
+                            </div>
+
+                            {/* Dashboard Options Grid */}
+                            <div className="mb-12">
+                                <h2 className="text-xl font-semibold text-gray-800 mb-6">Accès rapide aux fonctionnalités</h2>
+                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                                    {dashboardItems.map((item, index) => (
+                                        <Link
+                                            key={index}
+                                            href={item.url}
+                                            className="group bg-white rounded-xl p-4 border border-gray-100 shadow-sm hover:shadow-lg hover:border-cyan-300 transition-all duration-300 hover:-translate-y-1"
+                                        >
+                                            <div className="flex flex-col items-center text-center">
+                                                <div className="inline-flex p-3 rounded-xl bg-cyan-50 group-hover:bg-cyan-100 transition-colors mb-3">
+                                                    <item.icon className="w-5 h-5 text-cyan-500" />
+                                                </div>
+                                                <h3 className="text-sm font-semibold text-gray-900 mb-1">
+                                                    {item.title}
+                                                </h3>
+                                                <p className="text-xs text-gray-500 leading-relaxed">
+                                                    {item.description}
+                                                </p>
+                                            </div>
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Bottom Stats */}
+                            <div className="pt-8 border-t border-gray-200 max-w-3xl mx-auto">
+                                <div className="grid grid-cols-3 gap-8 text-center">
+                                    <div>
+                                        <div className="text-2xl font-bold text-gray-900">10M+</div>
+                                        <div className="text-sm text-gray-500 mt-1">Mentions suivies</div>
+                                    </div>
+                                    <div>
+                                        <div className="text-2xl font-bold text-gray-900">50+</div>
+                                        <div className="text-sm text-gray-500 mt-1">Sources de données</div>
+                                    </div>
+                                    <div>
+                                        <div className="text-2xl font-bold text-gray-900">99.9%</div>
+                                        <div className="text-sm text-gray-500 mt-1">Disponibilité</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </header>
-
-                <div className="h-full p-6">
-                    <main>
-                        <h1 className="text-3xl font-bold">Welcome to InTalks</h1>
-                        <p className="mt-3 text-neutral-600">This is your workspace. Use the sidebar to open different dashboard sections.</p>
-                    </main>
                 </div>
             </SidebarInset>
         </SidebarProvider>

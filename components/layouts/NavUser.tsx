@@ -28,12 +28,20 @@ import {
 } from "@/components/ui/sidebar";
 
 export function NavUser() {
-  const { isMobile } = useSidebar();
+  const { isMobile, lockOpen, unlockOpen } = useSidebar();
+
+  const handleOpenChange = (open: boolean) => {
+    if (open) {
+      lockOpen()
+    } else {
+      unlockOpen()
+    }
+  }
 
   return (
     <SidebarMenu>
       <SidebarMenuItem>
-        <DropdownMenu>
+        <DropdownMenu onOpenChange={handleOpenChange}>
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
