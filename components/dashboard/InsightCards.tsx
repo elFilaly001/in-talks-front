@@ -376,7 +376,7 @@ export function InsightCards() {
                   display: 'inline-block',
                 }}
               >
-                IA-powered insights
+                AI-Powered Insight
               </span>
             </div>
             {showInsight1 && (
@@ -461,7 +461,7 @@ export function InsightCards() {
                   display: 'inline-block',
                 }}
               >
-                IA-powered insights
+                AI-Powered Insight
               </span>
             </div>
             {showInsight2 && (

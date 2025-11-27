@@ -67,9 +67,9 @@ export default function ShareOfVoiceBySourceCard() {
     <Card className="relative">
       <CardHeader className="items-center">
         <div className="flex items-center gap-2">
-          <CardTitle>Share of Voice by Source Type</CardTitle>
+          <CardTitle>Répartition de la Part de Voix par Source</CardTitle>
           <ToolTipsProvider
-            title="Share of voice by source type. Bars are stacked by brand to show how each channel contributes to total mentions."
+            title="Affiche la répartition de la part de voix des marques selon les différentes sources (Instagram, Facebook, X, TikTok, YouTube, LinkedIn). Ce graphique met en évidence quelles plateformes génèrent le plus de mentions pour chaque marque, permettant d’identifier les canaux les plus performants et les dynamiques de visibilité."
           />
         </div>
       </CardHeader>

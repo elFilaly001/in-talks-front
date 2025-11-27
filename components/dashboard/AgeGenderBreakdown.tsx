@@ -112,7 +112,7 @@ function AgeGenderBreakdown() {
                   display: 'inline-block',
                 }}
               >
-                AI-powered insights
+                AI-Powered Insight
               </span>
             </div>
             {showInsight && (

@@ -65,7 +65,7 @@ const BrandAffinity = ({ title = "Marques préférées de l’audience", data = 
         </div>
       </CardHeader>
 
-      <CardContent className="justify-center pb-0 bg-transparent mt-3 flex flex-col gap-3">
+  <CardContent className="justify-center pb-16 bg-transparent mt-3 flex flex-col gap-3">
         {data.map((brand, idx) => (
           <div key={idx} className="flex flex-col gap-2">
             <div className="flex items-center text-sm justify-between">
@@ -79,8 +79,10 @@ const BrandAffinity = ({ title = "Marques préférées de l’audience", data = 
             </div>
 
             <span
-              className="w-full block h-2 rounded-full bg-sky-300"
-              style={{ width: `${Math.max(1, brand.value)}%` }}
+              className="w-full block h-1 rounded-full bg-[#ea1c80] "
+              style={{
+                width: `${brand.value.toFixed(2)}%`,
+              }}
             ></span>
           </div>
         ))}
@@ -111,7 +113,7 @@ const BrandAffinity = ({ title = "Marques préférées de l’audience", data = 
                 display: 'inline-block',
               }}
             >
-              AI-powered insights
+              AI-Powered Insight
             </span>
           </div>
 

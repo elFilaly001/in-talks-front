@@ -87,7 +87,7 @@ const KeywordsNuage = ({ keywords }: { keywords: KeywordData[] }) => {
                 display: 'inline-block',
               }}
             >
-              IA-powered insights
+              AI-Powered Insight
             </span>
           </div>
           {showInsight && (

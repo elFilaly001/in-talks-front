@@ -102,9 +102,9 @@ export default function ShareOfVoiceByMentionsDonut({ rows }: Props) {
         <Card className="relative">
             <CardHeader className="items-center">
                 <div className="flex items-center gap-2">
-                    <CardTitle>Share of Voice by Mentions</CardTitle>
+                    <CardTitle>Part de Voix par Mentions</CardTitle>
                     <ToolTipsProvider
-                        title="Breakdown of mentions across topics with sentiment analysis. The main chart shows share of voice by brand, while the smaller charts show positive, negative, and neutral sentiment distribution."
+                        title="Affiche la répartition des mentions entre les différentes marques pour la période sélectionnée. Le graphique principal montre la part de voix globale de chaque marque, tandis que les graphiques secondaires présentent la distribution des sentiments (positif, neutre et négatif) associés à chaque marque."
                     />
                 </div>
             </CardHeader>

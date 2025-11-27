@@ -33,6 +33,7 @@ import ToolTipsProvider from "../charts/ToolTipsProvider";
 import { CompactDatePicker } from "../ui/CompactDatePicker";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import BrandAffinity from "../charts/BrandAffinity";
 // import BrandAffinity from "../charts/BrandAffinity";
 type DataType = {
   id: string;
@@ -523,7 +524,7 @@ const AudienceReport = () => {
                         display: "inline-block",
                       }}
                     >
-                      AI-powered insights
+                      AI-Powered Insight
                     </span>
                   </div>
                   {showInsight && (
@@ -570,16 +571,22 @@ const AudienceReport = () => {
               />
             )}
 
-            {data.interest && (
-              <Interset
-                title="Affinité d&apos;Intérêt de l&apos;Audience"
-                data={JSON.parse(data.interest.toString())}
-              />
-            )}
+            <div className="col-span-1 md:col-span-2">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <BrandAffinity />
 
-            {data.language && JSON.stringify(data.language) !== "{}" && (
-              <ChartLangage data={JSON.parse(data.language.toString())} />
-            )}
+                {data.interest && (
+                  <Interset
+                    title="Affinité d&apos;Intérêt de l&apos;Audience"
+                    data={JSON.parse(data.interest.toString())}
+                  />
+                )}
+
+                {data.language && JSON.stringify(data.language) !== "{}" && (
+                  <ChartLangage data={JSON.parse(data.language.toString())} />
+                )}
+              </div>
+            </div>
           </div>
         </div>
       )}
