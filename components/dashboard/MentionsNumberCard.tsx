@@ -13,7 +13,7 @@ type Props = {
 };
 
 const MentionsNumberCard: React.FC<Props> = ({
-  title = "Mentions par genre",
+  title = "Mentions par Genre",
   malePercent,
   femalePercent,
 }) => {
@@ -22,35 +22,39 @@ const MentionsNumberCard: React.FC<Props> = ({
   const femaleColor = "#f161f9ff";
 
   const genderData = [
-    { label: "Homme", percent: malePercent, color: maleColor, icon: <FaMale size={96} color={maleColor} /> },
-    { label: "Femme", percent: femalePercent, color: femaleColor, icon: <FaFemale size={96} color={femaleColor} /> },
+    { label: "Homme", percent: malePercent, color: maleColor, icon: <FaMale size={80} color={maleColor} /> },
+    { label: "Femme", percent: femalePercent, color: femaleColor, icon: <FaFemale size={80} color={femaleColor} /> },
   ];
 
   return (
-    <Card className={`relative`}>
-      <CardHeader>
-        <div className="flex items-center gap-2">
-          <CardTitle className="text-gray-700">{title}</CardTitle>
-          <ToolTipsProvider title={`Répartition des mentions par genre. Affiche la part des mentions attribuée à chaque genre selon les données de profil disponibles.`} />
+    <Card className="relative h-full">
+      <CardHeader className="text-center pb-2">
+        <div className="flex items-center justify-center gap-2">
+          <CardTitle className="text-gray-700 text-lg font-semibold">{title}</CardTitle>
+          <ToolTipsProvider title="Répartition des mentions par genre. Affiche la part des mentions attribuée à chaque genre selon les données de profil disponibles." />
         </div>
       </CardHeader>
 
-      <CardContent>
-        {/* Centered icons row with labels underneath each icon */}
-        <div className="flex flex-col items-center gap-6 mt-2 w-full">
-          <div className="flex items-center justify-center gap-12 w-full">
-            {genderData.map((g) => (
-              <div key={g.label} className="flex flex-col items-center gap-2">
+      <CardContent className="flex flex-col items-center justify-center pt-4 pb-12">
+        <div className="flex items-center justify-center gap-16 w-full">
+          {genderData.map((g) => (
+            <div
+              key={g.label}
+              className="flex flex-col items-center gap-3 p-4 rounded-xl transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-800/50"
+            >
+              <div className="p-3 rounded-full bg-gray-50 dark:bg-gray-800/30">
                 <span aria-hidden>{g.icon}</span>
-                <span className="text-xl font-medium" style={{ color: g.color }}>
+              </div>
+              <div className="flex flex-col items-center gap-1">
+                <span className="text-base font-medium text-gray-600 dark:text-gray-400">
                   {g.label}
                 </span>
-                <span className="text-3xl font-bold" style={{ color: g.color }}>
+                <span className="text-4xl font-bold tracking-tight" style={{ color: g.color }}>
                   {g.percent}%
                 </span>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </CardContent>
 

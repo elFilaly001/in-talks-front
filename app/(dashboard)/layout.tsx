@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import AppSideBar from "@/components/layouts/AppSideBar";
@@ -10,7 +10,25 @@ import { Bell } from "lucide-react";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const [showNotifications, setShowNotifications] = useState(false);
+  const notificationRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+
+  // Close notifications when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (notificationRef.current && !notificationRef.current.contains(event.target as Node)) {
+        setShowNotifications(false);
+      }
+    };
+
+    if (showNotifications) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showNotifications]);
 
   const [Navlink, setNavlink] = useState<string>("");
 
@@ -30,7 +48,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         setNavlink("Veille & Benchmark");
         break;
       case "reports":
-        setNavlink("Rapports");
+        setNavlink("Insights & Rapports");
         break;
       default:
         setNavlink("");
@@ -60,7 +78,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
               {Navlink}
             </div>
             <div className="flex items-center gap-4">
-              <div className="relative flex items-center">
+              <div ref={notificationRef} className="relative flex items-center">
                 <button
                   onClick={() => setShowNotifications(!showNotifications)}
                   className="relative flex items-center justify-center p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
@@ -73,7 +91,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
 
                 {showNotifications && (
-                  <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50">
+                  <div className="absolute right-0 top-full mt-2 w-80 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50">
                     <div className="p-4 border-b border-gray-200 dark:border-gray-700">
                       <h3 className="font-semibold text-gray-900 dark:text-gray-100">Notifications</h3>
                     </div>

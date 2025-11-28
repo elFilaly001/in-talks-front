@@ -12,12 +12,25 @@ import { Button } from "@/components/ui/button"
 import ToolTipsProvider from "../charts/ToolTipsProvider"
 import Image from "next/image"
 import formatNumber from "@/lib/numbers"
-import { ExternalLink } from "lucide-react"
+import { ExternalLink, ChevronLeft, ChevronRight, Link2 } from "lucide-react"
+import { cn } from "@/lib/utils"
 
-type Feed = { id: string; link: string; mentionCount: number }
+// Types
+interface Feed {
+  id: string
+  link: string
+  mentionCount: number
+}
 
-// Mock data for feeds
-const mockFeeds: Feed[] = [
+interface TopSharedLinksProps {
+  feeds?: Feed[]
+  itemsPerPage?: number
+}
+
+// Constants
+const ITEMS_PER_PAGE_DEFAULT = 10
+
+const MOCK_FEEDS: Feed[] = [
   { id: "1", link: "https://techcrunch.com/glovo-expansion", mentionCount: 120 },
   { id: "2", link: "https://forbes.com/glovo-partnerships", mentionCount: 95 },
   { id: "3", link: "https://medium.com/glovo-commissions", mentionCount: 60 },
@@ -40,98 +53,208 @@ const mockFeeds: Feed[] = [
   { id: "20", link: "https://gizmodo.com/glovo-innovation", mentionCount: 35 },
 ]
 
-export default function TopSharedLinks({ feeds = [] as Feed[] }) {
-  const [showInsightBlogs, setShowInsightBlogs] = React.useState(false)
-  const displayFeeds = feeds && feeds.length > 0 ? feeds : mockFeeds
-  const [currentPage, setCurrentPage] = React.useState(1)
-  const itemsPerPage = 15
-  const totalPages = Math.ceil(displayFeeds.length / itemsPerPage)
+// Helper function to extract domain from URL
+const extractDomain = (url: string): string => {
+  try {
+    const domain = new URL(url).hostname.replace("www.", "")
+    return domain
+  } catch {
+    return url
+  }
+}
+
+// Sub-components
+const LinkItem = ({ feed, rank }: { feed: Feed; rank: number }) => (
+  <div className="group flex items-center gap-3 p-3 rounded-lg hover:bg-muted/50 transition-colors duration-200">
+    <span className="flex-shrink-0 w-6 text-xs font-medium text-muted-foreground">
+      #{rank}
+    </span>
+    <div className="flex-shrink-0 w-8 h-8 rounded-md bg-cyan-100 flex items-center justify-center">
+      <Link2 className="h-4 w-4 text-cyan-600" />
+    </div>
+    <div className="flex-1 min-w-0">
+      <a
+        href={feed.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        title={feed.link}
+        className="flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-primary transition-colors truncate"
+      >
+        <span className="truncate">{extractDomain(feed.link)}</span>
+        <ExternalLink className="h-3 w-3 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
+      </a>
+      <p className="text-xs text-muted-foreground truncate mt-0.5">
+        {feed.link}
+      </p>
+    </div>
+    <div className="flex-shrink-0 min-w-8 h-8 px-2 bg-cyan-100 text-cyan-600 rounded-md flex items-center justify-center text-xs font-semibold">
+      {formatNumber(feed.mentionCount)}
+    </div>
+  </div>
+)
+
+const AIInsightBadge = ({ insight }: { insight: string }) => {
+  const [isVisible, setIsVisible] = React.useState(false)
 
   return (
-    <Card className="flex-1 relative">
-      <CardHeader>
-        <div className="flex items-center gap-2">
-          <CardTitle>Top des liens partagés</CardTitle>
-          <ToolTipsProvider title="Affiche les blogs les plus mentionnés. Utilisez ces données pour identifier les blogs les plus référencés par votre audience." />
+    <div className="relative">
+      <div
+        className="text-sm text-black flex items-center gap-2 cursor-pointer"
+        onMouseEnter={() => setIsVisible(true)}
+        onMouseLeave={() => setIsVisible(false)}
+      >
+        <Image
+          src="/icons/IN-TALKS-logo.png-2.webp"
+          alt="IN-TALKS Logo"
+          width={22}
+          height={22}
+          style={{ display: "inline-block", verticalAlign: "middle" }}
+        />
+        <span
+          className="font-semibold"
+          style={{
+            background: "linear-gradient(90deg, #06b6d4 0%, #8b5cf6 50%, #ec4899 100%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+            color: "transparent",
+            display: "inline-block",
+          }}
+        >
+          AI-powered insight
+        </span>
+      </div>
+      {isVisible && (
+        <div className="absolute bottom-full left-0 mb-2 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50 w-auto min-w-80 max-w-xl">
+          <p className="text-sm text-gray-700 dark:text-gray-300">
+            {insight}
+          </p>
+        </div>
+      )}
+    </div>
+  )
+}
+
+const Pagination = ({
+  currentPage,
+  totalPages,
+  onPageChange,
+}: {
+  currentPage: number
+  totalPages: number
+  onPageChange: (page: number) => void
+}) => (
+  <div className="flex items-center justify-between w-full">
+    <Button
+      size="sm"
+      variant="ghost"
+      onClick={() => onPageChange(currentPage - 1)}
+      disabled={currentPage === 1}
+      className="gap-1"
+    >
+      <ChevronLeft className="h-4 w-4" />
+      Précédent
+    </Button>
+    <div className="flex items-center gap-1">
+      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+        <button
+          key={page}
+          onClick={() => onPageChange(page)}
+          className={cn(
+            "w-8 h-8 text-xs font-medium rounded-md transition-colors",
+            currentPage === page
+              ? "bg-cyan-500 text-white"
+              : "hover:bg-cyan-100 text-muted-foreground"
+          )}
+        >
+          {page}
+        </button>
+      ))}
+    </div>
+    <Button
+      size="sm"
+      variant="ghost"
+      onClick={() => onPageChange(currentPage + 1)}
+      disabled={currentPage === totalPages}
+      className="gap-1"
+    >
+      Suivant
+      <ChevronRight className="h-4 w-4" />
+    </Button>
+  </div>
+)
+
+// Main component
+export default function TopSharedLinks({
+  feeds = [],
+  itemsPerPage = ITEMS_PER_PAGE_DEFAULT,
+}: TopSharedLinksProps) {
+  const [currentPage, setCurrentPage] = React.useState(1)
+
+  const displayFeeds = React.useMemo(
+    () => (feeds.length > 0 ? feeds : MOCK_FEEDS),
+    [feeds]
+  )
+
+  const totalPages = Math.ceil(displayFeeds.length / itemsPerPage)
+
+  const currentItems = React.useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage
+    return displayFeeds.slice(startIndex, startIndex + itemsPerPage)
+  }, [displayFeeds, currentPage, itemsPerPage])
+
+  const handlePageChange = React.useCallback((page: number) => {
+    setCurrentPage(Math.max(1, Math.min(page, totalPages)))
+  }, [totalPages])
+
+  // Reset to first page when feeds change
+  React.useEffect(() => {
+    setCurrentPage(1)
+  }, [feeds])
+
+  return (
+    <Card className="flex-1 flex flex-col">
+      <CardHeader className="pb-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <CardTitle className="text-lg">Top des liens partagés</CardTitle>
+            <ToolTipsProvider title="Affiche les liens les plus partagés. Utilisez ces données pour identifier les sources les plus référencées par votre audience." />
+          </div>
+          <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-md">
+            {displayFeeds.length} liens
+          </span>
         </div>
       </CardHeader>
 
-      <CardContent className="flex flex-col gap-2.5 pb-8">
-        <div className="max-h-96 overflow-y-auto">
-          {(() => {
-            const startIndex = (currentPage - 1) * itemsPerPage
-            const endIndex = startIndex + itemsPerPage
-            const currentItems = displayFeeds.slice(startIndex, endIndex)
-            return currentItems.map((feed) => (
-              <div key={feed.id} className="flex items-center gap-4 mb-3">
-                <ExternalLink className="h-5 w-5 text-primary" />
-                <a
-                  href={feed.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title={feed.link}
-                  className="flex-1 text-sm text-blue-600 underline cursor-pointer break-words"
-                >
-                  {feed.link}
-                </a>
-                <div className="h-8 w-8 bg-primary rounded-full flex justify-center items-center text-white text-sm">
-                  {formatNumber(feed.mentionCount)}
-                </div>
-              </div>
-            ))
-          })()}
+      <CardContent className="flex-1 px-3 pb-4">
+        <div className="max-h-[420px] overflow-y-auto scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent">
+          <div className="space-y-1">
+            {currentItems.map((feed, index) => (
+              <LinkItem
+                key={feed.id}
+                feed={feed}
+                rank={(currentPage - 1) * itemsPerPage + index + 1}
+              />
+            ))}
+          </div>
         </div>
       </CardContent>
 
-      <CardFooter className="gap-2 pb-4">
-        <div className="flex justify-between items-center w-full">
-          <Button size="sm" variant="outline" onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
-            Précédent
-          </Button>
-          <span className="text-sm">Page {currentPage} sur {totalPages}</span>
-          <Button size="sm" variant="outline" onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>
-            Suivant
-          </Button>
+      <CardFooter className="flex-col gap-4 pt-4 border-t">
+        {totalPages > 1 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        )}
+
+        <div className="w-full flex justify-start">
+          <AIInsightBadge
+            insight="Recent mentions focus on Glovo's expansion and partnerships, with positive sentiment indicating growing acceptance. Negative feedback on commissions suggests opportunities for improved vendor relations."
+          />
         </div>
       </CardFooter>
-
-      <div className="absolute bottom-4 left-6">
-        <div className="relative">
-          <div
-            className="text-sm text-black flex items-center gap-2 cursor-pointer"
-            onMouseEnter={() => setShowInsightBlogs(true)}
-            onMouseLeave={() => setShowInsightBlogs(false)}
-          >
-            <Image
-              src="/icons/IN-TALKS-logo.png-2.webp"
-              alt="IN-TALKS Logo"
-              width={22}
-              height={22}
-              style={{ display: "inline-block", verticalAlign: "middle" }}
-            />
-            <span
-              className="font-semibold"
-              style={{
-                background: "linear-gradient(90deg, #06b6d4 0%, #8b5cf6 50%, #ec4899 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-                color: "transparent",
-                display: "inline-block",
-              }}
-            >
-              AI-powered insight
-            </span>
-          </div>
-          {showInsightBlogs && (
-            <div className="absolute bottom-full left-0 mb-2 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50 w-auto min-w-80 max-w-xl">
-              <p className="text-sm text-gray-700 dark:text-gray-300">
-                Recent mentions focus on Glovo&apos;s expansion and partnerships, with positive sentiment indicating growing acceptance. Negative feedback on commissions suggests opportunities for improved vendor relations.
-              </p>
-            </div>
-          )}
-        </div>
-      </div>
     </Card>
   )
 }
