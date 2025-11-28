@@ -24,6 +24,13 @@ const KeywordsNuage = ({ keywords }: { keywords: KeywordData[] }) => {
   const colors = ["#ffbf26", "#ea1c80", "#8b0b6f", "#40bb3c", "#aea6cf", "#ff0c00"];
   const highlightColors = ["#ff0c00", "#ea1c80", "#40bb3c"];
 
+  // Deterministic pseudo-random rotation based on index
+  const getRotation = (idx: number): number => {
+    // Use a simple hash-like function to get consistent rotation per index
+    const rotations = [-8, 5, -3, 7, -6, 4, -9, 2, -5, 8, -2, 6, -7, 3, -4, 9];
+    return rotations[idx % rotations.length];
+  };
+
   // Quadratic scale for font size
   const getStyles = (count: number, idx: number, sortedIdx: number): React.CSSProperties => {
     const fontSize = minCount === maxCount
@@ -33,8 +40,8 @@ const KeywordsNuage = ({ keywords }: { keywords: KeywordData[] }) => {
     const color = sortedIdx < 3 ? highlightColors[sortedIdx] : colors[idx % colors.length];
     return {
       color,
-      fontSize: `${fontSize}px`,
-      transform: `rotate(${Math.floor(Math.random() * 21) - 10}deg)`,
+      fontSize: `${Math.round(fontSize)}px`,
+      transform: `rotate(${getRotation(idx)}deg)`,
       display: "inline-block",
       margin: "2px",
       cursor: "pointer",

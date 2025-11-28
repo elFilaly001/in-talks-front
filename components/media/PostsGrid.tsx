@@ -42,7 +42,7 @@ const media = [
   },
   {
     label: "X Platform",
-    image: "/media/x.png",
+    image: "/media/twitter.png",
   },
 ];
 const influencer = {
@@ -730,7 +730,7 @@ const PostsGrid = () => {
       rows.push({ key: k, value: String(v) });
     });
 
-  const header = ["Métrique", "Valeur"];
+    const header = ["Métrique", "Valeur"];
     const csv = [header.join(",")]
       .concat(
         rows.map(
@@ -747,7 +747,7 @@ const PostsGrid = () => {
     const a = document.createElement("a");
     const ts = new Date().toISOString().replace(/[:.]/g, "-");
     a.href = url;
-  a.download = `rapport-audience-${ts}.csv`;
+    a.download = `rapport-audience-${ts}.csv`;
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -773,17 +773,18 @@ const PostsGrid = () => {
 
   return (
     <div>
-      <div className="border border-gray-200 rounded-md">
-        
-      <div>
-        <h2 className="text-4xl sm:text-5xl md:text-6xl my-3 font-extrabold tracking-tight text-gray-900 dark:text-white">
-          Publications
+
+      <div className="">
+        <h2 className="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white inline-flex flex-col">
+          Publication
+          <div className="flex flex-row gap-1 mt-2  mb-4">
+          <div className="w-[20%] h-1 bg-[#f02cb9] rounded-full"></div>
+          <div className="w-[10%] h-1 bg-[#35b9f4] rounded-full"></div>
+          </div>
         </h2>
-        {/* <p className="mt-1 text-sm sm:text-base text-muted-foreground max-w-3xl">
-          Générez et téléchargez des rapports détaillés sur vos performances sur
-          les re9seaux sociaux, les insights d&apos;audience et plus encore.
-        </p> */}
       </div>
+      <div className="">
+
         <div className="flex justify-between items-center pt-4 pb-4">
           {/* Left side: Export button */}
           <div className="flex items-center">
@@ -808,8 +809,8 @@ const PostsGrid = () => {
                 size="sm"
                 onClick={() => setViewMode("grid")}
                 className={`rounded-r-none ${viewMode === "grid"
-                    ? "bg-[#7b61f9] text-white border-[#7b61f9]"
-                    : "text-gray-600"
+                  ? "bg-[#7b61f9] text-white border-[#7b61f9]"
+                  : "text-gray-600"
                   }`}
               >
                 <LayoutGrid
@@ -823,8 +824,8 @@ const PostsGrid = () => {
                 size="sm"
                 onClick={() => setViewMode("list")}
                 className={`rounded-l-none ${viewMode === "list"
-                    ? "bg-[#7b61f9] text-white border-[#7b61f9]"
-                    : "text-gray-600"
+                  ? "bg-[#7b61f9] text-white border-[#7b61f9]"
+                  : "text-gray-600"
                   }`}
               >
                 <List
@@ -843,8 +844,8 @@ const PostsGrid = () => {
 
             <Select value={source} onValueChange={(v) => setSource(v)}>
               <SelectTrigger className="w-40 bg-white">
-                  <SelectValue placeholder="Par source" />
-                </SelectTrigger>
+                <SelectValue placeholder="Par source" />
+              </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Par source</SelectLabel>

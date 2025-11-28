@@ -36,15 +36,15 @@ const chartConfig = {
   },
   male: {
     label: "Homme",
-    color: "#ff0c00", // Image red
+    color: "#9c0274", 
   },
   female: {
     label: "Femme",
-    color: "#ea1c80", // Image pink
+    color: "#ea1c80", 
   },
   unknown: {
     label: "Inconnu",
-    color: "#aea6cf", // Image lilac
+    color: "#8376ce", 
   },
 } satisfies ChartConfig;
 

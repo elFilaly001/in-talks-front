@@ -238,7 +238,7 @@ const SocialCoverage = ({ networks, includeSamples = false, title = "Tableau de 
         return (
           <div className="flex justify-center items-center p-3 gap-3">
             {/* Network logo */}
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={getNetworkImage(row.network)}
               alt={row.network + " logo"}

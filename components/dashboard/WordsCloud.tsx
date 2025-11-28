@@ -20,6 +20,13 @@ interface Rectangle {
   bottom: number;
 }
 
+// Professional color palette - brand colors
+const themeConfig = {
+  emerging: { color: '#40bb3c', label: 'Thèmes émergents' },    // green
+  decreasing: { color: '#ff0c00', label: 'Thèmes en baisse' },  // red
+  new: { color: '#ffbf26', label: 'Nouveaux thèmes' },          // blue
+};
+
 const WordCloud = () => {
   const [words, setWords] = useState<Word[]>([]);
   const [hoveredWord, setHoveredWord] = useState<number | null>(null);
@@ -35,19 +42,18 @@ const WordCloud = () => {
     { text: 'Pizza', value: 70 },
     { text: 'Burger', value: 65 },
     { text: 'Sushi', value: 60 },
-    { text: 'Livraison', value: 55 }, // French
-    { text: 'Nourriture', value: 50 }, // French
-    { text: 'Restaurant', value: 48 }, // French
-    { text: 'Commande', value: 45 }, // French
-    { text: 'Rapide', value: 42 }, // French
-    { text: 'توصيل', value: 40 }, // Arabic
-    { text: 'طعام', value: 38 }, // Arabic
-    { text: 'مطعم', value: 35 }, // Arabic
-    { text: 'طلب', value: 33 }, // Arabic
-    { text: 'سريع', value: 30 }, // Arabic
-    { text: 'بيتزا', value: 28 }, // Arabic
-    { text: 'برجر', value: 25 }, // Arabic
-    { text: 'سوشي', value: 22 }, // Arabic
+    { text: 'Livraison', value: 55 },
+    { text: 'Nourriture', value: 50 },
+    { text: 'Commande', value: 45 },
+    { text: 'Rapide', value: 42 },
+    { text: 'توصيل', value: 40 },
+    { text: 'طعام', value: 38 },
+    { text: 'مطعم', value: 35 },
+    { text: 'طلب', value: 33 },
+    { text: 'سريع', value: 30 },
+    { text: 'بيتزا', value: 28 },
+    { text: 'برجر', value: 25 },
+    { text: 'سوشي', value: 22 },
     { text: 'Fresh', value: 20 },
     { text: 'Hot', value: 18 },
     { text: 'Quality', value: 15 },
@@ -55,24 +61,16 @@ const WordCloud = () => {
     { text: 'App', value: 10 }
   ], []);
 
-  const themeColors = useMemo(() => ({
-    emerging: ['#d1fae5', '#10b981', '#047857'], // light green, green, dark green
-    decreasing: ['#fecaca', '#ef4444', '#dc2626'], // light red, red, dark red
-    new: ['#dbeafe', '#3b82f6', '#1d4ed8'] // light blue, blue, dark blue
-  }), []);
-
   useEffect(() => {
     const minValue = Math.min(...wordData.map(w => w.value));
     const maxValue = Math.max(...wordData.map(w => w.value));
     
-    // Container dimensions for word positioning - use full available space
-    const containerWidth = 600;  // Increased width
-    const containerHeight = 400;
-    const padding = 20;
+    const containerWidth = 700;
+    const containerHeight = 320;
+    const padding = 30;
     const availableWidth = containerWidth - 2 * padding;
     const availableHeight = containerHeight - 2 * padding;
     
-    // Function to check if two rectangles overlap
     const rectanglesOverlap = (rect1: Rectangle, rect2: Rectangle) => {
       return !(rect1.right < rect2.left || 
                rect1.left > rect2.right || 
@@ -80,65 +78,72 @@ const WordCloud = () => {
                rect1.top > rect2.bottom);
     };
     
-    // Function to get word bounding box
     const getWordBounds = (word: Word, fontSize: number): Rectangle => {
-      const textWidth = word.text.length * fontSize * 0.6; // Rough estimate
-      const textHeight = fontSize * 1.2;
+      const textWidth = word.text.length * fontSize * 0.55;
+      const textHeight = fontSize * 1.1;
       return {
-        left: word.x - textWidth / 2,
-        right: word.x + textWidth / 2,
-        top: word.y - textHeight / 2,
-        bottom: word.y + textHeight / 2
+        left: word.x - textWidth / 2 - 4,
+        right: word.x + textWidth / 2 + 4,
+        top: word.y - textHeight / 2 - 2,
+        bottom: word.y + textHeight / 2 + 2
       };
     };
     
-    // Generate positions with random distribution across the entire space
     const positioned: Word[] = [];
     
-    wordData.forEach((word) => {
-      const fontSize = 12 + ((word.value - minValue) / (maxValue - minValue)) * 36;
+    // Sort by value descending to place larger words first
+    const sortedData = [...wordData].sort((a, b) => b.value - a.value);
+    
+    sortedData.forEach((word, idx) => {
+      const fontSize = 14 + ((word.value - minValue) / (maxValue - minValue)) * 28;
       let placed = false;
       let attempts = 0;
-      const maxAttempts = 100;
+      const maxAttempts = 200;
       
-      // Assign theme and color based on value percentile
+      // Determine theme and color based on value percentile
       const percentile = (word.value - minValue) / (maxValue - minValue);
       let theme: 'emerging' | 'decreasing' | 'new';
-      let colorIndex: number;
+      let color: string;
       
-      if (percentile < 0.33) {
-        theme = 'new';
-        colorIndex = Math.floor((percentile / 0.33) * (themeColors.new.length - 1));
-      } else if (percentile < 0.66) {
+      if (percentile >= 0.66) {
         theme = 'emerging';
-        colorIndex = Math.floor(((percentile - 0.33) / 0.33) * (themeColors.emerging.length - 1));
-      } else {
+        color = themeConfig.emerging.color;
+      } else if (percentile >= 0.33) {
         theme = 'decreasing';
-        colorIndex = Math.floor(((percentile - 0.66) / 0.34) * (themeColors.decreasing.length - 1));
+        color = themeConfig.decreasing.color;
+      } else {
+        theme = 'new';
+        color = themeConfig.new.color;
       }
       
-      const color = themeColors[theme][colorIndex];
-      
       while (!placed && attempts < maxAttempts) {
-        // Random positioning across the entire rectangular space
-        const x = (Math.random() - 0.5) * availableWidth;
-        const y = (Math.random() - 0.5) * availableHeight;
+        // Spiral placement for more compact cloud
+        const angle = attempts * 0.4;
+        const radius = attempts * 1.8;
+        const x = Math.cos(angle) * radius * (availableWidth / availableHeight);
+        const y = Math.sin(angle) * radius * 0.7;
+        
+        // Add some randomness
+        const jitterX = (Math.random() - 0.5) * 15;
+        const jitterY = (Math.random() - 0.5) * 15;
+        
+        const finalX = Math.max(-availableWidth/2, Math.min(availableWidth/2, x + jitterX));
+        const finalY = Math.max(-availableHeight/2, Math.min(availableHeight/2, y + jitterY));
         
         const testWord: Word = {
           ...word,
-          x,
-          y,
+          x: finalX,
+          y: finalY,
           color,
-          rotation: Math.random() * 40 - 20,
+          rotation: 0,
           theme
         };
         
         const bounds = getWordBounds(testWord, fontSize);
         
-        // Check for overlaps with existing words
         let hasOverlap = false;
         for (const existingWord of positioned) {
-          const existingFontSize = 12 + ((existingWord.value - minValue) / (maxValue - minValue)) * 36;
+          const existingFontSize = 14 + ((existingWord.value - minValue) / (maxValue - minValue)) * 28;
           const existingBounds = getWordBounds(existingWord, existingFontSize);
           if (rectanglesOverlap(bounds, existingBounds)) {
             hasOverlap = true;
@@ -154,84 +159,30 @@ const WordCloud = () => {
         attempts++;
       }
       
-      // If we couldn't find a spot, try with reduced collision detection (fallback)
+      // Fallback placement
       if (!placed) {
-        // let x, y;
-        let foundSpot = false;
-        let fallbackAttempts = 0;
-        const maxFallbackAttempts = 50;
-        
-        while (!foundSpot && fallbackAttempts < maxFallbackAttempts) {
-          const x = (Math.random() - 0.5) * availableWidth;
-          const y = (Math.random() - 0.5) * availableHeight;
-          
-          // Check for minimal overlaps only
-          const testWord: Word = {
-            ...word,
-            x,
-            y,
-            color,
-            rotation: Math.random() * 40 - 20,
-            theme
-          };
-          
-          const bounds = getWordBounds(testWord, fontSize);
-          let hasMajorOverlap = false;
-          
-          for (const existingWord of positioned) {
-            const existingFontSize = 12 + ((existingWord.value - minValue) / (maxValue - minValue)) * 36;
-            const existingBounds = getWordBounds(existingWord, existingFontSize);
-            if (rectanglesOverlap(bounds, existingBounds)) {
-              // Allow some overlap for smaller words
-              const overlapArea = Math.max(0, Math.min(bounds.right, existingBounds.right) - Math.max(bounds.left, existingBounds.left)) *
-                                Math.max(0, Math.min(bounds.bottom, existingBounds.bottom) - Math.max(bounds.top, existingBounds.top));
-              const testArea = (bounds.right - bounds.left) * (bounds.bottom - bounds.top);
-              if (overlapArea / testArea > 0.3) { // More than 30% overlap
-                hasMajorOverlap = true;
-                break;
-              }
-            }
-          }
-          
-          if (!hasMajorOverlap) {
-            positioned.push(testWord);
-            foundSpot = true;
-          }
-          
-          fallbackAttempts++;
-        }
-        
-        // Ultimate fallback - place randomly
-        if (!foundSpot) {
-          const x = (Math.random() - 0.5) * availableWidth;
-          const y = (Math.random() - 0.5) * availableHeight;
-          positioned.push({
-            ...word,
-            x,
-            y,
-            color,
-            rotation: Math.random() * 40 - 20,
-            theme
-          });
-        }
+        const x = (Math.random() - 0.5) * availableWidth * 0.8;
+        const y = (Math.random() - 0.5) * availableHeight * 0.8;
+        positioned.push({
+          ...word,
+          x,
+          y,
+          color,
+          rotation: 0,
+          theme
+        });
       }
     });
     
     setWords(positioned);
-  }, [wordData, themeColors]);
+  }, [wordData]);
 
   const getFontSize = (value: number) => {
-    const minSize = 12;
-    const maxSize = 48;
+    const minSize = 14;
+    const maxSize = 42;
     const minValue = Math.min(...wordData.map(w => w.value));
     const maxValue = Math.max(...wordData.map(w => w.value));
     return minSize + ((value - minValue) / (maxValue - minValue)) * (maxSize - minSize);
-  };
-
-  const themeLabels: Record<string, string> = {
-    emerging: 'Émergent',
-    decreasing: 'En baisse',
-    new: 'Nouveaux',
   };
 
   return (
@@ -239,32 +190,32 @@ const WordCloud = () => {
       <CardHeader>
         <div className="flex items-center gap-2">
           <CardTitle>Nuage des Thématiques</CardTitle>
-          <ToolTipsProvider title="Visualisation des principaux thèmes associés aux conversations autour de la marque. La taille des mots reflète leur fréquence, tandis que les couleurs indiquent leur dynamique : thèmes émergents, thèmes en baisse, ou nouveaux sujets observés dans les discussions." />
+          <ToolTipsProvider title="Visualisation des principaux thèmes associés aux conversations autour de la marque. La taille des mots reflète leur fréquence d'apparition dans les mentions." />
         </div>
       </CardHeader>
-      <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
+      <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6 pb-16">
 
-        <div className="relative bg-slate-700/40 backdrop-blur-sm rounded-2xl p-8 shadow-2xl border border-slate-700">
-          <div className="relative h-[400px] w-[600px] flex items-center justify-center mx-auto">
+        <div className="relative bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
+          <div className="relative h-[320px] w-full flex items-center justify-center mx-auto overflow-hidden">
             {words.map((word, index) => {
               const fontSize = getFontSize(word.value);
               const isHovered = hoveredWord === index;
+              const opacity = word.theme === 'emerging' ? 1 : word.theme === 'decreasing' ? 0.9 : 0.8;
               
               return (
                 <div
                   key={index}
-                  className="absolute transition-all duration-300 cursor-pointer select-none"
+                  className="absolute transition-all duration-200 cursor-pointer select-none"
                   style={{
                     left: `calc(50% + ${word.x}px)`,
                     top: `calc(50% + ${word.y}px)`,
-                    transform: `translate(-50%, -50%) rotate(${word.rotation}deg) scale(${isHovered ? 1.2 : 1})`,
+                    transform: `translate(-50%, -50%) scale(${isHovered ? 1.1 : 1})`,
                     fontSize: `${fontSize}px`,
                     color: word.color,
-                    fontWeight: isHovered ? '800' : '600',
-                    textShadow: isHovered 
-                      ? `0 0 20px ${word.color}80, 0 0 40px ${word.color}40`
-                      : `0 2px 4px rgba(0,0,0,0.3)`,
-                    zIndex: isHovered ? 100 : Math.floor(word.value)
+                    opacity: isHovered ? 1 : opacity,
+                    fontWeight: isHovered ? 600 : 500,
+                    letterSpacing: '-0.01em',
+                    zIndex: isHovered ? 100 : Math.floor(word.value),
                   }}
                   onMouseEnter={() => setHoveredWord(index)}
                   onMouseLeave={() => setHoveredWord(null)}
@@ -272,10 +223,12 @@ const WordCloud = () => {
                   {word.text}
                   {isHovered && (
                     <div 
-                      className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-slate-700 text-white text-xs px-3 py-1 rounded-full whitespace-nowrap"
-                      style={{ transform: `translateX(-50%) rotate(${-word.rotation}deg)` }}
+                      className="absolute top-full left-1/2 mt-1 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2.5 py-1 rounded whitespace-nowrap shadow-lg"
+                      style={{ zIndex: 101 }}
                     >
-                      Poids : {word.value}
+                      <span className="font-medium">{word.value}</span>
+                      <span className="text-gray-400 ml-1">mentions</span>
+                      <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-900 rotate-45" />
                     </div>
                   )}
                 </div>
@@ -284,23 +237,20 @@ const WordCloud = () => {
           </div>
         </div>
 
-        <div className="mt-6 flex justify-center gap-6 flex-wrap">
-          {Object.entries(themeColors).map(([theme, colors]) => (
-            <div key={theme} className="flex items-center gap-3">
-              <span className="capitalize text-sm font-medium">{themeLabels[theme] ?? theme}</span>
-              <div className="flex gap-1">
-                {colors.map((color, i) => (
-                  <div key={i} className="w-4 h-4 rounded-sm border border-slate-600" style={{ backgroundColor: color }}></div>
-                ))}
-              </div>
+        <div className="mt-4 flex justify-center items-center gap-6 flex-wrap">
+          {Object.entries(themeConfig).map(([key, { color, label }]) => (
+            <div key={key} className="flex items-center gap-2 text-sm">
+              <span 
+                className="w-3 h-3 rounded-full" 
+                style={{ backgroundColor: color }}
+              />
+              <span className="text-muted-foreground">{label}</span>
             </div>
           ))}
-        </div>
-
-        <div className="mt-6 text-center">
-            <div className="inline-flex items-center gap-4 bg-slate-700/40 backdrop-blur-sm px-6 py-3 rounded-full border border-slate-700">
-            <span className="text-black text-sm">Total de mots :</span>
-            <span className="text-white font-semibold">{words.length}</span>
+          <div className="h-4 w-px bg-slate-300 dark:bg-slate-600" />
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <span className="font-semibold text-foreground">{words.length}</span>
+            <span>thématiques</span>
           </div>
         </div>
       </CardContent>
@@ -327,7 +277,7 @@ const WordCloud = () => {
           {showInsight && (
             <div className="absolute bottom-full left-0 mb-2 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50 w-auto min-w-80 max-w-xl">
               <p className="text-sm text-gray-700 dark:text-gray-300">
-                Food delivery analysis shows strong demand for pizza and burgers across all languages, with Arabic speakers showing particular interest in traditional cuisine. French customers emphasize quality and freshness, while English speakers focus on speed and convenience. Monitor blue-themed keywords for emerging food trends and red-themed terms for declining preferences that may need menu adjustments.
+                Food delivery analysis shows strong demand for pizza and burgers across all languages, with Arabic speakers showing particular interest in traditional cuisine. French customers emphasize quality and freshness, while English speakers focus on speed and convenience.
               </p>
             </div>
           )}

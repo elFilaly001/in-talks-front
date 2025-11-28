@@ -1,8 +1,26 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import DataTable, { TableColumn } from "react-data-table-component";
 import formatNumber from "@/lib/numbers";
 import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "../ui/select";
+import { CompactDatePicker } from "../ui/CompactDatePicker";
+import { DownloadCloud, BookmarkIcon } from "lucide-react";
+import Image from "next/image";
+
+interface DateRange {
+    from: Date | undefined;
+    to: Date | undefined;
+}
 
 export interface Network {
     network: string;
@@ -21,10 +39,60 @@ export interface AudienceSocialTableProps {
     title?: string;
 }
 
+const media = [
+    {
+        label: "All Social Medias",
+        // no image for the 'All' option - render an icon instead
+    },
+    {
+        label: "Instagram",
+        image: "/media/instagram.png",
+    },
+    {
+        label: "Youtube",
+        image: "/media/youtube.png",
+    },
+    {
+        label: "X",
+        image: "/media/twitter.png",
+    },
+    {
+        label: "Tiktok",
+        image: "/media/tiktok.png",
+    },
+    {
+        label: "Facebook",
+        image: "/media/facebook.png",
+    },
+    {
+        label: "Linkedin",
+        image: "/media/linkedin.png",
+    },
+];
+
 const AudienceSocialTable = ({
     networks,
     title = "Tableau de Performance Multicanal"
 }: AudienceSocialTableProps) => {
+    const [dateRange, setDateRange] = useState<DateRange>({ from: undefined, to: undefined });
+    const [source, setSource] = useState<string>("All Social Medias");
+
+    const handleExportCSV = () => {
+        // CSV export logic
+        const headers = ["Network", "Username", "Name", "Followers", "ER", "Avg Engage", "Avg Views", "Metrics"];
+        const csvContent = [
+            headers.join(","),
+            ...networks.map(row =>
+                [row.network, row.username, row.name, row.followers, row.er, row.avgEngage, row.avgViews, row.metrics].join(",")
+            )
+        ].join("\n");
+
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "audience_social_table.csv";
+        link.click();
+    };
 
     // Map network names to actual image files
     const getNetworkImage = (network: string) => {
@@ -176,7 +244,79 @@ const AudienceSocialTable = ({
 
     return (
         <div>
-            <h5 className="text-xl font-semibold mb-4">{title}</h5>
+            <h5 className="text-xl text-gray-500 font-medium">{title}</h5>
+
+            <div className="flex justify-between items-center pt-4 pb-4">
+                {/* Left side: Export button */}
+                <div className="flex items-center">
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={handleExportCSV}
+                        className=""
+                    >
+                        <DownloadCloud className="mr-2 h-4 w-4" />
+                        Exporter CSV
+                    </Button>
+                </div>
+
+                {/* Right side: controls group */}
+                <div className="flex items-center gap-2">
+                    <CompactDatePicker
+                        dateRange={dateRange}
+                        onDateRangeChange={setDateRange}
+                    />
+                    <Select value={source} onValueChange={(v) => setSource(v)}>
+                        <SelectTrigger className="w-40 bg-white">
+                            <SelectValue placeholder="Par source" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectLabel>Par source</SelectLabel>
+                                {media.map((item) => (
+                                    <SelectItem key={item.label} value={item.label}>
+                                        {item.label === "X" ? (
+                                            <Image
+                                                src="/media/twitter.png"
+                                                alt="X logo"
+                                                width={20}
+                                                height={20}
+                                                onError={(e) => {
+                                                    e.currentTarget.style.display = "none";
+                                                    const parent = e.currentTarget.parentElement;
+                                                    if (parent) {
+                                                        const svg = document.createElementNS(
+                                                            "http://www.w3.org/2000/svg",
+                                                            "svg"
+                                                        );
+                                                        svg.setAttribute("width", "20");
+                                                        svg.setAttribute("height", "20");
+                                                        svg.setAttribute("viewBox", "0 0 24 24");
+                                                        svg.innerHTML =
+                                                            '<path fill="black" d="M17.53 3H21L14.19 10.63L22.09 21H15.63L10.77 14.62L5.29 21H2L9.13 13L1.61 3H8.24L12.68 8.87L17.53 3ZM16.41 19H18.23L7.75 5H5.81L16.41 19Z"/>';
+                                                        parent.insertBefore(svg, parent.firstChild);
+                                                    }
+                                                }}
+                                            />
+                                        ) : item.image ? (
+                                            <Image
+                                                src={item.image}
+                                                alt={item.label}
+                                                width={20}
+                                                height={20}
+                                            />
+                                        ) : (
+                                            <BookmarkIcon className="h-4 w-4 text-gray-500 mr-2" />
+                                        )}
+                                        {item.label}
+                                    </SelectItem>
+                                ))}
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                </div>
+            </div>
+
             <DataTable columns={columns} data={networks} />
         </div>
     );

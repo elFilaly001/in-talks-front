@@ -23,23 +23,23 @@ import ToolTipsProvider from "../charts/ToolTipsProvider";
 import Image from "next/image";
 
 // ShareOfVoice palette used across the dashboard
-// const palette = [
-//   "#10B981", // green
-//   "#6B7280", // gray
-//   "#EF4444", // red
-//   "#F59E0B",
-//   "#8B5CF6",
-//   "#06B6D4",
-// ];
+const palette = [
+  "#9c0274", // green
+  "#ea1c80",
+  "#8376ce", // red
+  "#aea6cf", // gray
+  "#ffbf26",
+  "#ff0c00",
+];
 
 // Company list used elsewhere in the dashboard (keeps parity with ShareOfVoiceByMention)
 const companies = [
-  { key: "JumiaFood", label: "JumiaFood", color: "var(--chart-1)" },
-  { key: "CareemNow", label: "CareemNow", color: "var(--chart-2)" },
-  { key: "Yassir", label: "Yassir", color: "var(--chart-3)" },
-  { key: "Koul", label: "Koul", color: "var(--chart-4)" },
-  {key: "livry", label: "Livry", color: "var(--chart-5)"},
-  { key: "Glovo", label: "Glovo", color: "var(--chart-6)" },
+  { key: "JumiaFood", label: "Jumia Food", color: palette[0] },
+  { key: "YasserMarket", label: "Yasser Market", color: palette[1] },
+  { key: "Kool", label: "Kool", color: palette[2] },
+  { key: "Chari", label: "Chari", color: palette[3] },
+  { key: "CreemFood", label: "Creem Food", color: palette[4] },
+  { key: "Glovo", label: "Glovo", color: palette[5] },
 ];
 
 const chartConfig: ChartConfig = companies.reduce((acc, c) => {
@@ -50,12 +50,12 @@ const chartConfig: ChartConfig = companies.reduce((acc, c) => {
 // Example competitive data per source (values are illustrative — replace with real data)
 // Raw mention counts per source (these will be normalized to percentage shares per row)
 const rawData: Array<Record<string, number | string>> = [
-  { source: "Instagram", JumiaFood: 320, CareemNow: 220, Yassir: 180, Koul: 150, livry: 90, Glovo: 130 },
-  { source: "Facebook", JumiaFood: 280, CareemNow: 200, Yassir: 180, Koul: 180, livry: 160, Glovo: 160 },
-  { source: "Tiktok", JumiaFood: 350, CareemNow: 250, Yassir: 200, Koul: 120, livry: 80, Glovo: 80 },
-  { source: "X", JumiaFood: 250, CareemNow: 200, Yassir: 150, Koul: 200, livry: 200, Glovo: 200 },
-  { source: "Youtube", JumiaFood: 300, CareemNow: 240, Yassir: 180, Koul: 160, livry: 120, Glovo: 120 },
-  { source: "Press", JumiaFood: 430, CareemNow: 330, Yassir: 180, Koul: 460, livry: 320, Glovo: 320 },
+  { source: "Instagram", JumiaFood: 320, YasserMarket: 220, Kool: 180, Chari: 150, CreemFood: 90, Glovo: 130 },
+  { source: "Facebook", JumiaFood: 280, YasserMarket: 200, Kool: 180, Chari: 180, CreemFood: 160, Glovo: 160 },
+  { source: "Tiktok", JumiaFood: 350, YasserMarket: 250, Kool: 200, Chari: 120, CreemFood: 80, Glovo: 80 },
+  { source: "X", JumiaFood: 250, YasserMarket: 200, Kool: 150, Chari: 200, CreemFood: 200, Glovo: 200 },
+  { source: "Youtube", JumiaFood: 300, YasserMarket: 240, Kool: 180, Chari: 160, CreemFood: 120, Glovo: 120 },
+  { source: "Press", JumiaFood: 430, YasserMarket: 330, Kool: 180, Chari: 460, CreemFood: 320, Glovo: 320 },
 ];
 
 // Normalize counts into percentage shares per source (each row sums to ~100)
@@ -67,7 +67,7 @@ export default function ShareOfVoiceBySourceCard() {
     <Card className="relative">
       <CardHeader className="items-center">
         <div className="flex items-center gap-2">
-          <CardTitle>Répartition de la Part de Voix par Source</CardTitle>
+          <CardTitle>Part de Voix par Source</CardTitle>
           <ToolTipsProvider
             title="Affiche la répartition de la part de voix des marques selon les différentes sources (Instagram, Facebook, X, TikTok, YouTube, LinkedIn). Ce graphique met en évidence quelles plateformes génèrent le plus de mentions pour chaque marque, permettant d’identifier les canaux les plus performants et les dynamiques de visibilité."
           />
@@ -75,7 +75,6 @@ export default function ShareOfVoiceBySourceCard() {
       </CardHeader>
 
       <CardContent className="pb-16">
-        <div className="text-center text-lg font-semibold mb-2">2021</div>
         <ChartContainer config={chartConfig} className="h-[360px] w-full">
           <ResponsiveContainer>
             <BarChart

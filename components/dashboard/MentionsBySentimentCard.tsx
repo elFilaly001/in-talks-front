@@ -32,9 +32,9 @@ const chartData = [
 
 // ShareOfVoice palette used across the dashboard
 const palette = [
-  "#10B981", // green
-  "#6B7280", // gray
-  "#EF4444", // red
+  "#40bb3c", // green
+  "#ffbf26", // gray
+  "#ff0c00", // red
   "#F59E0B",
   "#8B5CF6",
   "#06B6D4",
@@ -72,25 +72,25 @@ export default function MentionsBySentimentCard() {
 
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
         {/* Legend: Positive / Neutral / Negative */}
-  <div className="flex justify-center gap-4 mb-2">
+        <div className="flex justify-center gap-4 mb-2">
           <div className="flex items-center gap-2">
             <span
               className="h-3 w-3 rounded-sm block"
-              style={{ background: "linear-gradient(90deg,#34d399,#10b981)" }}
+              style={{ background: "#40bb3c" }}
             />
             <span className="text-sm text-muted-foreground">Positif</span>
           </div>
           <div className="flex items-center gap-2">
             <span
               className="h-3 w-3 rounded-sm block"
-              style={{ background: "linear-gradient(90deg,#9ca3af,#6b7280)" }}
+              style={{ background: "#ffbf26" }}
             />
             <span className="text-sm text-muted-foreground">Neutre</span>
           </div>
           <div className="flex items-center gap-2">
             <span
               className="h-3 w-3 rounded-sm block"
-              style={{ background: "linear-gradient(90deg,#f87171,#ef4444)" }}
+              style={{ background: "#ff0c00" }}
             />
             <span className="text-sm text-muted-foreground">Négatif</span>
           </div>
@@ -100,16 +100,16 @@ export default function MentionsBySentimentCard() {
             <BarChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 20 }}>
               <defs>
                 <linearGradient id="gradPos" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#34d399" stopOpacity={1} />
-                  <stop offset="100%" stopColor="#10b981" stopOpacity={1} />
+                  <stop offset="0%" stopColor="#40bb3c" stopOpacity={1} />
+                  <stop offset="100%" stopColor="#40bb3c" stopOpacity={1} />
                 </linearGradient>
                 <linearGradient id="gradNeu" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#9ca3af" stopOpacity={1} />
-                  <stop offset="100%" stopColor="#6b7280" stopOpacity={1} />
+                  <stop offset="0%" stopColor="#ffbf26" stopOpacity={1} />
+                  <stop offset="100%" stopColor="#ffbf26" stopOpacity={1} />
                 </linearGradient>
                 <linearGradient id="gradNeg" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#f87171" stopOpacity={1} />
-                  <stop offset="100%" stopColor="#ef4444" stopOpacity={1} />
+                  <stop offset="0%" stopColor="#ff0c00" stopOpacity={1} />
+                  <stop offset="100%" stopColor="#ff0c00" stopOpacity={1} />
                 </linearGradient>
               </defs>
               <CartesianGrid vertical={false} strokeDasharray="3 3" />

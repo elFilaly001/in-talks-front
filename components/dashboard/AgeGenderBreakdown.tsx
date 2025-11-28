@@ -34,15 +34,15 @@ const chartData = [
 const chartConfig = {
   male: {
     label: "Male",
-    color: "#ff0c00", // Blue
+    color: "#9c0274", // Pink
   },
   female: {
     label: "Female",
-    color: "#9c0274", // Pink
+    color: "#ea1c80", // Blue
   },
   other: {
     label: "Other",
-    color: "#aea6cf", // Green
+    color: "#8376ce", // Green
   },
 } satisfies ChartConfig;
 

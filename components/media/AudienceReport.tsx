@@ -33,8 +33,6 @@ import ToolTipsProvider from "../charts/ToolTipsProvider";
 import { CompactDatePicker } from "../ui/CompactDatePicker";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import BrandAffinity from "../charts/BrandAffinity";
-// import BrandAffinity from "../charts/BrandAffinity";
 type DataType = {
   id: string;
   femalePercentage: number;
@@ -89,7 +87,7 @@ const media = [
   },
   {
     label: "X",
-    image: "/media/x.png",
+    image: "/media/twitter.png",
   },
   {
     label: "Tiktok",
@@ -144,12 +142,7 @@ function CustomBarTooltip({
   label,
 }: {
   active?: boolean;
-  // Use a concrete payload item type to avoid `any` and satisfy the linter.
-  payload?: Array<{
-    value?: number;
-    payload?: { desktop?: number; fill?: string };
-    color?: string;
-  }>;
+  payload?: { value?: number; color?: string; payload?: { desktop?: number; fill?: string } }[];
   label?: string | number;
 }) {
   if (!active || !payload || !payload.length) return null;
@@ -173,7 +166,7 @@ function CustomBarTooltip({
 const chartConfig2 = {
   desktop: {
     label: "Desktop",
-    color: "#aea6cf",
+    color: "#9c0274",
   },
 } satisfies ChartConfig;
 
@@ -246,8 +239,8 @@ const AudienceReport = () => {
         metric === "followers"
           ? "Followers"
           : metric === "likers"
-          ? "Likers"
-          : metric,
+            ? "Likers"
+            : metric,
     });
     rows.push({
       key: "Date From",
@@ -312,135 +305,17 @@ const AudienceReport = () => {
   };
 
   return (
-    <div className="w-350 flex flex-col gap-5">
-      <div>
-        <h2 className="text-4xl sm:text-5xl md:text-6xl my-3 font-extrabold tracking-tight text-gray-900 dark:text-white">
+    <div className="w-350 flex flex-col gap-3">
+      <div className="">
+        <h2 className="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white inline-flex flex-col">
           Audience
+          <div className="flex flex-row gap-1 mt-2  mb-4">
+          <div className="w-[20%] h-1 bg-[#f02cb9] rounded-full"></div>
+          <div className="w-[10%] h-1 bg-[#35b9f4] rounded-full"></div>
+          </div>
         </h2>
-        {/* <p className="mt-1 text-sm sm:text-base text-muted-foreground max-w-3xl">
-          Générez et téléchargez des rapports détaillés sur vos performances sur
-          les re9seaux sociaux, les insights d&apos;audience et plus encore.
-        </p> */}
       </div>
-      <div className="flex justify-between items-center pt-4 pb-4">
-        {/* Left side: Export button */}
-        <div className="flex items-center">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleExportCSV}
-            className=""
-          >
-            <DownloadCloud className="mr-2 h-4 w-4" />
-            Exporter CSV
-          </Button>
-        </div>
-
-        {/* Right side: controls group */}
-        <div className="flex items-center gap-2">
-          {/* Segmented Buttons using the project's Button component for consistent sizing */}
-          {/* <div
-            className="flex items-center rounded-md shadow-sm overflow-hidden"
-            role="tablist"
-            aria-label="Metric switch"
-          >
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setMetric("followers")}
-              className={`rounded-r-none ${
-                metric === "followers"
-                  ? "bg-[#7b61f9] text-white border-[#7b61f9]"
-                  : "text-gray-600"
-              }`}
-            >
-              <Users
-                className={`h-4 w-4 ${
-                  metric === "followers" ? "text-white" : "text-gray-600"
-                }`}
-              />
-              Followers
-            </Button>
-
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setMetric("likers")}
-              className={`rounded-l-none ${
-                metric === "likers"
-                  ? "bg-[#7b61f9] text-white border-[#7b61f9]"
-                  : "text-gray-600"
-              }`}
-            >
-              <Heart
-                className={`h-4 w-4 ${
-                  metric === "likers" ? "text-white" : "text-gray-600"
-                }`}
-              />
-              Likers
-            </Button>
-          </div> */}
-
-          <CompactDatePicker
-            dateRange={dateRange}
-            onDateRangeChange={setDateRange}
-          />
-
-          <Select value={source} onValueChange={(v) => setSource(v)}>
-            <SelectTrigger className="w-40 bg-white">
-              <SelectValue placeholder="Par source" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Par source</SelectLabel>
-                {media.map((item) => (
-                  <SelectItem key={item.label} value={item.label}>
-                    {item.label === "X" ? (
-                      <Image
-                        src="/media/x.png"
-                        alt="X logo"
-                        width={20}
-                        height={20}
-                        onError={(e) => {
-                          e.currentTarget.style.display = "none";
-                          const parent = e.currentTarget.parentElement;
-                          if (parent) {
-                            const svg = document.createElementNS(
-                              "http://www.w3.org/2000/svg",
-                              "svg"
-                            );
-                            svg.setAttribute("width", "20");
-                            svg.setAttribute("height", "20");
-                            svg.setAttribute("viewBox", "0 0 24 24");
-                            svg.innerHTML =
-                              '<path fill="black" d="M17.53 3H21L14.19 10.63L22.09 21H15.63L10.77 14.62L5.29 21H2L9.13 13L1.61 3H8.24L12.68 8.87L17.53 3ZM16.41 19H18.23L7.75 5H5.81L16.41 19Z"/>';
-                            parent.insertBefore(svg, parent.firstChild);
-                          }
-                        }}
-                      />
-                    ) : item.image ? (
-                      <Image
-                        src={item.image}
-                        alt={item.label}
-                        width={20}
-                        height={20}
-                      />
-                    ) : (
-                      <BookmarkIcon className="h-4 w-4 text-gray-500 mr-2" />
-                    )}
-                    {item.label}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-
-          {/* <p className="text-xs">
-            Les données d&apos;audience sont basées sur{" "}
-            {source ?? "Tous les réseaux sociaux"}
-          </p> */}
-        </div>
-      </div>
+      
       <AudienceSocialTable networks={networks} />
 
       {data && (

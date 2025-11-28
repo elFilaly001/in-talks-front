@@ -116,13 +116,15 @@ const NavItemExpanded = ({
 const NavItemCollapsed = ({
   item,
   isActive,
+  onOpenChange,
 }: {
   item: NavMainItem;
   isActive: (url: string, subItems?: NavMainItem["subItems"]) => boolean;
+  onOpenChange?: (open: boolean) => void;
 }) => {
   return (
     <SidebarMenuItem key={item.title}>
-      <DropdownMenu>
+      <DropdownMenu onOpenChange={onOpenChange}>
         <DropdownMenuTrigger asChild>
           <SidebarMenuButton
             disabled={item.comingSoon}
@@ -169,7 +171,7 @@ const NavItemCollapsed = ({
 
 export function NavMain({ items }: NavMainProps) {
   const path = usePathname();
-  const { state, isMobile } = useSidebar();
+  const { state, isMobile, lockOpen, unlockOpen } = useSidebar();
 
   const isItemActive = (url: string, subItems?: NavMainItem["subItems"]) => {
     if (subItems?.length) {
@@ -181,6 +183,14 @@ export function NavMain({ items }: NavMainProps) {
   const isSubmenuOpen = (subItems?: NavMainItem["subItems"]) => {
     return subItems?.some((sub) => path.startsWith(sub.url)) ?? false;
   };
+
+  const handleDropdownOpenChange = (open: boolean) => {
+    if (open) {
+      lockOpen()
+    } else {
+      unlockOpen()
+    }
+  }
 
   return (
     <>
@@ -233,6 +243,7 @@ export function NavMain({ items }: NavMainProps) {
                       key={item.title}
                       item={item}
                       isActive={isItemActive}
+                      onOpenChange={handleDropdownOpenChange}
                     />
                   );
                 }

@@ -146,7 +146,7 @@ const ChartAreaInteractive = () => {
           </div>
         </div>
         <div className="flex flex-1">
-          <button className="data-[active=true]:bg-muted/50 relative z-30 flex flex-1 flex-col text-center justify-center gap-1 border-t dark:border-gray-800 border-gray-200 px-6 py-4 even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6">
+          <button className="data-[active=true]:bg-muted/50 relative z-5 flex flex-1 flex-col text-center justify-center gap-1 border-t dark:border-gray-800 border-gray-200 px-6 py-4 even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6">
             <span className="text-gray-500 text-xs capitalize">
               Mentions totales
             </span>
@@ -154,7 +154,7 @@ const ChartAreaInteractive = () => {
               202
             </span>
           </button>
-          <button className="data-[active=true]:bg-muted/50 relative z-30 flex flex-1 flex-col text-center justify-center gap-1 border-t dark:border-gray-800 border-gray-200 px-6 py-4 even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6">
+          <button className="data-[active=true]:bg-muted/50 relative z-5 flex flex-1 flex-col text-center justify-center gap-1 border-t dark:border-gray-800 border-gray-200 px-6 py-4 even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6">
             <span className="text-gray-500 text-xs capitalize">
               Moyenne quotidienne
             </span>
@@ -175,12 +175,12 @@ const ChartAreaInteractive = () => {
               <linearGradient id="fillNeutral" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
-                  stopColor="var(--color-neutral)"
+                  stopColor="#9c0274"
                   stopOpacity={0.6}
                 />
                 <stop
                   offset="95%"
-                  stopColor="var(--color-neutral)"
+                  stopColor="#ff0c00"
                   stopOpacity={0.1}
                 />
               </linearGradient>

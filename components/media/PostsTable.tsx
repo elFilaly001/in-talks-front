@@ -9,8 +9,8 @@ const getNetworkIcon = (network: string) => {
     tiktok: "/media/tiktok.png",
     facebook: "/media/facebook.png",
     linkedin: "/media/linkedin.png",
-    twitter: "/media/x.png",
-    x: "/media/x.png",
+    twitter: "/media/twitter.png",
+    x: "/media/twitter.png",
   };
   return networkIcons[network] || "/media/instagram.png";
 };
@@ -57,44 +57,44 @@ const PostsTable: React.FC<PostsTableProps> = ({ posts }) => {
 
             return (
               <tr key={post.id} className="border-b">
-              <td className="px-4 py-2 align-top">
-                <div className="flex gap-2 items-center">
-                  <Image src="/glovo-logo.jpg" alt="Glovo" width={32} height={32} className="rounded-full" />
-                  <div>
-                    <div className="text-sm font-medium text-gray-900 line-clamp-3">{post.caption}</div>
+                <td className="px-4 py-2 align-top">
+                  <div className="flex gap-2 items-center">
+                    <Image src="/glovo-logo.jpg" alt="Glovo" width={32} height={32} className="rounded-full" />
+                    <div>
+                      <div className="text-sm font-medium text-gray-900 line-clamp-3">{post.caption}</div>
+                    </div>
                   </div>
-                </div>
-              </td>
-              <td className="px-4 py-2 align-top">
-                <div className="flex gap-2 items-center">
-                  {post.network === "x" ? (
-                    <span style={{ display: "inline-flex", alignItems: "center" }}>
-                      <Image
-                        src={networkIcon}
-                        alt={networkLabel}
-                        width={24}
-                        height={24}
-                        onError={(e) => {
-                          e.currentTarget.style.display = "none";
-                          const parent = e.currentTarget.parentElement;
-                          if (parent) {
-                            parent.innerHTML = `<svg width='24' height='24' viewBox='0 0 24 24'><path fill='black' d='M17.53 3H21L14.19 10.63L22.09 21H15.63L10.77 14.62L5.29 21H2L9.13 13L1.61 3H8.24L12.68 8.87L17.53 3ZM16.41 19H18.23L7.75 5H5.81L16.41 19Z'/></svg>`;
-                          }
-                        }}
-                      />
-                    </span>
-                  ) : (
-                    <Image src={networkIcon} alt={networkLabel} width={24} height={24} />
-                  )}
-                  <span className="font-medium">{networkLabel}</span>
-                </div>
-              </td>
-              <td className="px-4 py-2 align-top">{post.likes.toLocaleString()}</td>
-              <td className="px-4 py-2 align-top">{post.comments.toLocaleString()}</td>
-              <td className="px-4 py-2 align-top">{post.shares ?? '-'}</td>
-              <td className="px-4 py-2 align-top">{post.views.toLocaleString()}</td>
-              <td className="px-4 py-2 align-top">{post.engagementRate}%</td>
-              <td className="px-4 py-2 align-top">{post.date}</td>
+                </td>
+                <td className="px-4 py-2 align-top">
+                  <div className="flex gap-2 items-center">
+                    {post.network === "x" ? (
+                      <span style={{ display: "inline-flex", alignItems: "center" }}>
+                        <Image
+                          src={networkIcon}
+                          alt={networkLabel}
+                          width={24}
+                          height={24}
+                          onError={(e) => {
+                            e.currentTarget.style.display = "none";
+                            const parent = e.currentTarget.parentElement;
+                            if (parent) {
+                              parent.innerHTML = `<svg width='24' height='24' viewBox='0 0 24 24'><path fill='black' d='M17.53 3H21L14.19 10.63L22.09 21H15.63L10.77 14.62L5.29 21H2L9.13 13L1.61 3H8.24L12.68 8.87L17.53 3ZM16.41 19H18.23L7.75 5H5.81L16.41 19Z'/></svg>`;
+                            }
+                          }}
+                        />
+                      </span>
+                    ) : (
+                      <Image src={networkIcon} alt={networkLabel} width={24} height={24} />
+                    )}
+                    <span className="font-medium">{networkLabel}</span>
+                  </div>
+                </td>
+                <td className="px-4 py-2 align-top">{post.likes.toLocaleString()}</td>
+                <td className="px-4 py-2 align-top">{post.comments.toLocaleString()}</td>
+                <td className="px-4 py-2 align-top">{post.shares ?? '-'}</td>
+                <td className="px-4 py-2 align-top">{post.views.toLocaleString()}</td>
+                <td className="px-4 py-2 align-top">{post.engagementRate}%</td>
+                <td className="px-4 py-2 align-top">{post.date}</td>
               </tr>
             );
           })}

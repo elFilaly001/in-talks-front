@@ -35,8 +35,8 @@ const PostCard = ({
       tiktok: "/media/tiktok.png",
       facebook: "/media/facebook.png",
       linkedin: "/media/linkedin.png",
-      twitter: "/media/x.png",
-      x: "/media/x.png",
+      twitter: "/media/twitter.png",
+      x: "/media/twitter.png",
     };
     return networkIcons[network] || "/media/instagram.png";
   };
@@ -109,9 +109,8 @@ const PostCard = ({
         </p>
 
         <div
-          className={`grid gap-3 divide-x divide-gray-600 ${
-            post.viewsCount ? "grid-cols-3 " : "grid-cols-2"
-          }`}
+          className={`grid gap-3 divide-x divide-gray-600 ${post.viewsCount ? "grid-cols-3 " : "grid-cols-2"
+            }`}
         >
           <div className="flex items-center gap-2 justify-center">
             <Heart className="w-4 h-4" />

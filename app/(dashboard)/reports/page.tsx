@@ -57,15 +57,15 @@ const Page = () => {
     <div className="@container/main mx-auto py-8">
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-center">
-          <div>
-        <h2 className="text-4xl sm:text-5xl md:text-6xl my-3 font-extrabold tracking-tight text-gray-900 dark:text-white">
-          Rapports
-        </h2>
-        <p className="mt-1 text-sm sm:text-base text-muted-foreground max-w-3xl">
-          Téléchargez des rapports détaillés sur vos performances sur
-              les réseaux sociaux, les insights d&apos;audience et plus encore.
-        </p>
-      </div>
+          <div className="">
+            <h2 className="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white inline-flex flex-col">
+              Rapports
+              <div className="flex flex-row gap-1 mt-2  mb-4">
+                <div className="w-[20%] h-1 bg-[#f02cb9] rounded-full"></div>
+                <div className="w-[10%] h-1 bg-[#35b9f4] rounded-full"></div>
+              </div>
+            </h2>
+          </div>
           <CompactDatePicker
             dateRange={dateRange}
             onDateRangeChange={setDateRange}

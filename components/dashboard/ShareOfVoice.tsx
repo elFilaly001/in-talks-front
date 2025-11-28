@@ -21,12 +21,12 @@ import Image from "next/image";
 export const description = "A radar chart with dots";
 
 const chartData = [
-  { month: "Livraison", desktop: 186, fill: "#ff2b12" },
-  { month: "Restaurants", desktop: 305, fill: "#e72a86" },
-  { month: "Supermarket", desktop: 237, fill: "#ffc43a" },
-  { month: "Commande", desktop: 273, fill: "#ff5733" },
-  { month: "Nourriture", desktop: 209, fill: "#3fbf43" },
-  { month: "Paiement", desktop: 214, fill: "#b8aedd" },
+  { month: "Livraison", desktop: 186, fill: "#9c0274" },
+  { month: "Restaurants", desktop: 305, fill: "#ea1c80" },
+  { month: "Supermarket", desktop: 237, fill: "#8376ce" },
+  { month: "Commande", desktop: 273, fill: "#aea6cf" },
+  { month: "Nourriture", desktop: 209, fill: "#ffbf26" },
+  { month: "Paiement", desktop: 214, fill: "#ff0c00" },
 ];
 
 const chartConfig = {

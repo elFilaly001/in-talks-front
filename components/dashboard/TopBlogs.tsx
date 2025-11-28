@@ -284,8 +284,8 @@ export default function TopBlogs({ feeds = defaultMentions }: { feeds?: Mention[
         </div>
       </CardHeader>
 
-      <CardContent className="flex flex-col gap-2.5 pb-8">
-        <div className="max-h-96 overflow-y-auto">
+      <CardContent className="flex flex-col gap-2 pb-8 ">
+        <div className="max-h-96 overflow-y-auto space-y-2">
           {(() => {
             const startIndex = (currentPage - 1) * itemsPerPage
             const endIndex = startIndex + itemsPerPage

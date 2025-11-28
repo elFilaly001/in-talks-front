@@ -25,12 +25,12 @@ type OccupationItem = {
 // Use the same color palette as ShareOfVoice for visual consistency.
 // Palette: green, gray, red, orange, purple, cyan (will cycle if more items)
 const palette = [
-  "#10B981",
-  "#6B7280",
-  "#EF4444",
-  "#F59E0B",
-  "#8B5CF6",
-  "#06B6D4",
+  "#9c0274",
+  "#ea1c80",
+  "#8376ce",
+  "#aea6cf",
+  "#ffbf26",
+  "#ff0c00",
 ];
 
 const sampleData: OccupationItem[] = [
@@ -76,18 +76,46 @@ export default function TopOccupations({
         </div>
       </CardHeader>
 
-  <CardContent className="pb-16">
+      <CardContent className="pb-16">
         <div style={{ width: "100%", height: 360 }}>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={data}
               layout="vertical"
-              margin={{ top: 20, right: 20, left: 20, bottom: 20 }}
+              margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
             >
-              <XAxis type="number" domain={[0, 'dataMax + 5']} tick={{ fontSize: 12 }} />
-              <YAxis dataKey="name" type="category" width={160} tick={{ fontSize: 13 }} />
-              <ReTooltip formatter={(value: number | string) => [`${value}%`, "Share"]} />
-              <Bar dataKey="value" barSize={18} radius={[8, 8, 8, 8]}>
+              <XAxis
+                type="number"
+                domain={[0, 'dataMax + 5']}
+                tick={{ fontSize: 12, fill: '#6b7280' }}
+                axisLine={{ stroke: '#e5e7eb' }}
+                tickLine={{ stroke: '#e5e7eb' }}
+              />
+              <YAxis
+                dataKey="name"
+                type="category"
+                width={140}
+                tick={{ fontSize: 13, fill: '#374151' }}
+                axisLine={false}
+                tickLine={false}
+              />
+              <ReTooltip
+                formatter={(value: number | string) => [`${value}%`, "Share"]}
+                labelFormatter={() => ''}
+                contentStyle={{
+                  backgroundColor: '#fff',
+                  border: '1px solid #e5e7eb',
+                  borderRadius: '8px',
+                  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                  padding: '10px 14px',
+                }}
+                itemStyle={{
+                  color: '#6b7280',
+                  fontSize: '13px',
+                }}
+                cursor={{ fill: 'rgba(0, 0, 0, 0.04)' }}
+              />
+              <Bar dataKey="value" barSize={22} radius={[0, 0, 0, 0]}>
                 {data.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.fill || '#8884d8'} />
                 ))}
@@ -96,7 +124,7 @@ export default function TopOccupations({
           </ResponsiveContainer>
         </div>
 
-  <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
           {data.map((d) => (
             <div key={d.name} className="flex items-center gap-2 text-sm px-2 py-1 whitespace-nowrap">
               <span className="h-3 w-3 rounded-full flex-shrink-0" style={{ backgroundColor: d.fill }} />
