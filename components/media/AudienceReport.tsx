@@ -8,30 +8,14 @@ import AudienceSocialTable from "./AudienceSocialTable";
 import { Bar, BarChart, XAxis, YAxis } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
 } from "@/components/ui/chart";
 import Image from "next/image";
 import Interset from "../charts/Interset";
-import {
-  BookmarkIcon,
-  // Heart,
-  // Users,
-  DownloadCloud,
-} from "lucide-react";
+import BrandAffinity from "../charts/BrandAffinity";
 import ToolTipsProvider from "../charts/ToolTipsProvider";
-import { CompactDatePicker } from "../ui/CompactDatePicker";
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
 type DataType = {
   id: string;
@@ -71,37 +55,6 @@ const data: DataType = {
   updatedAt: "2025-11-04T01:37:03.914Z",
   networkId: "cmhjwf16z0002kqz0qttwcbp8",
 };
-
-const media = [
-  {
-    label: "All Social Medias",
-    // no image for the 'All' option - render an icon instead
-  },
-  {
-    label: "Instagram",
-    image: "/media/instagram.png",
-  },
-  {
-    label: "Youtube",
-    image: "/media/youtube.png",
-  },
-  {
-    label: "X",
-    image: "/media/twitter.png",
-  },
-  {
-    label: "Tiktok",
-    image: "/media/tiktok.png",
-  },
-  {
-    label: "Facebook",
-    image: "/media/facebook.png",
-  },
-  {
-    label: "Linkedin",
-    image: "/media/linkedin.png",
-  },
-];
 
 // const postingFrequency = {
 //   postingFrequency: {
@@ -218,91 +171,7 @@ const networks = [
 ];
 
 const AudienceReport = () => {
-  const [dateRange, setDateRange] = useState({
-    from: undefined as Date | undefined,
-    to: undefined as Date | undefined,
-  });
   const [showInsight, setShowInsight] = useState(false);
-
-  // UI state for export context
-  const [metric] = useState<string | undefined>("followers");
-  const [source, setSource] = useState<string | undefined>(undefined);
-
-  // Build a simple CSV from the `data` object and current UI filters
-  const handleExportCSV = () => {
-    const rows: Array<{ key: string; value: string | number | undefined }> = [];
-
-    // include selected filters
-    rows.push({
-      key: "Selected Metric",
-      value:
-        metric === "followers"
-          ? "Followers"
-          : metric === "likers"
-            ? "Likers"
-            : metric,
-    });
-    rows.push({
-      key: "Date From",
-      value: dateRange.from ? dateRange.from.toISOString() : "",
-    });
-    rows.push({
-      key: "Date To",
-      value: dateRange.to ? dateRange.to.toISOString() : "",
-    });
-    rows.push({ key: "Source", value: source ?? "All Social Medias" });
-
-    // include top-level fields from data
-    Object.entries(data).forEach(([k, v]) => {
-      // if value looks like a JSON string of an object, expand it
-      if (
-        typeof v === "string" &&
-        (v.trim().startsWith("{") || v.trim().startsWith("["))
-      ) {
-        try {
-          const parsed = JSON.parse(v);
-          if (parsed && typeof parsed === "object") {
-            if (Array.isArray(parsed)) {
-              rows.push({ key: k, value: JSON.stringify(parsed) });
-            } else {
-              Object.entries(parsed).forEach(([subk, subv]) => {
-                rows.push({ key: `${k}:${subk}`, value: String(subv) });
-              });
-            }
-            return;
-          }
-        } catch {
-          // fall back to raw string
-        }
-      }
-
-      // otherwise push raw
-      rows.push({ key: k, value: String(v) });
-    });
-
-    const header = ["Metric", "Value"];
-    const csv = [header.join(",")]
-      .concat(
-        rows.map(
-          (r) =>
-            `"${String(r.key).replace(/"/g, '""')}","${String(
-              r.value ?? ""
-            ).replace(/"/g, '""')}"`
-        )
-      )
-      .join("\n");
-
-    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    const ts = new Date().toISOString().replace(/[:.]/g, "-");
-    a.href = url;
-    a.download = `audience-report-${ts}.csv`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
-  };
 
   return (
     <div className="w-350 flex flex-col gap-3">
@@ -310,12 +179,12 @@ const AudienceReport = () => {
         <h2 className="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white inline-flex flex-col">
           Audience
           <div className="flex flex-row gap-1 mt-2  mb-4">
-          <div className="w-[20%] h-1 bg-[#f02cb9] rounded-full"></div>
-          <div className="w-[10%] h-1 bg-[#35b9f4] rounded-full"></div>
+            <div className="w-[20%] h-1 bg-[#f02cb9] rounded-full"></div>
+            <div className="w-[10%] h-1 bg-[#35b9f4] rounded-full"></div>
           </div>
         </h2>
       </div>
-      
+
       <AudienceSocialTable networks={networks} />
 
       {data && (

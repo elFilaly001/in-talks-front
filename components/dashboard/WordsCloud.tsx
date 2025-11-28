@@ -64,20 +64,20 @@ const WordCloud = () => {
   useEffect(() => {
     const minValue = Math.min(...wordData.map(w => w.value));
     const maxValue = Math.max(...wordData.map(w => w.value));
-    
+
     const containerWidth = 700;
     const containerHeight = 320;
     const padding = 30;
     const availableWidth = containerWidth - 2 * padding;
     const availableHeight = containerHeight - 2 * padding;
-    
+
     const rectanglesOverlap = (rect1: Rectangle, rect2: Rectangle) => {
-      return !(rect1.right < rect2.left || 
-               rect1.left > rect2.right || 
-               rect1.bottom < rect2.top || 
-               rect1.top > rect2.bottom);
+      return !(rect1.right < rect2.left ||
+        rect1.left > rect2.right ||
+        rect1.bottom < rect2.top ||
+        rect1.top > rect2.bottom);
     };
-    
+
     const getWordBounds = (word: Word, fontSize: number): Rectangle => {
       const textWidth = word.text.length * fontSize * 0.55;
       const textHeight = fontSize * 1.1;
@@ -88,23 +88,23 @@ const WordCloud = () => {
         bottom: word.y + textHeight / 2 + 2
       };
     };
-    
+
     const positioned: Word[] = [];
-    
+
     // Sort by value descending to place larger words first
     const sortedData = [...wordData].sort((a, b) => b.value - a.value);
-    
-    sortedData.forEach((word, idx) => {
+
+    sortedData.forEach((word) => {
       const fontSize = 14 + ((word.value - minValue) / (maxValue - minValue)) * 28;
       let placed = false;
       let attempts = 0;
       const maxAttempts = 200;
-      
+
       // Determine theme and color based on value percentile
       const percentile = (word.value - minValue) / (maxValue - minValue);
       let theme: 'emerging' | 'decreasing' | 'new';
       let color: string;
-      
+
       if (percentile >= 0.66) {
         theme = 'emerging';
         color = themeConfig.emerging.color;
@@ -115,21 +115,21 @@ const WordCloud = () => {
         theme = 'new';
         color = themeConfig.new.color;
       }
-      
+
       while (!placed && attempts < maxAttempts) {
         // Spiral placement for more compact cloud
         const angle = attempts * 0.4;
         const radius = attempts * 1.8;
         const x = Math.cos(angle) * radius * (availableWidth / availableHeight);
         const y = Math.sin(angle) * radius * 0.7;
-        
+
         // Add some randomness
         const jitterX = (Math.random() - 0.5) * 15;
         const jitterY = (Math.random() - 0.5) * 15;
-        
-        const finalX = Math.max(-availableWidth/2, Math.min(availableWidth/2, x + jitterX));
-        const finalY = Math.max(-availableHeight/2, Math.min(availableHeight/2, y + jitterY));
-        
+
+        const finalX = Math.max(-availableWidth / 2, Math.min(availableWidth / 2, x + jitterX));
+        const finalY = Math.max(-availableHeight / 2, Math.min(availableHeight / 2, y + jitterY));
+
         const testWord: Word = {
           ...word,
           x: finalX,
@@ -138,9 +138,9 @@ const WordCloud = () => {
           rotation: 0,
           theme
         };
-        
+
         const bounds = getWordBounds(testWord, fontSize);
-        
+
         let hasOverlap = false;
         for (const existingWord of positioned) {
           const existingFontSize = 14 + ((existingWord.value - minValue) / (maxValue - minValue)) * 28;
@@ -150,15 +150,15 @@ const WordCloud = () => {
             break;
           }
         }
-        
+
         if (!hasOverlap) {
           positioned.push(testWord);
           placed = true;
         }
-        
+
         attempts++;
       }
-      
+
       // Fallback placement
       if (!placed) {
         const x = (Math.random() - 0.5) * availableWidth * 0.8;
@@ -173,7 +173,7 @@ const WordCloud = () => {
         });
       }
     });
-    
+
     setWords(positioned);
   }, [wordData]);
 
@@ -201,7 +201,7 @@ const WordCloud = () => {
               const fontSize = getFontSize(word.value);
               const isHovered = hoveredWord === index;
               const opacity = word.theme === 'emerging' ? 1 : word.theme === 'decreasing' ? 0.9 : 0.8;
-              
+
               return (
                 <div
                   key={index}
@@ -222,7 +222,7 @@ const WordCloud = () => {
                 >
                   {word.text}
                   {isHovered && (
-                    <div 
+                    <div
                       className="absolute top-full left-1/2 mt-1 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2.5 py-1 rounded whitespace-nowrap shadow-lg"
                       style={{ zIndex: 101 }}
                     >
@@ -240,8 +240,8 @@ const WordCloud = () => {
         <div className="mt-4 flex justify-center items-center gap-6 flex-wrap">
           {Object.entries(themeConfig).map(([key, { color, label }]) => (
             <div key={key} className="flex items-center gap-2 text-sm">
-              <span 
-                className="w-3 h-3 rounded-full" 
+              <span
+                className="w-3 h-3 rounded-full"
                 style={{ backgroundColor: color }}
               />
               <span className="text-muted-foreground">{label}</span>
