@@ -15,12 +15,54 @@ import type { ChartConfig } from "@/components/ui/chart";
 import {
   ChartContainer,
   ChartTooltip,
-  ChartTooltipContent,
   ChartLegend,
   ChartLegendContent,
 } from "@/components/ui/chart";
 import ToolTipsProvider from "../charts/ToolTipsProvider";
 import Image from "next/image";
+
+// Source logos mapping
+const sourceLogos: Record<string, string> = {
+  Instagram: "/media/instagram.png",
+  Facebook: "/media/facebook.png",
+  Tiktok: "/media/tiktok.png",
+  X: "/media/twitter.png",
+  Youtube: "/media/youtube.png",
+  Presse: "/media/presse.png", // Add if available, or remove
+};
+
+// Custom tooltip component
+type CustomTooltipProps = {
+  active?: boolean;
+  payload?: Array<{
+    color: string;
+    dataKey: string;
+    name: string;
+    value: number;
+    payload: Record<string, unknown>;
+  }>;
+  label?: string;
+};
+
+const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
+  if (active && payload && payload.length) {
+    const logo = sourceLogos[label || ''];
+    return (
+      <div className="bg-white p-2 border rounded shadow">
+        <p className="flex items-center gap-1">
+          {logo && <Image src={logo} width={16} height={16} alt={label || ''} />}
+          {label}
+        </p>
+        {payload.map((entry, index) => (
+          <p key={index} style={{ color: entry.color }}>
+            {entry.dataKey}: {entry.value}
+          </p>
+        ))}
+      </div>
+    );
+  }
+  return null;
+};
 
 // ShareOfVoice palette used across the dashboard
 const palette = [
@@ -55,7 +97,7 @@ const rawData: Array<Record<string, number | string>> = [
   { source: "Tiktok", JumiaFood: 350, YasserMarket: 250, Kool: 200, Chari: 120, CreemFood: 80, Glovo: 80 },
   { source: "X", JumiaFood: 250, YasserMarket: 200, Kool: 150, Chari: 200, CreemFood: 200, Glovo: 200 },
   { source: "Youtube", JumiaFood: 300, YasserMarket: 240, Kool: 180, Chari: 160, CreemFood: 120, Glovo: 120 },
-  { source: "Press", JumiaFood: 430, YasserMarket: 330, Kool: 180, Chari: 460, CreemFood: 320, Glovo: 320 },
+  { source: "Presse", JumiaFood: 430, YasserMarket: 330, Kool: 180, Chari: 460, CreemFood: 320, Glovo: 320 },
 ];
 
 // Normalize counts into percentage shares per source (each row sums to ~100)
@@ -94,7 +136,7 @@ export default function ShareOfVoiceBySourceCard() {
                 tick={{ fontSize: 12 }}
               />
               <YAxis type="number" tickLine={false} axisLine={false} width={70} />
-              <ChartTooltip content={<ChartTooltipContent />} />
+              <ChartTooltip content={<CustomTooltip />} />
               <ChartLegend content={<ChartLegendContent />} />
 
               {companies.map((c) => (

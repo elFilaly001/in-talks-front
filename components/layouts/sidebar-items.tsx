@@ -65,7 +65,7 @@ export const sidebarItems: NavGroup[] = [
         icon: AtSign,
       },
       {
-        title: "Sentiment",
+        title: "Sentiments",
         url: "/dashboard/sentiment",
         icon: Smile,
       },

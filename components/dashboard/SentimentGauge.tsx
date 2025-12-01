@@ -17,9 +17,9 @@ function SentimentGauge({ value, label }: SentimentGaugeProps) {
   
   // Determine sentiment label based on value
   const getSentimentLabel = () => {
-    if (clampedValue > 15) return "POSITIVE";
-    if (clampedValue < -15) return "NEGATIVE";
-    return "NEUTRAL";
+    if (clampedValue > 15) return "POSITIF";
+    if (clampedValue < -15) return "NÉGATIF";
+    return "NEUTRE";
   };
 
   const sentimentLabel = label || getSentimentLabel();
@@ -54,7 +54,7 @@ function SentimentGauge({ value, label }: SentimentGaugeProps) {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <p className="text-sm text-gray-500 mb-2">Sentiment Average</p>
+      <p className="text-sm text-gray-500 mb-2">Moyenne du Sentiment</p>
       <div className="relative w-[240px] h-[220px]">
         {/* SVG Gauge */}
         <svg viewBox="0 0 240 240" className="w-full h-full">
@@ -164,15 +164,15 @@ function SentimentGauge({ value, label }: SentimentGaugeProps) {
       <div className="flex items-center gap-4 mt-2">
         <div className="flex items-center gap-1">
           <span className="w-3 h-3 rounded-full bg-[#40bb3c]"></span>
-          <span className="text-xs text-gray-600 dark:text-gray-400">Positive</span>
+          <span className="text-xs text-gray-600 dark:text-gray-400">Positif</span>
         </div>
         <div className="flex items-center gap-1">
           <span className="w-3 h-3 rounded-full bg-[#ff0c00]"></span>
-          <span className="text-xs text-gray-600 dark:text-gray-400">Negative</span>
+          <span className="text-xs text-gray-600 dark:text-gray-400">Négatif</span>
         </div>
         <div className="flex items-center gap-1">
           <span className="w-3 h-3 rounded-full bg-[#9ca3af]"></span>
-          <span className="text-xs text-gray-600 dark:text-gray-400">Neutral</span>
+          <span className="text-xs text-gray-600 dark:text-gray-400">Neutre</span>
         </div>
       </div>
     </div>

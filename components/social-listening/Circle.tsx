@@ -7,16 +7,23 @@ import { Search } from "lucide-react";
 const data = [
   "/glovo-logo.jpg",
   "/seat.jpg",
+  "/Afriquia-01.png",
+  "/MARJANE.jpg",
   "/maserati.jpg",
   "/arma.jpg",
   "/cih.jpg",
+  "/Attijariwafa.png",
+  "/maroc-telecom.jpg",
   "/bp.jpg",
-  "/Afriquia-01.png",
-  "/MARJANE.jpg",
   "/Logo-Lydec-1.jpg",
   "/ocp-group.png",
-  // "/bmci.png",
+  "/Sonarges.webp",
+  "/bmci.png",
   "/inwi.png",
+  "/attijariwafa.png",
+  "/cdm.png",
+  "/renault.png",
+  "/peugeot.png",
 ];
 const Circle = () => {
   return (
@@ -34,13 +41,13 @@ const Circle = () => {
               className=""
               size={560}
               duration={30}
-              data={data.slice(5, 11)}
+              data={data.slice(5, 10)}
             />
             <BoxCreators
               className="transform rotate-75"
               size={660}
               duration={30}
-              data={data.slice(12, 18)}
+              data={data.slice(10, 15)}
             />
           </>
         )}
@@ -111,7 +118,7 @@ const MiddleElement = () => {
   return (
   <div className="inset-1/2 z-50 -translate-x-1/2 -top-10 -translate-y-1/2 absolute w-[340px] text-center flex flex-col gap-2">
   <h2 className="text-xl font-semibold">Veille des Réseaux de Marque</h2>
-  <p className="text-whiteColor">Explorez les partenariats et réseaux de marque</p>
+  <p className="text-whiteColor">Explorez les marques</p>
 
       <div className="flex items-center relative">
         <div className="relative">
