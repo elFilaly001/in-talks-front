@@ -3,7 +3,7 @@ import Overview from "@/components/media/Overview";
 
 export default function Page() {
     return (
-        <div className="">
+        <div className="p-6">
             <Overview />
         </div>
     );

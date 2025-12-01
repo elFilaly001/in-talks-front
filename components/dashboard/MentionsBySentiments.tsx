@@ -19,6 +19,9 @@ import {
 } from "@/components/ui/chart";
 import { useIsMobile } from "@/hooks/use-mobile";
 import ToolTipsProvider from "../charts/ToolTipsProvider";
+import SentimentGauge from "./SentimentGauge";
+import EmotionsChart from "./EmotionsChart";
+import CredibilityChart from "./CredibilityChart";
 
 export const description = "An interactive area chart for sentiment analysis";
 
@@ -196,6 +199,19 @@ function MentionsBySentiments() {
         </div>
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6 pb-8">
+        {/* Three charts row: Emotions - Sentiment Gauge - Credibility */}
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-6">
+          {/* Emotions Chart */}
+          <EmotionsChart joy={90.4} sadness={3.2} anger={2.1} fear={2.8} surprise={1.5} />
+          
+          {/* Sentiment Gauge */}
+          <SentimentGauge value={22.2} />
+          
+          {/* Credibility Chart */}
+          <CredibilityChart value={98.5} />
+        </div>
+        
+        {/* Area Chart */}
         <ChartContainer
           config={chartConfig}
           className="aspect-auto h-[250px] w-full"
