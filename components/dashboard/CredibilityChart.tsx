@@ -20,9 +20,9 @@ function CredibilityChart({ value = 98.5 }: CredibilityChartProps) {
   
   // Determine credibility status
   const getStatus = () => {
-    if (clampedValue >= 80) return { label: "TRUSTWORTHY", color: "#10b981" };
-    if (clampedValue >= 50) return { label: "MODERATE", color: "#f59e0b" };
-    return { label: "LOW", color: "#ef4444" };
+    if (clampedValue >= 80) return { label: "FIABLE", color: "#10b981" };
+    if (clampedValue >= 50) return { label: "MODÉRÉ", color: "#f59e0b" };
+    return { label: "FAIBLE", color: "#ef4444" };
   };
 
   const status = getStatus();
@@ -34,21 +34,21 @@ function CredibilityChart({ value = 98.5 }: CredibilityChartProps) {
 
   const chartConfig = {
     value: {
-      label: "Credibility",
+      label: "Crédibilité",
     },
     credibility: {
-      label: "Credibility",
+      label: "Crédibilité",
       color: status.color,
     },
     remaining: {
-      label: "Remaining",
+      label: "Restant",
       color: "#e5e7eb",
     },
   } satisfies ChartConfig;
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <p className="text-sm text-gray-500 mb-2">Credibility</p>
+      <p className="text-sm text-gray-500 mb-2">Crédibilité</p>
       <ChartContainer
         config={chartConfig}
         className="w-[180px] h-[180px]"

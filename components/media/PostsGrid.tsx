@@ -2,7 +2,7 @@ import React, { useState, Suspense } from "react";
 import PostsTable, { PostRow } from "./PostsTable";
 import PostCard from "./PostCard";
 import Image from "next/image";
-import { DownloadCloud, BookmarkIcon, LayoutGrid, List } from "lucide-react";
+import { BookmarkIcon, LayoutGrid, List } from "lucide-react";
 import OrderByFilter from "../FiltersInfluencers/OrderByFilter";
 import {
   Select,
@@ -14,6 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "../ui/button";
+import ExportButton from "../ui/ExportButton";
 
 const media = [
   {
@@ -669,90 +670,21 @@ const data: DataType = {
 };
 
 const PostsGrid = () => {
-  const [dateRange] = useState({
-    from: undefined as Date | undefined,
-    to: undefined as Date | undefined,
-  });
-
-  const [metric] = useState<string | undefined>("followers");
   const [source, setSource] = useState<string | undefined>(undefined);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
-  const handleExportCSV = () => {
-    const rows: Array<{ key: string; value: string | number | undefined }> = [];
-
-    // include selected filters
-    rows.push({
-      key: "Métrique sélectionnée",
-      value:
-        metric === "followers"
-          ? "Followers"
-          : metric === "likers"
-            ? "Likers"
-            : metric,
-    });
-    rows.push({
-      key: "Date de début",
-      value: dateRange.from ? dateRange.from.toISOString() : "",
-    });
-    rows.push({
-      key: "Date de fin",
-      value: dateRange.to ? dateRange.to.toISOString() : "",
-    });
-    rows.push({ key: "Source", value: source ?? "Tous les réseaux sociaux" });
-
-    // include top-level fields from data
-    Object.entries(data).forEach(([k, v]) => {
-      // if value looks like a JSON string of an object, expand it
-      if (
-        typeof v === "string" &&
-        ((v as string).trim().startsWith("{") ||
-          (v as string).trim().startsWith("["))
-      ) {
-        try {
-          const parsed = JSON.parse(v);
-          if (parsed && typeof parsed === "object") {
-            if (Array.isArray(parsed)) {
-              rows.push({ key: k, value: JSON.stringify(parsed) });
-            } else {
-              Object.entries(parsed).forEach(([subk, subv]) => {
-                rows.push({ key: `${k}:${subk}`, value: String(subv) });
-              });
-            }
-            return;
-          }
-        } catch {
-          // fall back to raw string
-        }
-      }
-
-      // otherwise push raw
-      rows.push({ key: k, value: String(v) });
-    });
-
-    const header = ["Métrique", "Valeur"];
-    const csv = [header.join(",")]
-      .concat(
-        rows.map(
-          (r) =>
-            `"${String(r.key).replace(/"/g, '""')}","${String(
-              r.value ?? ""
-            ).replace(/"/g, '""')}"`
-        )
-      )
-      .join("\n");
-
-    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    const ts = new Date().toISOString().replace(/[:.]/g, "-");
-    a.href = url;
-    a.download = `rapport-audience-${ts}.csv`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
-  };
+  // Prepare export data for posts
+  const exportHeaders = ["ID", "Légende", "URL", "Date", "Type", "Likes", "Commentaires", "Vues"];
+  const exportRows = data.posts.map((post) => [
+    post.id,
+    post.caption,
+    post.url,
+    post.postedDate,
+    post.type,
+    post.likesCount,
+    post.commentsCount,
+    post.viewsCount,
+  ]);
 
   // Map posts data to table rows for PostsTable
   const postsTableRows: PostRow[] = data.posts.map((post, idx) => {
@@ -788,15 +720,13 @@ const PostsGrid = () => {
         <div className="flex justify-between items-center pt-4 pb-4">
           {/* Left side: Export button */}
           <div className="flex items-center">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleExportCSV}
-              className=""
-            >
-              <DownloadCloud className="mr-2 h-4 w-4" />
-              Télécharger CSV
-            </Button>
+            <ExportButton
+              data={{
+                headers: exportHeaders,
+                rows: exportRows,
+                filename: "publications"
+              }}
+            />
 
             {/* View mode segmented control (grid / list) */}
             <div

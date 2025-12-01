@@ -63,7 +63,7 @@ const ChartLangage = ({ data }: { data: JSON }) => {
                 display: 'inline-block',
               }}
               >
-              Insights boostés par IA
+              AI-Powered Insight
             </span>
           </div>
           {showInsight && (

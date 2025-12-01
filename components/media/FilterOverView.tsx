@@ -63,6 +63,22 @@ const FilterOverView = () => {
     from: undefined as Date | undefined,
     to: undefined as Date | undefined,
   });
+  const [source, setSource] = useState<string>("");
+  const [sentiment, setSentiment] = useState<string>("");
+  const [author, setAuthor] = useState<string>("");
+  const [format, setFormat] = useState<string>("");
+  const [language, setLanguage] = useState<string>("");
+  const [city, setCity] = useState<string>("");
+
+  const handleReset = () => {
+    setDateRange({ from: undefined, to: undefined });
+    setSource("");
+    setSentiment("");
+    setAuthor("");
+    setFormat("");
+    setLanguage("");
+    setCity("");
+  };
 
   return (
     <div>
@@ -71,7 +87,7 @@ const FilterOverView = () => {
           dateRange={dateRange}
           onDateRangeChange={setDateRange}
         />
-        <Select>
+        <Select value={source} onValueChange={setSource}>
           <SelectTrigger className="w-full bg-white">
             <SelectValue placeholder="Par source" />
           </SelectTrigger>
@@ -115,7 +131,7 @@ const FilterOverView = () => {
             </SelectGroup>
           </SelectContent>
         </Select>
-        <Select>
+        <Select value={sentiment} onValueChange={setSentiment}>
           <SelectTrigger className="w-full bg-white">
             <SelectValue placeholder="Par sentiment" />
           </SelectTrigger>
@@ -130,7 +146,7 @@ const FilterOverView = () => {
             </SelectGroup>
           </SelectContent>
         </Select>
-        <Select>
+        <Select value={author} onValueChange={setAuthor}>
           <SelectTrigger className="w-full bg-white">
             <SelectValue placeholder="Par auteur" />
           </SelectTrigger>
@@ -145,7 +161,7 @@ const FilterOverView = () => {
             </SelectGroup>
           </SelectContent>
         </Select>
-        <Select>
+        <Select value={format} onValueChange={setFormat}>
           <SelectTrigger className="w-full bg-white">
             <SelectValue placeholder="Par format" />
           </SelectTrigger>
@@ -160,7 +176,7 @@ const FilterOverView = () => {
             </SelectGroup>
           </SelectContent>
         </Select>
-        <Select>
+        <Select value={language} onValueChange={setLanguage}>
           <SelectTrigger className="w-full bg-white">
             <SelectValue placeholder="Par langue" />
           </SelectTrigger>
@@ -181,7 +197,7 @@ const FilterOverView = () => {
             </SelectGroup>
           </SelectContent>
         </Select>
-        <Select>
+        <Select value={city} onValueChange={setCity}>
           <SelectTrigger className="w-full bg-white">
             <SelectValue placeholder="Par ville" />
           </SelectTrigger>
@@ -222,7 +238,10 @@ const FilterOverView = () => {
             <Filter />
             Filtrer
           </Button>
-          <Button className="bg-transparent border border-main text-main">
+          <Button 
+            className="bg-transparent border border-main text-main"
+            onClick={handleReset}
+          >
             <RotateCcw />
           </Button>
 

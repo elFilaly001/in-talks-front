@@ -17,6 +17,14 @@ interface EmotionsChartProps {
   surprise?: number;
 }
 
+const emotionLabels: Record<string, string> = {
+  joy: "Joie",
+  sadness: "Tristesse",
+  anger: "Colère",
+  fear: "Peur",
+  surprise: "Surprise",
+};
+
 function EmotionsChart({ 
   joy = 90.4, 
   sadness = 3.2, 
@@ -34,22 +42,22 @@ function EmotionsChart({
 
   const chartConfig = {
     value: {
-      label: "Value",
+      label: "Valeur",
     },
     joy: {
-      label: "Joy",
+      label: "Joie",
       color: "#fbbf24",
     },
     sadness: {
-      label: "Sadness",
+      label: "Tristesse",
       color: "#3b82f6",
     },
     anger: {
-      label: "Anger",
+      label: "Colère",
       color: "#ef4444",
     },
     fear: {
-      label: "Fear",
+      label: "Peur",
       color: "#8b5cf6",
     },
     surprise: {
@@ -65,7 +73,7 @@ function EmotionsChart({
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <p className="text-sm text-gray-500 mb-2">Emotions</p>
+      <p className="text-sm text-gray-500 mb-2">Émotions</p>
       <ChartContainer
         config={chartConfig}
         className="w-[180px] h-[180px]"
@@ -111,7 +119,7 @@ function EmotionsChart({
                         fontWeight="600"
                         fill={dominant.fill}
                       >
-                        {dominant.emotion.toUpperCase()}
+                        {emotionLabels[dominant.emotion].toUpperCase()}
                       </tspan>
                     </text>
                   );
