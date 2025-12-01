@@ -144,6 +144,7 @@ const secteurTranslations: Record<string, string> = {
   "Beauty": "Beauté",
   "Health & Wellness": "Santé & Bien-être",
   "Travel & Tourism": "Voyage & Tourisme",
+  "Travel & Hospitality": "Voyage & Hôtellerie",
   "Entertainment": "Divertissement",
   "Finance": "Finance",
   "Education": "Éducation",
@@ -306,7 +307,7 @@ const DataTableInfluencersRanking = () => {
             account.brand_categories.map((cat: any) => cat.root_name)
           )
         )
-      )
+      ).filter((secteur) => secteur !== "City")
     );
   }, []);
 

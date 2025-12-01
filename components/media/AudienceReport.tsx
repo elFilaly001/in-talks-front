@@ -174,7 +174,7 @@ const AudienceReport = () => {
   const [showInsight, setShowInsight] = useState(false);
 
   return (
-    <div className="w-full flex flex-col gap-3">
+    <div className="@container w-full flex flex-col gap-3">
       <div className="">
         <h2 className="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white inline-flex flex-col">
           Audience
@@ -184,9 +184,9 @@ const AudienceReport = () => {
           </div>
         </h2>
       </div>
-
-
-      <AudienceSocialTable networks={networks} />
+      <div className="grid grid-cols-1 w-full">
+        <AudienceSocialTable networks={networks} />
+      </div>
 
 
       {data && (

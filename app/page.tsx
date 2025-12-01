@@ -51,7 +51,7 @@ export default function WelcomePage() {
         },
         {
             icon: Smile,
-            title: "Sentiment",
+            title: "Sentiments",
             description: "Comprenez le sentiment de votre audience",
             url: "/dashboard/sentiment",
         },
