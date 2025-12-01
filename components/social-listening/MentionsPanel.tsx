@@ -16,9 +16,6 @@ const tabs = [
                 <div className="col-span-2 flex flex-col gap-5">
                     <Suspense>
                         <Mentions />
-                        <MentionPagination
-                            pagination={{ page: 1, pageSize: 10, total: 300, totalPages: 30 }}
-                        />
                     </Suspense>
                 </div>
 

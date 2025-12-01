@@ -174,7 +174,7 @@ const AudienceReport = () => {
   const [showInsight, setShowInsight] = useState(false);
 
   return (
-    <div className="w-350 flex flex-col gap-3">
+    <div className="w-full flex flex-col gap-3">
       <div className="">
         <h2 className="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white inline-flex flex-col">
           Audience
@@ -188,7 +188,7 @@ const AudienceReport = () => {
       <AudienceSocialTable networks={networks} />
 
       {data && (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-hidden">
           <div className="min-w-full grid grid-cols-1 md:grid-cols-2 gap-5">
             <QualitySplit
               percentages={{
@@ -287,17 +287,7 @@ const AudienceReport = () => {
               </div>
             </Card>
 
-            {/* {data.ageSplit && (
-            <ChartAgeSplit
-              data={
-                JSON.parse(data.ageSplit.toString()) as Record<string, number>
-              }
-            />
-          )} */}
             <AgeGenderBreakdown />
-
-            {/* Group the last three cards into a single full-width row with an inner 3-column grid */}
-
 
             {data.countries && (
               <CountriesSplit

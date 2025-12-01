@@ -42,7 +42,6 @@ export interface AudienceSocialTableProps {
 const media = [
     {
         label: "All Social Medias",
-        // no image for the 'All' option - render an icon instead
     },
     {
         label: "Instagram",

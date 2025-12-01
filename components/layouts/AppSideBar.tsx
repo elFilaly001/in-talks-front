@@ -27,18 +27,18 @@ export default function AppSideBar({
         {state == "expanded" ? (
           <Image
             src={"/logo.webp"}
-            className="p-2 py-5"
+            className="p-2"
             alt="Logo"
-            width={120}
-            height={75}
+            width={140}
+            height={85}
           />
         ) : (
           <Image
             src={"/icons/IN-TALKS-logo.png-2.webp"}
             className="py-2"
             alt="Logo"
-            width={75}
-            height={75}
+            width={40}
+            height={40}
           />
         )}
       </div>
