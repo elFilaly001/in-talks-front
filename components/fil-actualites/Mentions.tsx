@@ -20,6 +20,7 @@ import {
   DialogTitle,
   DialogFooter,
 } from "../ui/dialog";
+import MentionPagination from "./MentionPagination";
 import ExportButton from "../ui/ExportButton";
 
 const mentionsData = [
@@ -474,13 +475,16 @@ const Mentions = () => {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="flex-none h-[2600px] overflow-y-auto">
+      <CardContent className="flex-none h-[755px] overflow-y-auto">
         <div className="flex flex-col gap-2.5">
           {mentions.map((mention) => (
             <FeedCard key={mention.id} feed={mention} onDelete={handleDelete} onUpdateSentiment={handleUpdateSentiment} />
           ))}
         </div>
       </CardContent>
+      <MentionPagination
+                                  pagination={{ page: 1, pageSize: 10, total: 300, totalPages: 30 }}
+                              />
     </Card>
   );
 };

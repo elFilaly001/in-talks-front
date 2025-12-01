@@ -126,7 +126,6 @@ const NavItemCollapsed = ({
         <DropdownMenuTrigger asChild>
           <SidebarMenuButton
             disabled={item.comingSoon}
-            tooltip={item.title}
             isActive={isActive(item.url, item.subItems)}
           >
             {item.icon && <item.icon />}
@@ -222,7 +221,6 @@ export function NavMain({ items }: NavMainProps) {
                       <SidebarMenuButton
                         asChild
                         aria-disabled={item.comingSoon}
-                        tooltip={item.title}
                         isActive={isItemActive(item.url)}
                       >
                         <Link

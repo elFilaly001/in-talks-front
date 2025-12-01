@@ -24,27 +24,26 @@ const FeedCard = ({ feed, onDelete, onUpdateSentiment }: { feed: Mention; onDele
       {onDelete && (
         <button
           onClick={() => onDelete(feed.id)}
-          className="absolute bottom-3 right-3 z-10 p-1 bg-white rounded-full shadow hover:bg-gray-100"
+          className="absolute bottom-3 right-3 p-1 bg-white rounded-full shadow hover:bg-gray-100"
         >
           <Trash className="h-4 w-4 text-red-500" />
         </button>
       )}
-      <div className="absolute top-3 right-3 z-10">
+      <div className="absolute top-3 right-3">
         <Badge
           onClick={() => setShowDropdown(!showDropdown)}
-          className={`cursor-pointer flex items-center gap-1 ${
-            normalizedType === "POSITIVE"
+          className={`cursor-pointer flex items-center gap-1 ${normalizedType === "POSITIVE"
               ? "bg-green-500 text-white"
               : normalizedType === "NEGATIVE"
-              ? "bg-red-500 text-white"
-              : "bg-gray-500 text-white"
-          }`}
+                ? "bg-red-500 text-white"
+                : "bg-gray-500 text-white"
+            }`}
         >
           {normalizedType}
           <ChevronDown className="h-3 w-3" />
         </Badge>
         {showDropdown && (
-          <div className="absolute top-full mt-1 bg-white border rounded shadow-lg z-20">
+          <div className="absolute top-full mt-1 bg-white border rounded shadow-lg">
             {["POSITIVE", "NEGATIVE", "NEUTRAL"].map((type) => (
               <button
                 key={type}
@@ -52,13 +51,12 @@ const FeedCard = ({ feed, onDelete, onUpdateSentiment }: { feed: Mention; onDele
                   onUpdateSentiment?.(feed.id, type);
                   setShowDropdown(false);
                 }}
-                className={`block w-full px-3 py-1 text-left hover:bg-gray-100 ${
-                  type === "POSITIVE"
+                className={`block w-full px-3 py-1 text-left hover:bg-gray-100 ${type === "POSITIVE"
                     ? "text-green-600"
                     : type === "NEGATIVE"
-                    ? "text-red-600"
-                    : "text-gray-600"
-                }`}
+                      ? "text-red-600"
+                      : "text-gray-600"
+                  }`}
               >
                 {type}
               </button>
