@@ -54,8 +54,8 @@ const Page = () => {
     to: undefined as Date | undefined,
   });
   return (
-    <div className="@container/main mx-auto py-8">
-      <div className="max-w-6xl mx-auto">
+    <div className="@container/main mx-auto p-6">
+      <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center">
           <div className="">
             <h2 className="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white inline-flex flex-col">
