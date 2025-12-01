@@ -2,7 +2,7 @@
 
 import React, { Suspense } from "react";
 import FilterFeed from "@/components/fil-actualites/FilterFeed";
-import MentionPagination from "@/components/fil-actualites/MentionPagination";
+// import MentionPagination from "@/components/fil-actualites/MentionPagination";
 import Mentions from "@/components/fil-actualites/Mentions";
 import MentionsFeed from "@/components/media/MentionsFeed";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";

@@ -65,7 +65,7 @@ export const sidebarItems: NavGroup[] = [
         icon: AtSign,
       },
       {
-        title: "Sentiment",
+        title: "Sentiments",
         url: "/dashboard/sentiment",
         icon: Smile,
       },
@@ -110,6 +110,7 @@ export const sidebarItems: NavGroup[] = [
         title: "Rapports personnalisés",
         url: "",
         icon: Sliders, // custom / configurable reports
+        comingSoon: true,
       },
     ],
   },

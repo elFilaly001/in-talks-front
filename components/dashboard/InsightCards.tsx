@@ -434,11 +434,11 @@ export function InsightCards() {
         <CardFooter className="gap-2 pb-8">
           <div className="flex justify-between items-center w-full">
             <Button size="sm" variant="outline" onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
-              Previous
+              Précédent
             </Button>
-            <span className="text-sm">Page {currentPage} of {totalPages}</span>
+            <span className="text-sm">Page {currentPage} sur {totalPages}</span>
             <Button size="sm" variant="outline" onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>
-              Next
+              Suivant
             </Button>
           </div>
         </CardFooter>

@@ -28,10 +28,12 @@ const MentionsNumberCard: React.FC<Props> = ({
 
   return (
     <Card className="relative h-full">
-      <CardHeader className="text-center pb-2">
-        <div className="flex items-center justify-center gap-2">
-          <CardTitle className="text-gray-700 text-lg font-semibold">{title}</CardTitle>
-          <ToolTipsProvider title="Répartition des mentions par genre. Affiche la part des mentions attribuée à chaque genre selon les données de profil disponibles." />
+      <CardHeader className="pb-2">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <CardTitle className="text-lg font-semibold">{title}</CardTitle>
+            <ToolTipsProvider title="Répartition des mentions par genre. Affiche la part des mentions attribuée à chaque genre selon les données de profil disponibles." />
+          </div>
         </div>
       </CardHeader>
 

@@ -45,7 +45,7 @@ export function SectionCards() {
         <CardHeader>
           <CardDescription>Mentions positives</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            45,678
+            45.3%
           </CardTitle>
         </CardHeader>
       </Card>
