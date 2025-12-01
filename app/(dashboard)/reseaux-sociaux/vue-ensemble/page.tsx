@@ -31,7 +31,7 @@ const tabs = [
 const Page = () => {
   return (
     <Suspense>
-      <div className="@container/main flex flex-col">
+      <div className="@container/main flex flex-col container w-full ">
         <Profil />
         <Tabs defaultValue={"overView"} className="my-2">
           <TabsList className="grid grid-cols-3 w-full b text-white border dark:border-gray-800 border-gray-200">
