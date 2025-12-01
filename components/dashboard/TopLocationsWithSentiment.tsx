@@ -64,7 +64,7 @@ export default function TopLocationsWithSentiment() {
   }, []);
 
   return (
-    <Card className="@container/card col-span-2 relative">
+    <Card className="@container/card relative min-w-0">
       <CardHeader>
         <div className="flex items-center gap-2">
           <CardTitle>Analyse des Sentiments par Ville</CardTitle>

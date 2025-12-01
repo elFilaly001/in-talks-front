@@ -445,15 +445,6 @@ const Mentions = () => {
                   </div>
 
                   <div className="grid grid-cols-1 gap-3">
-                    <div>
-                      <label className="text-sm">Miniature</label>
-                      <Input
-                        placeholder="/mentions/thumb.png"
-                        value={form.thumbnail}
-                        onChange={(e) => setForm({ ...form, thumbnail: e.target.value })}
-                      />
-                    </div>
-
                     <div className="flex items-center gap-2">
                       <Checkbox
                         checked={form.notify}

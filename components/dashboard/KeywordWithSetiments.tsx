@@ -53,9 +53,9 @@ const KeywordWithSetiments = ({ label, data, tooltip, insight }: Propstype) => {
   // derive totals per keyword (sum of positive/neutral/negative)
   const totals: { name: string; total: number }[] = Array.isArray(data)
     ? data.map((d: any) => ({
-        name: d.name,
-        total: (d.positive || 0) + (d.neutral || 0) + (d.negative || 0),
-      }))
+      name: d.name,
+      total: (d.positive || 0) + (d.neutral || 0) + (d.negative || 0),
+    }))
     : [];
 
   const overallTotal = totals.reduce((s, t) => s + (t.total || 0), 0);
@@ -63,12 +63,12 @@ const KeywordWithSetiments = ({ label, data, tooltip, insight }: Propstype) => {
 
   const defaultInsight = top
     ? `${top.name} is the most mentioned keyword with ${top.total} mentions (${(
-        overallTotal > 0 ? (top.total / overallTotal) * 100 : 0
-      ).toFixed(1)}% of the sample).`
+      overallTotal > 0 ? (top.total / overallTotal) * 100 : 0
+    ).toFixed(1)}% of the sample).`
     : "No keyword insight available.";
 
   return (
-    <Card className="col-span-1 xl:col-span-2 relative">
+    <Card className="relative min-w-0">
       <CardHeader>
         <div className="flex items-center gap-2">
           <CardTitle>{label}</CardTitle>
@@ -104,7 +104,7 @@ const KeywordWithSetiments = ({ label, data, tooltip, insight }: Propstype) => {
               stackId="sentiment"
               dataKey="positive"
               layout="vertical"
-                        fill="#40bb3c"
+              fill="#40bb3c"
               radius={[6, 0, 0, 6]}
             >
               <LabelList

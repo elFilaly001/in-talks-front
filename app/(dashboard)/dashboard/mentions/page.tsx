@@ -3,7 +3,7 @@ import MentionsPanel from "@/components/social-listening/MentionsPanel";
 
 export default function Page() {
     return (
-        <div className="p-6">
+        <div className="">
             <MentionsPanel />
         </div>
     );

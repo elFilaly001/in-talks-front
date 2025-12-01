@@ -25,7 +25,7 @@ import { CompactDatePicker } from "../ui/CompactDatePicker";
 
 const FilterFeed = () => {
   return (
-    <div className="flex flex-col gap-5 h-[600px] sticky top-5 overflow-y-auto">
+    <div className="flex flex-col gap-5  sticky top-5 overflow-y-auto">
       <Card>
         <CardHeader>
           <CardTitle className="font-semibold">Rechercher une mention</CardTitle>

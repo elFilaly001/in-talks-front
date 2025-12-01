@@ -60,28 +60,28 @@ const dataNetworks = [
 const Sentiment = () => {
   return (
     <div>
-        
+
       <div className="">
         <h2 className="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white inline-flex flex-col">
           Sentiments
           <div className="flex flex-row gap-1 mt-2  mb-4">
-          <div className="w-[20%] h-1 bg-[#f02cb9] rounded-full"></div>
-          <div className="w-[10%] h-1 bg-[#35b9f4] rounded-full"></div>
+            <div className="w-[20%] h-1 bg-[#f02cb9] rounded-full"></div>
+            <div className="w-[10%] h-1 bg-[#35b9f4] rounded-full"></div>
           </div>
         </h2>
       </div>
-        <div className="@container/main flex flex-col gap-4 md:gap-6">
-            <MentionsBySentiments />
-            <KeywordsWithSentiment />
-            <div className="grid grid-cols-4 gap-6">
-                <KeywordWithSetiments
-              label="Répartition des Sentiments par Source"
-              data={dataNetworks}
-              tooltip={`Ce graphique montre la répartition des sentiments (positif, neutre, négatif) générés par la marque sur chaque plateforme sociale. Il permet d’identifier les canaux qui suscitent le plus d’engagement positif, ceux où les conversations sont plus mitigées, ainsi que les sources où le sentiment négatif est le plus élevé.`}
-                />
-                <TopLocationsWithSentiment/>
-            </div>
+      <div className="@container/main flex flex-col gap-4 md:gap-6">
+        <MentionsBySentiments />
+        <KeywordsWithSentiment />
+        <div className="flex flex-col lg:flex-row gap-6 [&>*]:flex-1 [&>*]:min-w-0">
+          <KeywordWithSetiments
+            label="Répartition des Sentiments par Source"
+            data={dataNetworks}
+            tooltip={`Ce graphique montre la répartition des sentiments (positif, neutre, négatif) générés par la marque sur chaque plateforme sociale. Il permet d'identifier les canaux qui suscitent le plus d'engagement positif, ceux où les conversations sont plus mitigées, ainsi que les sources où le sentiment négatif est le plus élevé.`}
+          />
+          <TopLocationsWithSentiment />
         </div>
+      </div>
     </div>
   );
 };
