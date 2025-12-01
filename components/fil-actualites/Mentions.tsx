@@ -20,6 +20,7 @@ import {
   DialogTitle,
   DialogFooter,
 } from "../ui/dialog";
+import ExportButton from "../ui/ExportButton";
 
 const mentionsData = [
   {
@@ -325,45 +326,18 @@ const Mentions = () => {
     );
   };
 
-  // Export mentions as CSV and trigger download
-  const handleDownloadMentions = () => {
-    try {
-      const headers = [
-        "id",
-        "title",
-        "link",
-        "postedDate",
-        "thumbnail",
-        "snippet",
-        "source",
-        "type",
-      ];
-
-      const rows = mentions.map((m) =>
-        headers
-          .map((h) => {
-            const val = (m as Record<string, unknown>)[h] ?? "";
-            // escape double quotes
-            return `"${String(val).replace(/"/g, '""')}"`;
-          })
-          .join(",")
-      );
-
-      const csv = [headers.join(","), ...rows].join("\n");
-      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `mentions-${new Date().toISOString().slice(0, 10)}.csv`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-    } catch (e) {
-      // silent fail for now - could show UI toast later
-      console.error(e);
-    }
-  };
+  // Prepare export data for mentions
+  const exportHeaders = ["ID", "Titre", "Lien", "Date", "Miniature", "Extrait", "Source", "Sentiment"];
+  const exportRows = mentions.map((m) => [
+    m.id,
+    m.title,
+    m.link,
+    m.postedDate,
+    m.thumbnail,
+    m.snippet,
+    m.source,
+    m.type,
+  ]);
 
   return (
     <Card className="flex flex-col relative">
@@ -374,7 +348,13 @@ const Mentions = () => {
             <ToolTipsProvider title="Flux en temps réel regroupant toutes les mentions de la marque issues des réseaux sociaux et des sources médiatiques." />
           </div>
           <div className="flex items-center gap-2">
-            <Button size="sm" variant="outline" onClick={handleDownloadMentions}>Télécharger</Button>
+            <ExportButton
+              data={{
+                headers: exportHeaders,
+                rows: exportRows,
+                filename: `mentions-${new Date().toISOString().slice(0, 10)}`
+              }}
+            />
             <Dialog open={open} onOpenChange={setOpen}>
               <DialogTrigger asChild>
                 <Button size="sm" variant="outline">Ajouter une mention</Button>

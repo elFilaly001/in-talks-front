@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import DataTable, { TableColumn } from "react-data-table-component";
 import formatNumber from "@/lib/numbers";
 import { Badge } from "../ui/badge";
-import { Button } from "../ui/button";
 import {
     Select,
     SelectContent,
@@ -14,8 +13,9 @@ import {
     SelectValue,
 } from "../ui/select";
 import { CompactDatePicker } from "../ui/CompactDatePicker";
-import { DownloadCloud, BookmarkIcon } from "lucide-react";
+import { BookmarkIcon } from "lucide-react";
 import Image from "next/image";
+import ExportButton from "../ui/ExportButton";
 
 interface DateRange {
     from: Date | undefined;
@@ -77,22 +77,18 @@ const AudienceSocialTable = ({
     const [dateRange, setDateRange] = useState<DateRange>({ from: undefined, to: undefined });
     const [source, setSource] = useState<string>("All Social Medias");
 
-    const handleExportCSV = () => {
-        // CSV export logic
-        const headers = ["Network", "Username", "Name", "Followers", "ER", "Avg Engage", "Avg Views", "Metrics"];
-        const csvContent = [
-            headers.join(","),
-            ...networks.map(row =>
-                [row.network, row.username, row.name, row.followers, row.er, row.avgEngage, row.avgViews, row.metrics].join(",")
-            )
-        ].join("\n");
-
-        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = "audience_social_table.csv";
-        link.click();
-    };
+    // Prepare export data
+    const exportHeaders = ["Réseau", "Nom d'utilisateur", "Nom", "Abonnés", "Taux d'engagement", "Engagement moyen", "Vues moyennes", "Score"];
+    const exportRows = networks.map(row => [
+        row.network,
+        row.username,
+        row.name,
+        row.followers?.toString() ?? "",
+        row.er?.toString() ?? "",
+        row.avgEngage?.toString() ?? "",
+        row.avgViews?.toString() ?? "",
+        row.metrics?.toString() ?? ""
+    ]);
 
     // Map network names to actual image files
     const getNetworkImage = (network: string) => {
@@ -109,7 +105,7 @@ const AudienceSocialTable = ({
             cell: (row) => (
                 <div className="flex justify-center items-center p-3 gap-3">
                     {/* Network logo */}
-                    <img
+                    <Image
                         src={getNetworkImage(row.network)}
                         alt={row.network + " logo"}
                         width={25}
@@ -122,12 +118,12 @@ const AudienceSocialTable = ({
                     />
                     {/* Profile image */}
                     {row.profil && (
-                        <img
+                        <Image
                             src={row.profil}
                             alt={row.name + " profile"}
                             width={35}
                             height={35}
-                            style={{ borderRadius: "50%", objectFit: 'cover' }}
+                            className="rounded-full object-cover"
                             onError={(e) => {
                                 const target = e.currentTarget;
                                 target.style.display = 'none';
@@ -249,15 +245,13 @@ const AudienceSocialTable = ({
             <div className="flex justify-between items-center pt-4 pb-4">
                 {/* Left side: Export button */}
                 <div className="flex items-center">
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={handleExportCSV}
-                        className=""
-                    >
-                        <DownloadCloud className="mr-2 h-4 w-4" />
-                        Exporter CSV
-                    </Button>
+                    <ExportButton
+                        data={{
+                            headers: exportHeaders,
+                            rows: exportRows,
+                            filename: "audience_social"
+                        }}
+                    />
                 </div>
 
                 {/* Right side: controls group */}
