@@ -6,7 +6,7 @@ import React, { Suspense } from "react";
 
 const page = () => {
   return (
-    <div className="@container/main flex flex-col gap-4 md:gap-6 p-6">
+    <div className="@container/main flex flex-col gap-4 md:gap-6">
         
       <div className="">
         <h2 className="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white inline-flex flex-col">
