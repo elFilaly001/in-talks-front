@@ -29,7 +29,8 @@
 .box-0 {
   position: absolute;
   top: 0%;
-  right: 15%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .box-1 {
   position: absolute;
@@ -38,38 +39,15 @@
 }
 .box-2 {
   position: absolute;
-  bottom: 0%;
-  left: 15%;
+  top: 15%;
+  right: 0%;
 }
 .box-3 {
   position: absolute;
-  bottom: 0%;
-  left: 0%;
-  display: none;
-}
-
-.box-4 {
-  position: absolute;
   bottom: 15%;
-  right: 0%;
+  left: 0%;
 }
-.box-5 {
-  position: absolute;
-  top: 0%;
-  right: 15%;
-}
-.box-6 {
-  position: absolute;
-  bottom: 0%;
-  left: 15%;
-}
-.box-7 {
-  position: absolute;
-  top: 40%;
-  left: -30px;
-}
-
-.box-8 {
+.box-4 {
   position: absolute;
   bottom: 15%;
   right: 0%;

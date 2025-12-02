@@ -5,8 +5,8 @@ import "@/app/creator-netwrok.css";
 import { Input } from "../ui/input";
 import { Search } from "lucide-react";
 const data = [
-  "/glovo-logo.jpg",
-  "/seat.jpg",
+  "/ocp-group.png",
+  "/Sonarges.webp",
   "/Afriquia-01.png",
   "/MARJANE.jpg",
   "/maserati.jpg",
@@ -15,15 +15,15 @@ const data = [
   "/Attijariwafa.png",
   "/maroc-telecom.jpg",
   "/bp.jpg",
+  "/glovo-logo.jpg",
   "/Logo-Lydec-1.jpg",
-  "/ocp-group.png",
-  "/Sonarges.webp",
+  "/lc-waikiki-logo.png",
+  "/hd-renault-logo.png",
+  "/seat.jpg",
   "/bmci.png",
   "/inwi.png",
-  "/attijariwafa.png",
-  "/cdm.png",
-  "/renault.png",
-  "/peugeot.png",
+  "/credit-du-maroc.png",
+  "/logo-peugeot-2021.jpg",
 ];
 const Circle = () => {
   return (
@@ -48,6 +48,12 @@ const Circle = () => {
               size={660}
               duration={30}
               data={data.slice(10, 15)}
+            />
+            <BoxCreators
+              className="transform rotate-45"
+              size={780}
+              duration={35}
+              data={data.slice(15, 20)}
             />
           </>
         )}
