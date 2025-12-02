@@ -1,7 +1,7 @@
 "use client";
 
 // import Profil from "@/components/media/Profil";
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 // import Overview from "@/components/media/Overview";
 // import PostsGrid from "@/components/media/PostsGrid";
 // import AudienceReport from "@/components/media/AudienceReport";
@@ -11,7 +11,7 @@ import { useSearchParams } from "next/navigation";
 
 export const dynamic = 'force-dynamic';
 
-const Page = () => {
+const DashboardContent = () => {
   const searchParams = useSearchParams();
   // const router = useRouter();
   const initial = searchParams?.get("tab") ?? "overView";
@@ -27,6 +27,14 @@ const Page = () => {
       <h1 className="text-3xl font-bold">Welcome to InTalks</h1>
       <p className="mt-3 text-neutral-600">This is your workspace. Use the sidebar to open different dashboard sections.</p>
     </main>
+  );
+}
+
+const Page = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DashboardContent />
+    </Suspense>
   );
 }
 
