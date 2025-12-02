@@ -22,7 +22,6 @@ import { CSS } from "@dnd-kit/utilities";
 import { GripVertical, Trash2, Plus, FileDown, Table as TableIcon, BarChart3 } from "lucide-react";
 
 // Import Dashboard Components
-import { InsightCards } from "../dashboard/InsightCards";
 import MentionsOverTimeWidget from "./MentionsOverTimeWidget";
 import SentimentWidget from "./SentimentWidget";
 import AreaChartWidget from "./AreaChartWidget";
@@ -212,7 +211,7 @@ export default function ReportBuilder() {
                 <div className="hidden print:block mb-8">
                     <div className="flex items-center justify-between border-b-2 border-black pb-4 mb-8">
                         <div>
-                            <h1 className="text-3xl font-bold">Rapport d'Analyse</h1>
+                            <h1 className="text-3xl font-bold">Rapport d&apos;Analyse</h1>
                             <p className="text-gray-500 mt-1">Généré le {new Date().toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import {
     Line,
     LineChart,
@@ -25,7 +25,6 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import ToolTipsProvider from "../charts/ToolTipsProvider";
 
 // Data from InsightCards.tsx
 const mentionsByPeriodData = [

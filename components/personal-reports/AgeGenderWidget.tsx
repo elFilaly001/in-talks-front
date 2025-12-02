@@ -75,7 +75,7 @@ export default function AgeGenderWidget({ viewMode = "chart" }: AgeGenderWidgetP
                         <Table>
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead>Groupe d'âge</TableHead>
+                                    <TableHead>Groupe d&apos;âge</TableHead>
                                     <TableHead className="text-right">Homme</TableHead>
                                     <TableHead className="text-right">Femme</TableHead>
                                     <TableHead className="text-right">Autre</TableHead>
