@@ -16,6 +16,7 @@ export interface Network {
   avgEngage: number;
   avgViews: number;
   metrics: string;
+  growth?: number;
 }
 
 export interface SocialCoverageProps {
@@ -40,6 +41,7 @@ const SAMPLE_NETWORKS: Network[] = [
     avgEngage: 11500,
     avgViews: 60000,
     metrics: "78",
+    growth: 5.2,
   },
   {
     network: "instagram",
@@ -51,6 +53,7 @@ const SAMPLE_NETWORKS: Network[] = [
     avgEngage: 4000,
     avgViews: 22000,
     metrics: "71",
+    growth: -2.1,
   },
   {
     network: "instagram",
@@ -62,6 +65,7 @@ const SAMPLE_NETWORKS: Network[] = [
     avgEngage: 1100,
     avgViews: 6000,
     metrics: "65",
+    growth: 8.7,
   },
   {
     network: "instagram",
@@ -73,6 +77,7 @@ const SAMPLE_NETWORKS: Network[] = [
     avgEngage: 11700,
     avgViews: 65000,
     metrics: "82",
+    growth: 3.4,
   },
 ];
 
@@ -275,11 +280,15 @@ const SocialCoverage = ({ networks, includeSamples = false, title = "Tableau de 
     {
       name: "Croissance (90 jours)",
       width: "150px",
-      cell() {
+      sortable: true,
+      selector: (row) => row.growth ?? 0,
+      cell(row) {
+        const growth = row.growth ?? 0;
+        const isPositive = growth >= 0;
         return (
-          <Badge className="flex gap-1 items-center bg-emerald-500/20 text-black px-3 py-2 rounded-md">
-            <span className="circle h-2 w-2 bg-green-500 rounded-full"></span>
-            +5,2%
+          <Badge className={`flex gap-1 items-center ${isPositive ? 'bg-emerald-500/20' : 'bg-red-500/20'} text-black px-3 py-2 rounded-md`}>
+            <span className={`circle h-2 w-2 ${isPositive ? 'bg-green-500' : 'bg-red-500'} rounded-full`}></span>
+            {isPositive ? '+' : ''}{growth.toFixed(1)}%
           </Badge>
         );
       },

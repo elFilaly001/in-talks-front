@@ -50,12 +50,12 @@ const palette = [
 
 // Default brands palette (used if parent doesn't pass rows)
 const defaultBrands = [
-    { label: 'Jumia Food', value: 35000, color: palette[0] }, // green
-    { label: 'Yasser Market', value: 25000, color: palette[1] }, // gray
-    { label: 'Kool', value: 18000, color: palette[2] }, // red
-    { label: 'Chari', value: 15000, color: palette[3] }, // orange/amber
-    { label: 'Creem Food', value: 9000, color: palette[4] }, // purple
-    { label: 'Glovo', value: 12000, color: palette[5] }, // cyan
+    { label: 'Massinart', value: 35000, color: palette[0] },
+    { label: 'Competitor 1', value: 25000, color: palette[1] },
+    { label: 'Competitor 2', value: 18000, color: palette[2] },
+    { label: 'Competitor 3', value: 15000, color: palette[3] },
+    { label: 'Competitor 4', value: 9000, color: palette[4] },
+    { label: 'Competitor 5', value: 12000, color: palette[5] },
 ];
 
 // Sentiment breakdowns for the five Moroccan competitors (positive / negative).
@@ -328,7 +328,7 @@ export default function ShareOfVoiceByMentionsDonut({ rows }: Props) {
                         {showInsight && (
                             <div className="absolute bottom-full left-0 mb-2 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50 w-auto min-w-80 max-w-xl">
                                 <p className="text-sm text-gray-700 dark:text-gray-300">
-                                    Ryanair dominates mentions with 35,000 total mentions, representing the largest share of voice. The sentiment breakdown shows positive mentions are highest across all brands, indicating generally favorable perception in the market.
+                                    Massinart dominates mentions with 35,000 total mentions, representing the largest share of voice in the art and decor market. The sentiment breakdown shows positive mentions are highest, indicating strong brand perception and customer satisfaction with art collections and interior design offerings.
                                 </p>
                             </div>
                         )}

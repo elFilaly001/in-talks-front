@@ -76,12 +76,12 @@ const palette = [
 
 // Company list used elsewhere in the dashboard (keeps parity with ShareOfVoiceByMention)
 const companies = [
-  { key: "JumiaFood", label: "Jumia Food", color: palette[0] },
-  { key: "YasserMarket", label: "Yasser Market", color: palette[1] },
-  { key: "Kool", label: "Kool", color: palette[2] },
-  { key: "Chari", label: "Chari", color: palette[3] },
-  { key: "CreemFood", label: "Creem Food", color: palette[4] },
-  { key: "Glovo", label: "Glovo", color: palette[5] },
+  { key: "Massinart", label: "Massinart", color: palette[0] },
+  { key: "Competitor1", label: "Competitor 1", color: palette[1] },
+  { key: "Competitor2", label: "Competitor 2", color: palette[2] },
+  { key: "Competitor3", label: "Competitor 3", color: palette[3] },
+  { key: "Competitor4", label: "Competitor 4", color: palette[4] },
+  { key: "Competitor5", label: "Competitor 5", color: palette[5] },
 ];
 
 const chartConfig: ChartConfig = companies.reduce((acc, c) => {
@@ -92,12 +92,12 @@ const chartConfig: ChartConfig = companies.reduce((acc, c) => {
 // Example competitive data per source (values are illustrative — replace with real data)
 // Raw mention counts per source (these will be normalized to percentage shares per row)
 const rawData: Array<Record<string, number | string>> = [
-  { source: "Instagram", JumiaFood: 320, YasserMarket: 220, Kool: 180, Chari: 150, CreemFood: 90, Glovo: 130 },
-  { source: "Facebook", JumiaFood: 280, YasserMarket: 200, Kool: 180, Chari: 180, CreemFood: 160, Glovo: 160 },
-  { source: "Tiktok", JumiaFood: 350, YasserMarket: 250, Kool: 200, Chari: 120, CreemFood: 80, Glovo: 80 },
-  { source: "X", JumiaFood: 250, YasserMarket: 200, Kool: 150, Chari: 200, CreemFood: 200, Glovo: 200 },
-  { source: "Youtube", JumiaFood: 300, YasserMarket: 240, Kool: 180, Chari: 160, CreemFood: 120, Glovo: 120 },
-  { source: "Presse", JumiaFood: 430, YasserMarket: 330, Kool: 180, Chari: 460, CreemFood: 320, Glovo: 320 },
+  { source: "Instagram", Massinart: 320, Competitor1: 220, Competitor2: 180, Competitor3: 150, Competitor4: 90, Competitor5: 130 },
+  { source: "Facebook", Massinart: 280, Competitor1: 200, Competitor2: 180, Competitor3: 180, Competitor4: 160, Competitor5: 160 },
+  { source: "Tiktok", Massinart: 350, Competitor1: 250, Competitor2: 200, Competitor3: 120, Competitor4: 80, Competitor5: 80 },
+  { source: "X", Massinart: 250, Competitor1: 200, Competitor2: 150, Competitor3: 200, Competitor4: 200, Competitor5: 200 },
+  { source: "Youtube", Massinart: 300, Competitor1: 240, Competitor2: 180, Competitor3: 160, Competitor4: 120, Competitor5: 120 },
+  { source: "Presse", Massinart: 430, Competitor1: 330, Competitor2: 180, Competitor3: 460, Competitor4: 320, Competitor5: 320 },
 ];
 
 // Normalize counts into percentage shares per source (each row sums to ~100)
@@ -180,7 +180,7 @@ export default function ShareOfVoiceBySourceCard() {
             {showInsight && (
               <div className="absolute bottom-full left-0 mb-2 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50 w-auto min-w-80 max-w-xl">
                 <p className="text-sm text-gray-700 dark:text-gray-300">
-                  Facebook and YouTube drive the largest combined volumes, while Jumia and Careem are consistently present across channels. Use the stacked view to spot channel-specific strengths.
+                  Instagram and Facebook drive the largest volumes for art and decor brands, while Massinart maintains strong presence across all channels. Use the stacked view to identify platform-specific strengths for your interior design and art collection campaigns.
                 </p>
               </div>
             )}

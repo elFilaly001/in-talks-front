@@ -49,7 +49,7 @@ const data: DataType = {
   ageSplit:
     '{"13-17":10.87,"18-24":45.65,"25-34":28.26,"35-44":6.52,"45-54":2.17,"55+":0,"undetermined":6.52}',
   interest:
-    '{"Fashion & Beauty":10.87,"Food & Drink":45.65,"Tech & Innovation":28.26,"Culture & Entertainment":6.52}',
+    '{"Art & Design":45.65,"Home Decor":28.26,"Interior Design":10.87,"Culture & Entertainment":6.52,"Architecture":8.7}',
   language:
     '{"Arabic":60.87,"French":19.57,"English":8.7,"Turkish":4.35,"Spanish":2.17,"Portuguese":2.17,"undetermined":2.17}',
   createdAt: "2025-11-04T01:37:03.914Z",
@@ -135,6 +135,7 @@ const networks = [
     avgEngage: 19000,
     avgViews: 211400,
     metrics: "85.4",
+    growth: 7.3,
   },
   {
     network: "x",
@@ -146,6 +147,7 @@ const networks = [
     avgEngage: 8000,
     avgViews: 90000,
     metrics: "80.2",
+    growth: -1.2,
   },
   {
     network: "facebook",
@@ -157,6 +159,7 @@ const networks = [
     avgEngage: 12000,
     avgViews: 150000,
     metrics: "83.7",
+    growth: 4.5,
   },
   {
     network: "youtube",
@@ -168,6 +171,7 @@ const networks = [
     avgEngage: 5000,
     avgViews: 200000,
     metrics: "88.1",
+    growth: 12.8,
   },
 ];
 

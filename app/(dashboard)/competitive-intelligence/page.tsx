@@ -7,17 +7,6 @@ import React from "react";
 const networks = [
   {
     network: "instagram",
-    profil: "/glovo/483195916_1532010537473174_2632696751857179851_n.jpg",
-    username: "glovo_ma",
-    name: "Glovo Maroc",
-    followers: 122000,
-    er: 2.5,
-    avgEngage: 19000,
-    avgViews: 211400,
-    metrics: "85.4/100",
-  },
-  {
-    network: "instagram",
     profil:
       "https://favikon-medias.s3.eu-west-3.amazonaws.com/in/32229526303.jpg",
     username: "Yassir.ma",
