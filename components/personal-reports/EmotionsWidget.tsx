@@ -1,5 +1,6 @@
 "use client";
-import React from "react";
+
+import * as React from "react";
 import { Label, Pie, PieChart, ResponsiveContainer, Tooltip, Cell } from "recharts";
 import {
     Card,
@@ -16,44 +17,41 @@ import {
     TableRow,
 } from "@/components/ui/table";
 
-const mentionsBySentimentChartData = [
-    { sentiment: "Positif", mentions: 275, fill: "#40bb3c" },
-    { sentiment: "Neutre", mentions: 120, fill: "#ffbf26" },
-    { sentiment: "Négatif", mentions: 80, fill: "#ff0c00" },
+const chartData = [
+    { emotion: "Joie", value: 90.4, fill: "#fbbf24" },
+    { emotion: "Tristesse", value: 3.2, fill: "#3b82f6" },
+    { emotion: "Colère", value: 2.1, fill: "#ef4444" },
+    { emotion: "Peur", value: 2.8, fill: "#8b5cf6" },
+    { emotion: "Surprise", value: 1.5, fill: "#ec4899" },
 ];
 
-interface SentimentWidgetProps {
+interface EmotionsWidgetProps {
     viewMode?: "chart" | "table";
     dateRange?: { from: Date | undefined; to: Date | undefined };
 }
 
-export default function SentimentWidget({ viewMode = "chart", dateRange }: SentimentWidgetProps) {
-    const totalMentions = mentionsBySentimentChartData.reduce(
-        (acc, curr) => acc + curr.mentions,
-        0
-    );
-
+export default function EmotionsWidget({ viewMode = "chart", dateRange }: EmotionsWidgetProps) {
     return (
-        <Card className="col-span-1 relative">
+        <Card className="w-full">
             <CardHeader>
-                <CardTitle>Répartition des Mentions par Sentiment</CardTitle>
+                <CardTitle>Analyse des Émotions</CardTitle>
             </CardHeader>
             <CardContent>
                 {viewMode === "chart" ? (
-                    <div className="h-[300px]">
+                    <div className="h-[300px] w-full flex justify-center">
                         <ResponsiveContainer width="100%" height="100%">
                             <PieChart>
                                 <Tooltip />
                                 <Pie
-                                    data={mentionsBySentimentChartData}
-                                    dataKey="mentions"
-                                    nameKey="sentiment"
+                                    data={chartData}
+                                    dataKey="value"
+                                    nameKey="emotion"
                                     innerRadius={60}
                                     outerRadius={90}
                                     paddingAngle={2}
                                     cornerRadius={4}
                                 >
-                                    {mentionsBySentimentChartData.map((entry, index) => (
+                                    {chartData.map((entry, index) => (
                                         <Cell key={`cell-${index}`} fill={entry.fill} />
                                     ))}
                                     <Label
@@ -69,16 +67,9 @@ export default function SentimentWidget({ viewMode = "chart", dateRange }: Senti
                                                         <tspan
                                                             x={viewBox.cx}
                                                             y={viewBox.cy}
-                                                            className="fill-foreground text-3xl font-bold"
+                                                            className="fill-foreground text-2xl font-bold"
                                                         >
-                                                            {totalMentions.toLocaleString()}
-                                                        </tspan>
-                                                        <tspan
-                                                            x={viewBox.cx}
-                                                            y={(viewBox.cy || 0) + 24}
-                                                            className="fill-muted-foreground text-xs"
-                                                        >
-                                                            Mentions
+                                                            Émotions
                                                         </tspan>
                                                     </text>
                                                 );
@@ -94,23 +85,23 @@ export default function SentimentWidget({ viewMode = "chart", dateRange }: Senti
                         <Table>
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead>Sentiment</TableHead>
-                                    <TableHead className="text-right">Mentions</TableHead>
+                                    <TableHead>Émotion</TableHead>
+                                    <TableHead className="text-right">Pourcentage</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {mentionsBySentimentChartData.map((row) => (
-                                    <TableRow key={row.sentiment}>
+                                {chartData.map((row) => (
+                                    <TableRow key={row.emotion}>
                                         <TableCell className="font-medium">
                                             <div className="flex items-center gap-2">
                                                 <div
                                                     className="h-3 w-3 rounded-full"
                                                     style={{ backgroundColor: row.fill }}
                                                 />
-                                                {row.sentiment}
+                                                {row.emotion}
                                             </div>
                                         </TableCell>
-                                        <TableCell className="text-right">{row.mentions}</TableCell>
+                                        <TableCell className="text-right">{row.value}%</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>

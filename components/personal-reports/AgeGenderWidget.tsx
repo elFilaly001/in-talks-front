@@ -27,9 +27,10 @@ const chartData = [
 
 interface AgeGenderWidgetProps {
     viewMode?: "chart" | "table";
+    dateRange?: { from: Date | undefined; to: Date | undefined };
 }
 
-export default function AgeGenderWidget({ viewMode = "chart" }: AgeGenderWidgetProps) {
+export default function AgeGenderWidget({ viewMode = "chart", dateRange }: AgeGenderWidgetProps) {
     return (
         <Card className="relative">
             <CardHeader>

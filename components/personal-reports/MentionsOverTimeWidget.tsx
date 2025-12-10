@@ -59,9 +59,10 @@ const mentionsByPeriodConfig = {
 
 interface MentionsOverTimeWidgetProps {
     viewMode?: "chart" | "table";
+    dateRange?: { from: Date | undefined; to: Date | undefined };
 }
 
-export default function MentionsOverTimeWidget({ viewMode = "chart" }: MentionsOverTimeWidgetProps) {
+export default function MentionsOverTimeWidget({ viewMode = "chart", dateRange }: MentionsOverTimeWidgetProps) {
     return (
         <Card className="w-full">
             <CardHeader>

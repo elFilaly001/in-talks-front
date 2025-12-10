@@ -48,13 +48,13 @@ export function NavUser() {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={"/glovo.png"} alt={"glovo "} />
-                <AvatarFallback className="rounded-lg">G</AvatarFallback>
+                <AvatarImage src={"https://massinart.ma/cdn/shop/files/logo-Massinart-2025_1_245x_23048717-19c1-4cdd-bfda-c0e80272dcb0.svg?v=1736461547&amp;width=300"} alt={"glovo "} />
+                <AvatarFallback className="rounded-lg">M</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">Glovo Maroc</span>
+                <span className="truncate font-medium">Massinart</span>
                 <span className="text-muted-foreground truncate text-xs">
-                  glovo@in-talks.ma
+                  massinart@in-talks.ma
                 </span>
               </div>
               <EllipsisVertical className="ml-auto size-4" />

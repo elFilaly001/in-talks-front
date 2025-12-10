@@ -21,9 +21,10 @@ const keywords: KeywordData[] = rawKeywords.map((k, idx) => ({
 
 interface KeywordsCloudWidgetProps {
     viewMode?: "chart" | "table";
+    dateRange?: { from: Date | undefined; to: Date | undefined };
 }
 
-export default function KeywordsCloudWidget({ viewMode = "chart" }: KeywordsCloudWidgetProps) {
+export default function KeywordsCloudWidget({ viewMode = "chart", dateRange }: KeywordsCloudWidgetProps) {
     // Sort keywords by count descending
     const sortedKeywords = [...keywords].sort((a, b) => b.count - a.count);
 

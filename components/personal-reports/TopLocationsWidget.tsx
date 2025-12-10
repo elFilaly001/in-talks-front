@@ -38,9 +38,10 @@ const data = [
 
 interface TopLocationsWidgetProps {
     viewMode?: "chart" | "table";
+    dateRange?: { from: Date | undefined; to: Date | undefined };
 }
 
-export default function TopLocationsWidget({ viewMode = "chart" }: TopLocationsWidgetProps) {
+export default function TopLocationsWidget({ viewMode = "chart", dateRange }: TopLocationsWidgetProps) {
     const sortedData = React.useMemo(() => {
         return [...data].sort((a, b) => {
             const ta = (a.positive || 0) + (a.neutral || 0) + (a.negative || 0);

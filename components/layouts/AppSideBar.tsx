@@ -12,7 +12,7 @@ import { NavMain } from "./NavMain";
 import { NavUser } from "./NavUser";
 import Image from "next/image";
 
-export default function AppSideBar({
+export default function   AppSideBar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
   const { state, setOpen } = useSidebar();

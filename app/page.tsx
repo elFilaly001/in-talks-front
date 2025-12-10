@@ -98,7 +98,7 @@ export default function WelcomePage() {
                 )}
             >
                 {/* Main Content */}
-                <div className="min-h-screen flex flex-col">
+                <div className=" overflow-y-hidden flex flex-col">
                     {/* Hero Section */}
                     <div className="flex-1 flex flex-col items-center px-6 py-12 relative overflow-hidden">
                         {/* Subtle Background */}
@@ -109,26 +109,14 @@ export default function WelcomePage() {
 
                         {/* Content */}
                         <div className="relative z-10 max-w-6xl mx-auto text-center w-full">
-                            {/* Logo/Brand */}
-                            <div className="mb-6 flex justify-center">
-                                <div className="bg-white p-4 rounded-2xl shadow-lg border border-gray-100 ">
-                                    <Image
-                                        src="/logo.webp"
-                                        alt="InTalks"
-                                        width={60}
-                                        height={60}
-                                        className="w-full h-[60px]"
-                                    />
-                                </div>
-                            </div>
 
                             {/* Badge */}
-                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-50 border border-cyan-100 mb-4">
+                            {/* <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-50 border border-cyan-100 mb-4">
                                 <Sparkles className="w-4 h-4 text-cyan-500" />
                                 <span className="text-sm font-medium text-cyan-600">
                                     Plateforme d&apos;Intelligence Sociale propulsée par l&apos;IA
                                 </span>
-                            </div>
+                            </div> */}
 
                             {/* Heading */}
                             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
@@ -139,7 +127,7 @@ export default function WelcomePage() {
                             </h1>
 
                             {/* Subheading */}
-                            <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+                            <p className="text-sm text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
                                 Transformez votre intelligence de marque avec l&apos;écoute sociale en temps réel,
                                 l&apos;analyse concurrentielle et des insights alimentés par l&apos;IA.
                             </p>
@@ -181,7 +169,7 @@ export default function WelcomePage() {
                                 </div>
                             </div>
 
-                            {/* Bottom Stats */}
+                            {/* Bottom Stats
                             <div className="pt-8 border-t border-gray-200 max-w-3xl mx-auto">
                                 <div className="grid grid-cols-3 gap-8 text-center">
                                     <div>
@@ -197,7 +185,7 @@ export default function WelcomePage() {
                                         <div className="text-sm text-gray-500 mt-1">Disponibilité</div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

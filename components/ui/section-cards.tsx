@@ -4,11 +4,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { 
-  MessageSquare, 
-  TrendingUp, 
-  ThumbsUp, 
-  ThumbsDown 
+import {
+  MessageSquare,
+  TrendingUp,
+  ThumbsUp,
+  ThumbsDown
 } from "lucide-react";
 
 export function SectionCards() {
@@ -25,7 +25,7 @@ export function SectionCards() {
           </CardTitle>
         </CardHeader>
       </Card>
-      
+
       <Card className="@container/card relative overflow-hidden">
         <div className="absolute top-4 right-4 p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
           <TrendingUp className="h-5 w-5 text-green-600 dark:text-green-400" />
@@ -33,11 +33,11 @@ export function SectionCards() {
         <CardHeader>
           <CardDescription>Mentions mensuelles</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            81M
+            3,926
           </CardTitle>
         </CardHeader>
       </Card>
-      
+
       <Card className="@container/card relative overflow-hidden">
         <div className="absolute top-4 right-4 p-2 bg-emerald-100 dark:bg-emerald-900/30 rounded-lg">
           <ThumbsUp className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
@@ -49,7 +49,7 @@ export function SectionCards() {
           </CardTitle>
         </CardHeader>
       </Card>
-      
+
       <Card className="@container/card relative overflow-hidden">
         <div className="absolute top-4 right-4 p-2 bg-rose-100 dark:bg-rose-900/30 rounded-lg">
           <ThumbsDown className="h-5 w-5 text-rose-600 dark:text-rose-400" />

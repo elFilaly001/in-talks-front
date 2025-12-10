@@ -151,7 +151,7 @@ const ChartAreaInteractive = () => {
               Mentions totales
             </span>
             <span className="text-lg leading-none font-bold sm:text-3xl dark:text-gray-200 text-gray-600">
-              202
+              11,780
             </span>
           </button>
           <button className="data-[active=true]:bg-muted/50 relative z-5 flex flex-1 flex-col text-center justify-center gap-1 border-t dark:border-gray-800 border-gray-200 px-6 py-4 even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6">
@@ -159,7 +159,7 @@ const ChartAreaInteractive = () => {
               Moyenne quotidienne
             </span>
             <span className="text-lg leading-none font-bold sm:text-3xl dark:text-gray-200 text-gray-600">
-              10
+              129
             </span>
           </button>
         </div>
@@ -228,7 +228,7 @@ const ChartAreaInteractive = () => {
         </ChartContainer>
       </CardContent>
       <div className="relative px-6 pb-4">
-        <div 
+        <div
           className="text-sm text-black flex items-center gap-2 cursor-pointer"
           onMouseEnter={() => setShowInsight(true)}
           onMouseLeave={() => setShowInsight(false)}
