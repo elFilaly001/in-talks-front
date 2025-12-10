@@ -136,6 +136,7 @@ const networks = [
     avgViews: 211400,
     metrics: "85.4",
     growth: 7.3,
+    activity: 14,
   },
   {
     network: "x",
@@ -148,6 +149,7 @@ const networks = [
     avgViews: 90000,
     metrics: "80.2",
     growth: -1.2,
+    activity: 12,
   },
   {
     network: "facebook",
@@ -160,6 +162,7 @@ const networks = [
     avgViews: 150000,
     metrics: "83.7",
     growth: 4.5,
+    activity: 8,
   },
   {
     network: "youtube",
@@ -172,6 +175,7 @@ const networks = [
     avgViews: 200000,
     metrics: "88.1",
     growth: 12.8,
+    activity: 4,
   },
 ];
 

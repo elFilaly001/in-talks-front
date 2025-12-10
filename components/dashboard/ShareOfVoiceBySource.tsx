@@ -46,22 +46,53 @@ type CustomTooltipProps = {
 
 const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
-    const logo = sourceLogos[label || ''];
     return (
       <div className="bg-white p-2 border rounded shadow">
-        <p className="flex items-center gap-1">
-          {logo && <Image src={logo} width={16} height={16} alt={label || ''} />}
-          {label}
-        </p>
+        <p className="font-medium mb-1">{label}</p>
         {payload.map((entry, index) => (
           <p key={index} style={{ color: entry.color }}>
-            {entry.dataKey}: {entry.value}
+            {entry.name}: {entry.value}
           </p>
         ))}
       </div>
     );
   }
   return null;
+};
+
+// Custom X-axis tick component to show logos with source names
+interface CustomXAxisTickProps {
+  x?: number;
+  y?: number;
+  payload?: { value: string };
+}
+
+const CustomXAxisTick = ({ x = 0, y = 0, payload }: CustomXAxisTickProps) => {
+  const source = payload?.value || '';
+  const logo = sourceLogos[source];
+  
+  return (
+    <g transform={`translate(${x},${y})`}>
+      {logo && (
+        <image
+          href={logo}
+          x={-40}
+          y={4}
+          width={16}
+          height={16}
+        />
+      )}
+      <text
+        x={-20}
+        y={16}
+        textAnchor="start"
+        fontSize={12}
+        fill="#666"
+      >
+        {source}
+      </text>
+    </g>
+  );
 };
 
 // ShareOfVoice palette used across the dashboard
@@ -133,7 +164,8 @@ export default function ShareOfVoiceBySourceCard() {
                 axisLine={false}
                 tickLine={false}
                 interval={0}
-                tick={{ fontSize: 12 }}
+                tick={<CustomXAxisTick />}
+                height={40}
               />
               <YAxis type="number" tickLine={false} axisLine={false} width={70} />
               <ChartTooltip content={<CustomTooltip />} />

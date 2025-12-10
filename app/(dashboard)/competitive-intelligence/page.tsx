@@ -8,7 +8,7 @@ const networks = [
   {
     network: "instagram",
     profil:
-      "https://favikon-medias.s3.eu-west-3.amazonaws.com/in/32229526303.jpg",
+      "",
     username: "Yassir.ma",
     name: "Yassir.ma",
     followers: 42000,

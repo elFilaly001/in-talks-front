@@ -29,6 +29,7 @@ export interface Network {
     avgViews: number;
     metrics: string;
     growth?: number;
+    activity?: number;
 }
 
 export interface CompetitiveIntelligenceTableProps {
@@ -42,7 +43,7 @@ const SAMPLE_NETWORKS: Network[] = [
     // Competitor 1 - all platforms
     {
         network: "instagram",
-        profil: "https://cdn.aptoide.com/imgs/b/8/4/b84ee69bc09da7c22a422229906bccd5_icon.jpg?w=128",
+        profil: "",
         username: "competitor1.ma",
         name: "Competitor 1",
         followers: 156000,
@@ -51,10 +52,11 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 245000,
         metrics: "87",
         growth: 5.2,
+        activity: 12,
     },
     {
         network: "facebook",
-        profil: "https://cdn.aptoide.com/imgs/b/8/4/b84ee69bc09da7c22a422229906bccd5_icon.jpg?w=128",
+        profil: "",
         username: "competitor1maroc",
         name: "Competitor 1",
         followers: 420000,
@@ -63,10 +65,11 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 125000,
         metrics: "82",
         growth: 3.8,
+        activity: 8,
     },
     {
         network: "x",
-        profil: "https://cdn.aptoide.com/imgs/b/8/4/b84ee69bc09da7c22a422229906bccd5_icon.jpg?w=128",
+        profil: "",
         username: "competitor1_ma",
         name: "Competitor 1",
         followers: 24000,
@@ -75,10 +78,11 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 18000,
         metrics: "68",
         growth: -1.2,
+        activity: 15,
     },
     {
         network: "tiktok",
-        profil: "https://cdn.aptoide.com/imgs/b/8/4/b84ee69bc09da7c22a422229906bccd5_icon.jpg?w=128",
+        profil: "",
         username: "competitor1.maroc",
         name: "Competitor 1",
         followers: 112000,
@@ -87,10 +91,11 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 1200000,
         metrics: "93",
         growth: 12.4,
+        activity: 20,
     },
     {
         network: "youtube",
-        profil: "https://cdn.aptoide.com/imgs/b/8/4/b84ee69bc09da7c22a422229906bccd5_icon.jpg?w=128",
+        profil: "",
         username: "Competitor1Maroc",
         name: "Competitor 1",
         followers: 12000,
@@ -99,10 +104,11 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 65000,
         metrics: "72",
         growth: 2.1,
+        activity: 4,
     },
     {
         network: "linkedin",
-        profil: "https://cdn.aptoide.com/imgs/b/8/4/b84ee69bc09da7c22a422229906bccd5_icon.jpg?w=128",
+        profil: "",
         username: "competitor1-maroc",
         name: "Competitor 1",
         followers: 32000,
@@ -111,13 +117,14 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 38000,
         metrics: "76",
         growth: 4.7,
+        activity: 6,
     },
 
 
     // Competitor 2 - all platforms
     {
         network: "instagram",
-        profil: "https://play-lh.googleusercontent.com/iT7fPfobm4I1fv56GEvWxdgx41FX24dYQaP37XWE82-4hkSQPHt3mf0JPlPz9IV407KX=w480-h960-rw",
+        profil: "",
         username: "competitor2.ma",
         name: "Competitor 2",
         followers: 72000,
@@ -126,10 +133,11 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 98000,
         metrics: "76",
         growth: 3.1,
+        activity: 8,
     },
     {
         network: "facebook",
-        profil: "https://play-lh.googleusercontent.com/iT7fPfobm4I1fv56GEvWxdgx41FX24dYQaP37XWE82-4hkSQPHt3mf0JPlPz9IV407KX=w480-h960-rw",
+        profil: "",
         username: "competitor2maroc",
         name: "Competitor 2",
         followers: 195000,
@@ -138,10 +146,11 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 52000,
         metrics: "68",
         growth: -0.8,
+        activity: 5,
     },
     {
         network: "x",
-        profil: "https://play-lh.googleusercontent.com/iT7fPfobm4I1fv56GEvWxdgx41FX24dYQaP37XWE82-4hkSQPHt3mf0JPlPz9IV407KX=w480-h960-rw",
+        profil: "",
         username: "competitor2_ma",
         name: "Competitor 2",
         followers: 11000,
@@ -150,10 +159,11 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 6200,
         metrics: "52",
         growth: 1.5,
+        activity: 10,
     },
     {
         network: "tiktok",
-        profil: "https://play-lh.googleusercontent.com/iT7fPfobm4I1fv56GEvWxdgx41FX24dYQaP37XWE82-4hkSQPHt3mf0JPlPz9IV407KX=w480-h960-rw",
+        profil: "",
         username: "competitor2.maroc",
         name: "Competitor 2",
         followers: 58000,
@@ -162,10 +172,11 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 580000,
         metrics: "84",
         growth: 8.7,
+        activity: 15,
     },
     {
         network: "youtube",
-        profil: "https://play-lh.googleusercontent.com/iT7fPfobm4I1fv56GEvWxdgx41FX24dYQaP37XWE82-4hkSQPHt3mf0JPlPz9IV407KX=w480-h960-rw",
+        profil: "",
         username: "Competitor2Maroc",
         name: "Competitor 2",
         followers: 4200,
@@ -174,10 +185,11 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 22000,
         metrics: "56",
         growth: -2.3,
+        activity: 2,
     },
     {
         network: "linkedin",
-        profil: "https://play-lh.googleusercontent.com/iT7fPfobm4I1fv56GEvWxdgx41FX24dYQaP37XWE82-4hkSQPHt3mf0JPlPz9IV407KX=w480-h960-rw",
+        profil: "",
         username: "competitor2-maroc",
         name: "Competitor 2",
         followers: 15000,
@@ -186,12 +198,13 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 16000,
         metrics: "63",
         growth: 2.9,
+        activity: 4,
     },
 
     // Competitor 3 - all platforms
     {
         network: "instagram",
-        profil: "https://www.zonidra.com/wp-content/uploads/2023/03/logo-chari-Maroc.jpg.webp",
+        profil: "",
         username: "competitor3.ma",
         name: "Competitor 3",
         followers: 54000,
@@ -200,10 +213,11 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 72000,
         metrics: "73",
         growth: 6.4,
+        activity: 10,
     },
     {
         network: "facebook",
-        profil: "https://www.zonidra.com/wp-content/uploads/2023/03/logo-chari-Maroc.jpg.webp",
+        profil: "",
         username: "competitor3maroc",
         name: "Competitor 3",
         followers: 142000,
@@ -212,10 +226,11 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 42000,
         metrics: "65",
         growth: 1.2,
+        activity: 6,
     },
     {
         network: "x",
-        profil: "https://www.zonidra.com/wp-content/uploads/2023/03/logo-chari-Maroc.jpg.webp",
+        profil: "",
         username: "competitor3_ma",
         name: "Competitor 3",
         followers: 8500,
@@ -224,10 +239,11 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 4800,
         metrics: "48",
         growth: -3.1,
+        activity: 3,
     },
     {
         network: "tiktok",
-        profil: "https://www.zonidra.com/wp-content/uploads/2023/03/logo-chari-Maroc.jpg.webp",
+        profil: "",
         username: "competitor3.maroc",
         name: "Competitor 3",
         followers: 45000,
@@ -236,10 +252,11 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 420000,
         metrics: "81",
         growth: 15.2,
+        activity: 18,
     },
     {
         network: "youtube",
-        profil: "https://www.zonidra.com/wp-content/uploads/2023/03/logo-chari-Maroc.jpg.webp",
+        profil: "",
         username: "Competitor3Maroc",
         name: "Competitor 3",
         followers: 3100,
@@ -248,10 +265,11 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 15000,
         metrics: "51",
         growth: 0.5,
+        activity: 2,
     },
     {
         network: "linkedin",
-        profil: "https://www.zonidra.com/wp-content/uploads/2023/03/logo-chari-Maroc.jpg.webp",
+        profil: "",
         username: "competitor3-morocco",
         name: "Competitor 3",
         followers: 11000,
@@ -260,12 +278,13 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 12000,
         metrics: "58",
         growth: 3.8,
+        activity: 5,
     },
 
     // Competitor 4 - all platforms
     {
         network: "instagram",
-        profil: "https://brand.careem.com/wp-content/uploads/2023/03/logo1.svg",
+        profil: "",
         username: "competitor4.ma",
         name: "Competitor 4",
         followers: 38000,
@@ -274,10 +293,11 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 48000,
         metrics: "68",
         growth: -1.5,
+        activity: 6,
     },
     {
         network: "facebook",
-        profil: "https://brand.careem.com/wp-content/uploads/2023/03/logo1.svg",
+        profil: "",
         username: "competitor4maroc",
         name: "Competitor 4",
         followers: 95000,
@@ -286,10 +306,11 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 28000,
         metrics: "59",
         growth: 2.4,
+        activity: 4,
     },
     {
         network: "x",
-        profil: "https://brand.careem.com/wp-content/uploads/2023/03/logo1.svg",
+        profil: "",
         username: "competitor4_ma",
         name: "Competitor 4",
         followers: 5800,
@@ -298,10 +319,11 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 3200,
         metrics: "44",
         growth: -4.2,
+        activity: 2,
     },
     {
         network: "tiktok",
-        profil: "https://brand.careem.com/wp-content/uploads/2023/03/logo1.svg",
+        profil: "",
         username: "competitor4.maroc",
         name: "Competitor 4",
         followers: 28000,
@@ -310,10 +332,11 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 280000,
         metrics: "78",
         growth: 9.8,
+        activity: 12,
     },
     {
         network: "youtube",
-        profil: "https://brand.careem.com/wp-content/uploads/2023/03/logo1.svg",
+        profil: "",
         username: "Competitor4Maroc",
         name: "Competitor 4",
         followers: 1800,
@@ -322,10 +345,11 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 9500,
         metrics: "46",
         growth: 1.1,
+        activity: 1,
     },
     {
         network: "linkedin",
-        profil: "https://brand.careem.com/wp-content/uploads/2023/03/logo1.svg",
+        profil: "",
         username: "competitor4-maroc",
         name: "Competitor 4",
         followers: 7500,
@@ -334,9 +358,10 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 8200,
         metrics: "54",
         growth: 5.6,
+        activity: 3,
     },
 
-    // Assinart - all platforms
+    // Massinart - all platforms
     {
         network: "instagram",
         profil: "/massinart.jpg",
@@ -348,6 +373,7 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 62000,
         metrics: "71",
         growth: 7.8,
+        activity: 14,
     },
     {
         network: "facebook",
@@ -360,6 +386,7 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 35000,
         metrics: "62",
         growth: 4.3,
+        activity: 8,
     },
     {
         network: "x",
@@ -372,6 +399,7 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 4100,
         metrics: "46",
         growth: 2.1,
+        activity: 12,
     },
     {
         network: "tiktok",
@@ -384,6 +412,7 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 340000,
         metrics: "79",
         growth: 18.5,
+        activity: 22,
     },
     {
         network: "youtube",
@@ -396,6 +425,7 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 12000,
         metrics: "49",
         growth: 5.2,
+        activity: 4,
     },
     {
         network: "linkedin",
@@ -408,6 +438,7 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 9800,
         metrics: "56",
         growth: 6.9,
+        activity: 6,
     },
 ];
 
@@ -701,8 +732,11 @@ const CompetitiveIntelligenceTable = ({
         {
             name: "Activité (90 jours)",
             width: "150px",
-            cell() {
-                return <p>10 publications / mois</p>;
+            sortable: true,
+            selector: (row) => row.activity ?? 0,
+            cell: (row) => {
+                const activity = row.activity ?? 0;
+                return <p>{activity} publications / mois</p>;
             },
         },
         {
