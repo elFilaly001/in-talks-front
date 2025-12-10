@@ -6,9 +6,10 @@ import { FaMale, FaFemale } from "react-icons/fa";
 
 interface MentionsNumberWidgetProps {
     viewMode?: "chart" | "table";
+    dateRange?: { from: Date | undefined; to: Date | undefined };
 }
 
-export default function MentionsNumberWidget({ viewMode = "chart" }: MentionsNumberWidgetProps) {
+export default function MentionsNumberWidget({ viewMode = "chart", dateRange }: MentionsNumberWidgetProps) {
     const malePercent = 45;
     const femalePercent = 55;
     const maleColor = "#06B6D4";

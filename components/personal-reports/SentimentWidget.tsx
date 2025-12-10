@@ -24,9 +24,10 @@ const mentionsBySentimentChartData = [
 
 interface SentimentWidgetProps {
     viewMode?: "chart" | "table";
+    dateRange?: { from: Date | undefined; to: Date | undefined };
 }
 
-export default function SentimentWidget({ viewMode = "chart" }: SentimentWidgetProps) {
+export default function SentimentWidget({ viewMode = "chart", dateRange }: SentimentWidgetProps) {
     const totalMentions = mentionsBySentimentChartData.reduce(
         (acc, curr) => acc + curr.mentions,
         0

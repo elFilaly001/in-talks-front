@@ -64,9 +64,10 @@ const followersData = [
 
 interface MentionsBySourceWidgetProps {
     viewMode?: "chart" | "table";
+    dateRange?: { from: Date | undefined; to: Date | undefined };
 }
 
-export default function MentionsBySourceWidget({ viewMode = "chart" }: MentionsBySourceWidgetProps) {
+export default function MentionsBySourceWidget({ viewMode = "chart", dateRange }: MentionsBySourceWidgetProps) {
     const totalValue = followersData.reduce((sum, entry) => sum + entry.value, 0);
     const chartData = followersData.map((entry) => ({
         ...entry,

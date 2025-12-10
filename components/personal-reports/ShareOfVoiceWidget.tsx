@@ -27,9 +27,10 @@ const chartData = [
 
 interface ShareOfVoiceWidgetProps {
     viewMode?: "chart" | "table";
+    dateRange?: { from: Date | undefined; to: Date | undefined };
 }
 
-export default function ShareOfVoiceWidget({ viewMode = "chart" }: ShareOfVoiceWidgetProps) {
+export default function ShareOfVoiceWidget({ viewMode = "chart", dateRange }: ShareOfVoiceWidgetProps) {
     const total = chartData.reduce((sum, item) => sum + item.desktop, 0);
 
     return (

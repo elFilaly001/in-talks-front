@@ -31,9 +31,10 @@ const chartData = [
 
 interface AreaChartWidgetProps {
     viewMode?: "chart" | "table";
+    dateRange?: { from: Date | undefined; to: Date | undefined };
 }
 
-export default function AreaChartWidget({ viewMode = "chart" }: AreaChartWidgetProps) {
+export default function AreaChartWidget({ viewMode = "chart", dateRange }: AreaChartWidgetProps) {
     return (
         <Card>
             <CardHeader>

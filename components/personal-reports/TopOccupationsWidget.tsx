@@ -49,9 +49,10 @@ const data = [
 
 interface TopOccupationsWidgetProps {
     viewMode?: "chart" | "table";
+    dateRange?: { from: Date | undefined; to: Date | undefined };
 }
 
-export default function TopOccupationsWidget({ viewMode = "chart" }: TopOccupationsWidgetProps) {
+export default function TopOccupationsWidget({ viewMode = "chart", dateRange }: TopOccupationsWidgetProps) {
     return (
         <Card className="w-full">
             <CardHeader>

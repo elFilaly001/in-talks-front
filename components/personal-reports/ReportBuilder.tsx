@@ -20,6 +20,8 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { GripVertical, Trash2, Plus, FileDown, Table as TableIcon, BarChart3 } from "lucide-react";
+import { CompactDatePicker } from "@/components/ui/CompactDatePicker";
+import { addDays } from "date-fns";
 
 // Import Dashboard Components
 import MentionsOverTimeWidget from "./MentionsOverTimeWidget";
@@ -133,6 +135,7 @@ function SortableItem(props: {
     id: string;
     widgetId: string;
     viewMode?: "chart" | "table";
+    dateRange: { from: Date | undefined; to: Date | undefined };
     onRemove: (id: string) => void;
     onViewModeChange: (id: string, mode: "chart" | "table") => void;
 }) {
@@ -196,7 +199,7 @@ function SortableItem(props: {
             but for a report builder we might want them enabled. 
             For now, let's keep them enabled but handle drag handle separately. */}
                 <div className="pointer-events-auto">
-                    {widget && <widget.component viewMode={props.viewMode} />}
+                    {widget && <widget.component viewMode={props.viewMode} dateRange={props.dateRange} />}
                 </div>
             </div>
 
@@ -218,6 +221,10 @@ function SortableItem(props: {
 
 export default function ReportBuilder() {
     const [items, setItems] = useState<WidgetItem[]>([]);
+    const [dateRange, setDateRange] = useState<{ from: Date | undefined; to: Date | undefined }>({
+        from: addDays(new Date(), -30),
+        to: new Date(),
+    });
 
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -267,41 +274,49 @@ export default function ReportBuilder() {
         <div className="flex min-h-screen flex-col gap-6 p-6 md:flex-row">
             {/* Sidebar - Available Widgets */}
             <div className="w-full md:w-80 shrink-0 print:hidden">
-                <div className="sticky top-6 rounded-xl border border-neutral-200 bg-white p-4 shadow-sm dark:border-neutral-800 dark:bg-neutral-950">
-                    <h2 className="mb-4 text-lg font-semibold">Widgets Disponibles</h2>
-                    <div className="flex flex-col gap-2">
-                        {AVAILABLE_WIDGETS.map((widget) => {
-                            const count = items.filter((item) => item.widgetId === widget.id).length;
-                            return (
-                                <button
-                                    key={widget.id}
-                                    onClick={() => addWidget(widget.id)}
-                                    className="flex w-full items-center justify-between rounded-lg border border-neutral-200 bg-neutral-50 p-3 text-left transition-colors hover:bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:bg-neutral-800"
-                                >
-                                    <span className="text-sm font-medium">{widget.label}</span>
-                                    <div className="flex items-center gap-2">
-                                        {count > 0 && (
-                                            <span className="flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-neutral-200 px-1 text-xs font-medium text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
-                                                {count}
-                                            </span>
-                                        )}
-                                        <Plus size={16} className="text-neutral-500" />
-                                    </div>
-                                </button>
-                            );
-                        })}
+                <div className="sticky top-6 flex flex-col gap-4">
+                    {/* Date Picker Card */}
+                    <div className="rounded-xl border border-neutral-200 bg-white p-4 shadow-sm dark:border-neutral-800 dark:bg-neutral-950">
+                        <h2 className="mb-4 text-lg font-semibold">Période</h2>
+                        <CompactDatePicker dateRange={dateRange} onDateRangeChange={setDateRange} />
                     </div>
-                    <div className="mt-6 border-t border-neutral-200 pt-4 dark:border-neutral-800">
-                        <p className="mb-4 text-xs text-neutral-500">
-                            Cliquez sur + pour ajouter des widgets à votre rapport. Faites glisser les widgets dans la zone principale pour les réorganiser.
-                        </p>
-                        <button
-                            onClick={handlePrint}
-                            className="flex w-full items-center justify-center gap-2 rounded-lg bg-black px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800 dark:bg-white dark:text-black dark:hover:bg-neutral-200"
-                        >
-                            <FileDown size={16} />
-                            Télécharger PDF
-                        </button>
+
+                    <div className="rounded-xl border border-neutral-200 bg-white p-4 shadow-sm dark:border-neutral-800 dark:bg-neutral-950">
+                        <h2 className="mb-4 text-lg font-semibold">Widgets Disponibles</h2>
+                        <div className="flex flex-col gap-2">
+                            {AVAILABLE_WIDGETS.map((widget) => {
+                                const count = items.filter((item) => item.widgetId === widget.id).length;
+                                return (
+                                    <button
+                                        key={widget.id}
+                                        onClick={() => addWidget(widget.id)}
+                                        className="flex w-full items-center justify-between rounded-lg border border-neutral-200 bg-neutral-50 p-3 text-left transition-colors hover:bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:bg-neutral-800"
+                                    >
+                                        <span className="text-sm font-medium">{widget.label}</span>
+                                        <div className="flex items-center gap-2">
+                                            {count > 0 && (
+                                                <span className="flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-neutral-200 px-1 text-xs font-medium text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
+                                                    {count}
+                                                </span>
+                                            )}
+                                            <Plus size={16} className="text-neutral-500" />
+                                        </div>
+                                    </button>
+                                );
+                            })}
+                        </div>
+                        <div className="mt-6 border-t border-neutral-200 pt-4 dark:border-neutral-800">
+                            <p className="mb-4 text-xs text-neutral-500">
+                                Cliquez sur + pour ajouter des widgets à votre rapport. Faites glisser les widgets dans la zone principale pour les réorganiser.
+                            </p>
+                            <button
+                                onClick={handlePrint}
+                                className="flex w-full items-center justify-center gap-2 rounded-lg bg-black px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800 dark:bg-white dark:text-black dark:hover:bg-neutral-200"
+                            >
+                                <FileDown size={16} />
+                                Télécharger PDF
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>            {/* Main Area - Report Canvas */}
@@ -343,6 +358,7 @@ export default function ReportBuilder() {
                                             id={item.id}
                                             widgetId={item.widgetId}
                                             viewMode={item.viewMode}
+                                            dateRange={dateRange}
                                             onRemove={removeWidget}
                                             onViewModeChange={handleViewModeChange}
                                         />

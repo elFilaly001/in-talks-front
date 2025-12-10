@@ -41,9 +41,10 @@ const extractDomain = (url: string): string => {
 
 interface TopSharedLinksWidgetProps {
     viewMode?: "chart" | "table";
+    dateRange?: { from: Date | undefined; to: Date | undefined };
 }
 
-export default function TopSharedLinksWidget({ viewMode = "chart" }: TopSharedLinksWidgetProps) {
+export default function TopSharedLinksWidget({ viewMode = "chart", dateRange }: TopSharedLinksWidgetProps) {
     return (
         <Card className="w-full">
             <CardHeader>

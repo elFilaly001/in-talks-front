@@ -27,9 +27,10 @@ const chartData = [
 
 interface EmotionsWidgetProps {
     viewMode?: "chart" | "table";
+    dateRange?: { from: Date | undefined; to: Date | undefined };
 }
 
-export default function EmotionsWidget({ viewMode = "chart" }: EmotionsWidgetProps) {
+export default function EmotionsWidget({ viewMode = "chart", dateRange }: EmotionsWidgetProps) {
     return (
         <Card className="w-full">
             <CardHeader>
