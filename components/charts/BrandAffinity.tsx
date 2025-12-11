@@ -44,7 +44,7 @@ type BrandItem = {
 // remote request fails (CORS, rate-limit or missing), the local inline-SVG
 // fallback (initials) will display instead.
 const defaultBrands: BrandItem[] = [
-  { name: "Yan&One", logo: "/yanandone.png", value: 8 },
+  { name: "Yan&One", logo: "/yanandone.webp", value: 8 },
   { name: "INWI", logo: "/inwi.png", value: 7 },
   { name: "Marjane", logo: "/MARJANE.jpg", value: 4 },
   { name: "Nike", logo: "https://logo.clearbit.com/nike.com", value: 4 },
