@@ -12,10 +12,13 @@ import { NavMain } from "./NavMain";
 import { NavUser } from "./NavUser";
 import Image from "next/image";
 
-export default function   AppSideBar({
+export default function AppSideBar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
-  const { state, setOpen } = useSidebar();
+  const { state, setOpen, isMobile, openMobile } = useSidebar();
+
+  // On mobile, show full logo when sheet is open; on desktop, use state
+  const showFullLogo = isMobile ? openMobile : state === "expanded";
 
   return (
     <Sidebar
@@ -23,11 +26,11 @@ export default function   AppSideBar({
       onMouseEnter={() => setOpen?.(true)}
       onMouseLeave={() => setOpen?.(false)}
     >
-      <div className=" h-[60px]">
-        {state == "expanded" ? (
+      <div className="h-[60px] flex items-center overflow-hidden transition-all duration-300">
+        {showFullLogo ? (
           <Image
             src={"/logo.webp"}
-            className="p-2"
+            className="p-2 transition-all duration-300"
             alt="Logo"
             width={140}
             height={85}
@@ -35,7 +38,7 @@ export default function   AppSideBar({
         ) : (
           <Image
             src={"/icons/IN-TALKS-logo.png-2.webp"}
-            className="py-2"
+            className="py-2 ml-2 transition-all duration-300"
             alt="Logo"
             width={40}
             height={40}

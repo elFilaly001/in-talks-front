@@ -31,26 +31,16 @@ interface TopSharedLinksProps {
 const ITEMS_PER_PAGE_DEFAULT = 10
 
 const MOCK_FEEDS: Feed[] = [
-  { id: "1", link: "https://techcrunch.com/glovo-expansion", mentionCount: 120 },
-  { id: "2", link: "https://forbes.com/glovo-partnerships", mentionCount: 95 },
-  { id: "3", link: "https://medium.com/glovo-commissions", mentionCount: 60 },
-  { id: "4", link: "https://wired.com/glovo-growth", mentionCount: 45 },
-  { id: "5", link: "https://theverge.com/glovo-vendors", mentionCount: 30 },
-  { id: "6", link: "https://bbc.com/glovo-morocco", mentionCount: 85 },
-  { id: "7", link: "https://cnn.com/glovo-delivery", mentionCount: 70 },
-  { id: "8", link: "https://nytimes.com/glovo-app", mentionCount: 55 },
-  { id: "9", link: "https://wsj.com/glovo-business", mentionCount: 40 },
-  { id: "10", link: "https://bloomberg.com/glovo-trends", mentionCount: 35 },
-  { id: "11", link: "https://reuters.com/glovo-expansion", mentionCount: 50 },
-  { id: "12", link: "https://apnews.com/glovo-partners", mentionCount: 65 },
-  { id: "13", link: "https://guardian.com/glovo-issues", mentionCount: 25 },
-  { id: "14", link: "https://economist.com/glovo-economy", mentionCount: 75 },
-  { id: "15", link: "https://ft.com/glovo-growth", mentionCount: 60 },
-  { id: "16", link: "https://businessinsider.com/glovo-app", mentionCount: 45 },
-  { id: "17", link: "https://techradar.com/glovo-features", mentionCount: 30 },
-  { id: "18", link: "https://mashable.com/glovo-social", mentionCount: 55 },
-  { id: "19", link: "https://engadget.com/glovo-tech", mentionCount: 40 },
-  { id: "20", link: "https://gizmodo.com/glovo-innovation", mentionCount: 35 },
+  { id: "1", link: "https://h24info.ma/culture/massinart-expo2025", mentionCount: 85 },
+  { id: "2", link: "https://telquel.ma/culture/portrait-artiste-marocain", mentionCount: 70 },
+  { id: "3", link: "https://lebrief.ma/culture/design-marocain-nouvelles-tendances", mentionCount: 55 },
+  { id: "4", link: "https://afriqueart.ma/reportages/maroc-scene-artistique", mentionCount: 40 },
+  { id: "5", link: "https://barlamane.com/arts/festival-lboulevard-2025", mentionCount: 35 },
+  { id: "6", link: "https://morocco-world-news.com/art/massinart-community", mentionCount: 30 },
+  { id: "7", link: "https://welovebuzz.com/lifestyle/creatifs-marocains-a-suivre", mentionCount: 25 },
+  { id: "8", link: "https://onorient.com/artistes-marocains-nouvelle-scene", mentionCount: 20 },
+  { id: "9", link: "https://artandabout.ma/musees-marocains-coups-de-coeur", mentionCount: 18 },
+  { id: "10", link: "https://madeinmorocco.ma/design/artisanat-contemporain", mentionCount: 15 },
 ]
 
 // Helper function to extract domain from URL
