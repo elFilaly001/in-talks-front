@@ -59,7 +59,7 @@ const PostsTable: React.FC<PostsTableProps> = ({ posts }) => {
               <tr key={post.id} className="border-b">
                 <td className="px-4 py-2 align-top">
                   <div className="flex gap-2 items-center">
-                    <Image src="/glovo-logo.jpg" alt="Glovo" width={32} height={32} className="rounded-full" />
+                    <Image src="/massinart.jpg" alt="Massinart" width={32} height={32} className="rounded-full" />
                     <div>
                       <div className="text-sm font-medium text-gray-900 line-clamp-3">{post.caption}</div>
                     </div>

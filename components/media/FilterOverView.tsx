@@ -234,7 +234,7 @@ const FilterOverView = () => {
           </SelectContent>
         </Select>
         <div className="flex-1 flex items-center gap-2.5">
-          <Button className="flex-1">
+          <Button className="flex-1 bg-main">
             <Filter />
             Filtrer
           </Button>
