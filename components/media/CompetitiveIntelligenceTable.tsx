@@ -3,6 +3,7 @@ import React, { useMemo, useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import DataTable, { TableColumn } from "react-data-table-component";
 import formatNumber from "@/lib/numbers";
+import Image from "next/image";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -29,6 +30,7 @@ export interface Network {
     avgViews: number;
     metrics: string;
     growth?: number;
+    activity?: number;
 }
 
 export interface CompetitiveIntelligenceTableProps {
@@ -37,306 +39,330 @@ export interface CompetitiveIntelligenceTableProps {
 }
 
 // sample competitors data for multiple platforms
-// Competitors: Jumia Food, Yasser Market, Kool, Livery, Creem Food
+// Concurrents: Concurrent 1, Concurrent 2, Concurrent 3, Concurrent 4
 const SAMPLE_NETWORKS: Network[] = [
-    // Competitor 1 - all platforms
+    // Concurrent 1 - all platforms
     {
         network: "instagram",
-        profil: "https://cdn.aptoide.com/imgs/b/8/4/b84ee69bc09da7c22a422229906bccd5_icon.jpg?w=128",
-        username: "competitor1.ma",
-        name: "Competitor 1",
+        profil: "",
+        username: "concurrent1.ma",
+        name: "Concurrent 1",
         followers: 156000,
         er: 2.8,
         avgEngage: 22000,
         avgViews: 245000,
         metrics: "87",
         growth: 5.2,
+        activity: 12,
     },
     {
         network: "facebook",
-        profil: "https://cdn.aptoide.com/imgs/b/8/4/b84ee69bc09da7c22a422229906bccd5_icon.jpg?w=128",
-        username: "competitor1maroc",
-        name: "Competitor 1",
+        profil: "",
+        username: "concurrent1maroc",
+        name: "Concurrent 1",
         followers: 420000,
         er: 2.1,
         avgEngage: 8500,
         avgViews: 125000,
         metrics: "82",
         growth: 3.8,
+        activity: 8,
     },
     {
         network: "x",
-        profil: "https://cdn.aptoide.com/imgs/b/8/4/b84ee69bc09da7c22a422229906bccd5_icon.jpg?w=128",
-        username: "competitor1_ma",
-        name: "Competitor 1",
+        profil: "",
+        username: "concurrent1_ma",
+        name: "Concurrent 1",
         followers: 24000,
         er: 1.4,
         avgEngage: 1100,
         avgViews: 18000,
         metrics: "68",
         growth: -1.2,
+        activity: 15,
     },
     {
         network: "tiktok",
-        profil: "https://cdn.aptoide.com/imgs/b/8/4/b84ee69bc09da7c22a422229906bccd5_icon.jpg?w=128",
-        username: "competitor1.maroc",
-        name: "Competitor 1",
+        profil: "",
+        username: "concurrent1.maroc",
+        name: "Concurrent 1",
         followers: 112000,
         er: 6.5,
         avgEngage: 55000,
         avgViews: 1200000,
         metrics: "93",
         growth: 12.4,
+        activity: 20,
     },
     {
         network: "youtube",
-        profil: "https://cdn.aptoide.com/imgs/b/8/4/b84ee69bc09da7c22a422229906bccd5_icon.jpg?w=128",
-        username: "Competitor1Maroc",
-        name: "Competitor 1",
+        profil: "",
+        username: "Concurrent1Maroc",
+        name: "Concurrent 1",
         followers: 12000,
         er: 3.4,
         avgEngage: 1800,
         avgViews: 65000,
         metrics: "72",
         growth: 2.1,
+        activity: 4,
     },
     {
         network: "linkedin",
-        profil: "https://cdn.aptoide.com/imgs/b/8/4/b84ee69bc09da7c22a422229906bccd5_icon.jpg?w=128",
-        username: "competitor1-maroc",
-        name: "Competitor 1",
+        profil: "",
+        username: "concurrent1-maroc",
+        name: "Concurrent 1",
         followers: 32000,
         er: 2.6,
         avgEngage: 4200,
         avgViews: 38000,
         metrics: "76",
         growth: 4.7,
+        activity: 6,
     },
 
 
-    // Competitor 2 - all platforms
+    // Concurrent 2 - all platforms
     {
         network: "instagram",
-        profil: "https://play-lh.googleusercontent.com/iT7fPfobm4I1fv56GEvWxdgx41FX24dYQaP37XWE82-4hkSQPHt3mf0JPlPz9IV407KX=w480-h960-rw",
-        username: "competitor2.ma",
-        name: "Competitor 2",
+        profil: "",
+        username: "concurrent2.ma",
+        name: "Concurrent 2",
         followers: 72000,
         er: 2.4,
         avgEngage: 9500,
         avgViews: 98000,
         metrics: "76",
         growth: 3.1,
+        activity: 8,
     },
     {
         network: "facebook",
-        profil: "https://play-lh.googleusercontent.com/iT7fPfobm4I1fv56GEvWxdgx41FX24dYQaP37XWE82-4hkSQPHt3mf0JPlPz9IV407KX=w480-h960-rw",
-        username: "competitor2maroc",
-        name: "Competitor 2",
+        profil: "",
+        username: "concurrent2maroc",
+        name: "Concurrent 2",
         followers: 195000,
         er: 1.5,
         avgEngage: 3800,
         avgViews: 52000,
         metrics: "68",
         growth: -0.8,
+        activity: 5,
     },
     {
         network: "x",
-        profil: "https://play-lh.googleusercontent.com/iT7fPfobm4I1fv56GEvWxdgx41FX24dYQaP37XWE82-4hkSQPHt3mf0JPlPz9IV407KX=w480-h960-rw",
-        username: "competitor2_ma",
-        name: "Competitor 2",
+        profil: "",
+        username: "concurrent2_ma",
+        name: "Concurrent 2",
         followers: 11000,
         er: 0.9,
         avgEngage: 420,
         avgViews: 6200,
         metrics: "52",
         growth: 1.5,
+        activity: 10,
     },
     {
         network: "tiktok",
-        profil: "https://play-lh.googleusercontent.com/iT7fPfobm4I1fv56GEvWxdgx41FX24dYQaP37XWE82-4hkSQPHt3mf0JPlPz9IV407KX=w480-h960-rw",
-        username: "competitor2.maroc",
-        name: "Competitor 2",
+        profil: "",
+        username: "concurrent2.maroc",
+        name: "Concurrent 2",
         followers: 58000,
         er: 5.8,
         avgEngage: 32000,
         avgViews: 580000,
         metrics: "84",
         growth: 8.7,
+        activity: 15,
     },
     {
         network: "youtube",
-        profil: "https://play-lh.googleusercontent.com/iT7fPfobm4I1fv56GEvWxdgx41FX24dYQaP37XWE82-4hkSQPHt3mf0JPlPz9IV407KX=w480-h960-rw",
-        username: "Competitor2Maroc",
-        name: "Competitor 2",
+        profil: "",
+        username: "Concurrent2Maroc",
+        name: "Concurrent 2",
         followers: 4200,
         er: 2.2,
         avgEngage: 520,
         avgViews: 22000,
         metrics: "56",
         growth: -2.3,
+        activity: 2,
     },
     {
         network: "linkedin",
-        profil: "https://play-lh.googleusercontent.com/iT7fPfobm4I1fv56GEvWxdgx41FX24dYQaP37XWE82-4hkSQPHt3mf0JPlPz9IV407KX=w480-h960-rw",
-        username: "competitor2-maroc",
-        name: "Competitor 2",
+        profil: "",
+        username: "concurrent2-maroc",
+        name: "Concurrent 2",
         followers: 15000,
         er: 1.8,
         avgEngage: 1800,
         avgViews: 16000,
         metrics: "63",
         growth: 2.9,
+        activity: 4,
     },
 
-    // Competitor 3 - all platforms
+    // Concurrent 3 - all platforms
     {
         network: "instagram",
-        profil: "https://www.zonidra.com/wp-content/uploads/2023/03/logo-chari-Maroc.jpg.webp",
-        username: "competitor3.ma",
-        name: "Competitor 3",
+        profil: "",
+        username: "concurrent3.ma",
+        name: "Concurrent 3",
         followers: 54000,
         er: 2.6,
         avgEngage: 7800,
         avgViews: 72000,
         metrics: "73",
         growth: 6.4,
+        activity: 10,
     },
     {
         network: "facebook",
-        profil: "https://www.zonidra.com/wp-content/uploads/2023/03/logo-chari-Maroc.jpg.webp",
-        username: "competitor3maroc",
-        name: "Competitor 3",
+        profil: "",
+        username: "concurrent3maroc",
+        name: "Concurrent 3",
         followers: 142000,
         er: 1.4,
         avgEngage: 2900,
         avgViews: 42000,
         metrics: "65",
         growth: 1.2,
+        activity: 6,
     },
     {
         network: "x",
-        profil: "https://www.zonidra.com/wp-content/uploads/2023/03/logo-chari-Maroc.jpg.webp",
-        username: "competitor3_ma",
-        name: "Competitor 3",
+        profil: "",
+        username: "concurrent3_ma",
+        name: "Concurrent 3",
         followers: 8500,
         er: 0.8,
         avgEngage: 320,
         avgViews: 4800,
         metrics: "48",
         growth: -3.1,
+        activity: 3,
     },
     {
         network: "tiktok",
-        profil: "https://www.zonidra.com/wp-content/uploads/2023/03/logo-chari-Maroc.jpg.webp",
-        username: "competitor3.maroc",
-        name: "Competitor 3",
+        profil: "",
+        username: "concurrent3.maroc",
+        name: "Concurrent 3",
         followers: 45000,
         er: 5.2,
         avgEngage: 24000,
         avgViews: 420000,
         metrics: "81",
         growth: 15.2,
+        activity: 18,
     },
     {
         network: "youtube",
-        profil: "https://www.zonidra.com/wp-content/uploads/2023/03/logo-chari-Maroc.jpg.webp",
-        username: "Competitor3Maroc",
-        name: "Competitor 3",
+        profil: "",
+        username: "Concurrent3Maroc",
+        name: "Concurrent 3",
         followers: 3100,
         er: 1.9,
         avgEngage: 380,
         avgViews: 15000,
         metrics: "51",
         growth: 0.5,
+        activity: 2,
     },
     {
         network: "linkedin",
-        profil: "https://www.zonidra.com/wp-content/uploads/2023/03/logo-chari-Maroc.jpg.webp",
-        username: "competitor3-morocco",
-        name: "Competitor 3",
+        profil: "",
+        username: "concurrent3-morocco",
+        name: "Concurrent 3",
         followers: 11000,
         er: 1.5,
         avgEngage: 1200,
         avgViews: 12000,
         metrics: "58",
         growth: 3.8,
+        activity: 5,
     },
 
-    // Competitor 4 - all platforms
+    // Concurrent 4 - all platforms
     {
         network: "instagram",
-        profil: "https://brand.careem.com/wp-content/uploads/2023/03/logo1.svg",
-        username: "competitor4.ma",
-        name: "Competitor 4",
+        profil: "",
+        username: "concurrent4.ma",
+        name: "Concurrent 4",
         followers: 38000,
         er: 2.0,
         avgEngage: 5200,
         avgViews: 48000,
         metrics: "68",
         growth: -1.5,
+        activity: 6,
     },
     {
         network: "facebook",
-        profil: "https://brand.careem.com/wp-content/uploads/2023/03/logo1.svg",
-        username: "competitor4maroc",
-        name: "Competitor 4",
+        profil: "",
+        username: "concurrent4maroc",
+        name: "Concurrent 4",
         followers: 95000,
         er: 1.2,
         avgEngage: 1800,
         avgViews: 28000,
         metrics: "59",
         growth: 2.4,
+        activity: 4,
     },
     {
         network: "x",
-        profil: "https://brand.careem.com/wp-content/uploads/2023/03/logo1.svg",
-        username: "competitor4_ma",
-        name: "Competitor 4",
+        profil: "",
+        username: "concurrent4_ma",
+        name: "Concurrent 4",
         followers: 5800,
         er: 0.7,
         avgEngage: 210,
         avgViews: 3200,
         metrics: "44",
         growth: -4.2,
+        activity: 2,
     },
     {
         network: "tiktok",
-        profil: "https://brand.careem.com/wp-content/uploads/2023/03/logo1.svg",
-        username: "competitor4.maroc",
-        name: "Competitor 4",
+        profil: "",
+        username: "concurrent4.maroc",
+        name: "Concurrent 4",
         followers: 28000,
         er: 4.8,
         avgEngage: 15000,
         avgViews: 280000,
         metrics: "78",
         growth: 9.8,
+        activity: 12,
     },
     {
         network: "youtube",
-        profil: "https://brand.careem.com/wp-content/uploads/2023/03/logo1.svg",
-        username: "Competitor4Maroc",
-        name: "Competitor 4",
+        profil: "",
+        username: "Concurrent4Maroc",
+        name: "Concurrent 4",
         followers: 1800,
         er: 1.6,
         avgEngage: 220,
         avgViews: 9500,
         metrics: "46",
         growth: 1.1,
+        activity: 1,
     },
     {
         network: "linkedin",
-        profil: "https://brand.careem.com/wp-content/uploads/2023/03/logo1.svg",
-        username: "competitor4-maroc",
-        name: "Competitor 4",
+        profil: "",
+        username: "concurrent4-maroc",
+        name: "Concurrent 4",
         followers: 7500,
         er: 1.3,
         avgEngage: 780,
         avgViews: 8200,
         metrics: "54",
         growth: 5.6,
+        activity: 3,
     },
 
-    // Assinart - all platforms
+    // Massinart - all platforms
     {
         network: "instagram",
         profil: "/massinart.jpg",
@@ -348,6 +374,7 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 62000,
         metrics: "71",
         growth: 7.8,
+        activity: 14,
     },
     {
         network: "facebook",
@@ -360,18 +387,7 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 35000,
         metrics: "62",
         growth: 4.3,
-    },
-    {
-        network: "x",
-        profil: "/massinart.jpg",
-        username: "massinart_ma",
-        name: "Massinart",
-        followers: 7200,
-        er: 0.8,
-        avgEngage: 280,
-        avgViews: 4100,
-        metrics: "46",
-        growth: 2.1,
+        activity: 8,
     },
     {
         network: "tiktok",
@@ -384,6 +400,7 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 340000,
         metrics: "79",
         growth: 18.5,
+        activity: 22,
     },
     {
         network: "youtube",
@@ -396,18 +413,7 @@ const SAMPLE_NETWORKS: Network[] = [
         avgViews: 12000,
         metrics: "49",
         growth: 5.2,
-    },
-    {
-        network: "linkedin",
-        profil: "/massinart.jpg",
-        username: "massinart-maroc",
-        name: "Massinart",
-        followers: 9500,
-        er: 1.4,
-        avgEngage: 980,
-        avgViews: 9800,
-        metrics: "56",
-        growth: 6.9,
+        activity: 4,
     },
 ];
 
@@ -572,6 +578,7 @@ const CompetitiveIntelligenceTable = ({
                             onClick={() => setShowSourceMenu((s) => !s)}
                             className="flex items-center gap-2 border px-3 py-1.5 rounded-md bg-white text-sm w-[160px]"
                         >
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                                 src={getNetworkImage(selectedSource)}
                                 alt={selectedSource}
@@ -604,27 +611,27 @@ const CompetitiveIntelligenceTable = ({
                                     }}
                                 >
                                     <li className="px-3 py-2 hover:bg-slate-50 cursor-pointer flex items-center gap-2" onClick={() => { setSelectedSource("instagram"); setShowSourceMenu(false); }}>
-                                        <img src="/media/instagram.png" alt="instagram" width={16} height={16} />
+                                        <Image src="/media/instagram.png" alt="instagram" width={16} height={16} />
                                         <span>Instagram</span>
                                     </li>
                                     <li className="px-3 py-2 hover:bg-slate-50 cursor-pointer flex items-center gap-2" onClick={() => { setSelectedSource("tiktok"); setShowSourceMenu(false); }}>
-                                        <img src="/media/tiktok.png" alt="tiktok" width={16} height={16} />
+                                        <Image src="/media/tiktok.png" alt="tiktok" width={16} height={16} />
                                         <span>TikTok</span>
                                     </li>
                                     <li className="px-3 py-2 hover:bg-slate-50 cursor-pointer flex items-center gap-2" onClick={() => { setSelectedSource("x"); setShowSourceMenu(false); }}>
-                                        <img src="/media/twitter.png" alt="x" width={16} height={16} />
+                                        <Image src="/media/twitter.png" alt="x" width={16} height={16} />
                                         <span>X</span>
                                     </li>
                                     <li className="px-3 py-2 hover:bg-slate-50 cursor-pointer flex items-center gap-2" onClick={() => { setSelectedSource("youtube"); setShowSourceMenu(false); }}>
-                                        <img src="/media/youtube.png" alt="youtube" width={16} height={16} />
+                                        <Image src="/media/youtube.png" alt="youtube" width={16} height={16} />
                                         <span>YouTube</span>
                                     </li>
                                     <li className="px-3 py-2 hover:bg-slate-50 cursor-pointer flex items-center gap-2" onClick={() => { setSelectedSource("facebook"); setShowSourceMenu(false); }}>
-                                        <img src="/media/facebook.png" alt="facebook" width={16} height={16} />
+                                        <Image src="/media/facebook.png" alt="facebook" width={16} height={16} />
                                         <span>Facebook</span>
                                     </li>
                                     <li className="px-3 py-2 hover:bg-slate-50 cursor-pointer flex items-center gap-2" onClick={() => { setSelectedSource("linkedin"); setShowSourceMenu(false); }}>
-                                        <img src="/media/linkedin.png" alt="linkedin" width={16} height={16} />
+                                        <Image src="/media/linkedin.png" alt="linkedin" width={16} height={16} />
                                         <span>LinkedIn</span>
                                     </li>
                                 </ul>,
@@ -639,6 +646,7 @@ const CompetitiveIntelligenceTable = ({
             cell: (row) => (
                 <div className="flex justify-center items-center p-3 gap-3">
                     {/* Network logo */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                         src={getNetworkImage(row.network)}
                         alt={row.network + " logo"}
@@ -655,6 +663,7 @@ const CompetitiveIntelligenceTable = ({
                         className="w-9 h-9 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden flex-shrink-0"
                     >
                         {row.profil ? (
+                            /* eslint-disable-next-line @next/next/no-img-element */
                             <img
                                 src={row.profil}
                                 alt={row.name + " profile"}
@@ -701,8 +710,11 @@ const CompetitiveIntelligenceTable = ({
         {
             name: "Activité (90 jours)",
             width: "150px",
-            cell() {
-                return <p>10 publications / mois</p>;
+            sortable: true,
+            selector: (row) => row.activity ?? 0,
+            cell: (row) => {
+                const activity = row.activity ?? 0;
+                return <p>{activity} publications / mois</p>;
             },
         },
         {
@@ -838,7 +850,7 @@ const CompetitiveIntelligenceTable = ({
                             </div>
                             <div className="grid grid-cols-4 items-center gap-4">
                                 <Label htmlFor="instagram" className="text-left flex items-center justify-start gap-2">
-                                    <img src="/media/instagram.png" alt="instagram" width={16} height={16} />
+                                    <Image src="/media/instagram.png" alt="instagram" width={16} height={16} />
                                     Instagram
                                 </Label>
                                 <Input
@@ -853,7 +865,7 @@ const CompetitiveIntelligenceTable = ({
                             </div>
                             <div className="grid grid-cols-4 items-center gap-4">
                                 <Label htmlFor="facebook" className="text-left flex items-center justify-start gap-2">
-                                    <img src="/media/facebook.png" alt="facebook" width={16} height={16} />
+                                    <Image src="/media/facebook.png" alt="facebook" width={16} height={16} />
                                     Facebook
                                 </Label>
                                 <Input
@@ -868,7 +880,7 @@ const CompetitiveIntelligenceTable = ({
                             </div>
                             <div className="grid grid-cols-4 items-center gap-4">
                                 <Label htmlFor="tiktok" className="text-left flex items-center justify-start gap-2">
-                                    <img src="/media/tiktok.png" alt="tiktok" width={16} height={16} />
+                                    <Image src="/media/tiktok.png" alt="tiktok" width={16} height={16} />
                                     TikTok
                                 </Label>
                                 <Input
@@ -883,7 +895,7 @@ const CompetitiveIntelligenceTable = ({
                             </div>
                             <div className="grid grid-cols-4 items-center gap-4">
                                 <Label htmlFor="x" className="text-left flex items-center justify-start gap-2">
-                                    <img src="/media/twitter.png" alt="x" width={16} height={16} />
+                                    <Image src="/media/twitter.png" alt="x" width={16} height={16} />
                                     X
                                 </Label>
                                 <Input
@@ -898,7 +910,7 @@ const CompetitiveIntelligenceTable = ({
                             </div>
                             <div className="grid grid-cols-4 items-center gap-4">
                                 <Label htmlFor="youtube" className="text-left flex items-center justify-start gap-2">
-                                    <img src="/media/youtube.png" alt="youtube" width={16} height={16} />
+                                    <Image src="/media/youtube.png" alt="youtube" width={16} height={16} />
                                     YouTube
                                 </Label>
                                 <Input
@@ -913,7 +925,7 @@ const CompetitiveIntelligenceTable = ({
                             </div>
                             <div className="grid grid-cols-4 items-center gap-4">
                                 <Label htmlFor="linkedin" className="text-left flex items-center justify-start gap-2">
-                                    <img src="/media/linkedin.png" alt="linkedin" width={16} height={16} />
+                                    <Image src="/media/linkedin.png" alt="linkedin" width={16} height={16} />
                                     LinkedIn
                                 </Label>
                                 <Input

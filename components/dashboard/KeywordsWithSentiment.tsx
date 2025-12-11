@@ -25,13 +25,13 @@ import ToolTipsProvider from "../charts/ToolTipsProvider";
 import Image from "next/image";
 
 const data = [
-  { keyword: "Massinart Gallery", positive: 120, neutral: 80, negative: 10 },
-  { keyword: "Art Collection", positive: 100, neutral: 60, negative: 20 },
-  { keyword: "Home Decor", positive: 90, neutral: 70, negative: 15 },
-  { keyword: "Interior Design", positive: 80, neutral: 90, negative: 12 },
-  { keyword: "Décoration Intérieure", positive: 70, neutral: 60, negative: 10 },
-  { keyword: "فن وديكور", positive: 65, neutral: 55, negative: 8 },
-  { keyword: "Œuvres d'Art", positive: 60, neutral: 45, negative: 5 },
+  { keyword: "Massinart Gallery", positif: 120, neutre: 80, négatif: 10 },
+  { keyword: "Art Collection", positif: 100, neutre: 60, négatif: 20 },
+  { keyword: "Home Decor", positif: 90, neutre: 70, négatif: 15 },
+  { keyword: "Interior Design", positif: 80, neutre: 90, négatif: 12 },
+  { keyword: "Décoration Intérieure", positif: 70, neutre: 60, négatif: 10 },
+  { keyword: "فن وديكور", positif: 65, neutre: 55, négatif: 8 },
+  { keyword: "Œuvres d'Art", positif: 60, neutre: 45, négatif: 5 },
 ];
 
 // Reuse the ShareOfVoice palette for consistency across charts
@@ -46,10 +46,10 @@ const palette = [
 
 const chartConfig = {
   visitors: { label: "Mentions" },
-  // map positive -> green, neutral -> gray, negative -> red
-  positive: { label: "Positif", color: palette[0] },
-  neutral: { label: "Neutre", color: palette[1] },
-  negative: { label: "Négatif", color: palette[2] },
+  // map positif -> green, neutre -> gray, négatif -> red
+  positif: { label: "Positif", color: palette[0] },
+  neutre: { label: "Neutre", color: palette[1] },
+  négatif: { label: "Négatif", color: palette[2] },
 } satisfies ChartConfig;
 
 export default function KeywordsWithSentiment() {
@@ -89,9 +89,9 @@ export default function KeywordsWithSentiment() {
               />
               <Legend />
 
-              <Bar dataKey="positive" stackId="a" fill={chartConfig.positive.color} />
-              <Bar dataKey="neutral" stackId="a" fill={chartConfig.neutral.color} />
-              <Bar dataKey="negative" stackId="a" fill={chartConfig.negative.color} />
+              <Bar dataKey="positif" stackId="a" fill={chartConfig.positif.color} />
+              <Bar dataKey="neutre" stackId="a" fill={chartConfig.neutre.color} />
+              <Bar dataKey="négatif" stackId="a" fill={chartConfig.négatif.color} />
             </BarChart>
           </ResponsiveContainer>
         </ChartContainer>

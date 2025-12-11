@@ -26,13 +26,13 @@ import Image from "next/image";
 
 // sample data showing Moroccan cities
 const data = [
-  { city: "Marrakech", positive: 45, neutral: 12, negative: 3 },
-  { city: "Tanger", positive: 20, neutral: 7, negative: 2 },
-  { city: "Casablanca", positive: 35, neutral: 18, negative: 5 },
-  { city: "Rabat", positive: 18, neutral: 6, negative: 1 },
-  { city: "Fes", positive: 12, neutral: 5, negative: 1 },
-  { city: "Agadir", positive: 8, neutral: 3, negative: 0 },
-  { city: "Undetermined", positive: 10, neutral: 4, negative: 1 },
+  { city: "Marrakech", positif: 45, neutre: 12, négatif: 3 },
+  { city: "Tanger", positif: 20, neutre: 7, négatif: 2 },
+  { city: "Casablanca", positif: 35, neutre: 18, négatif: 5 },
+  { city: "Rabat", positif: 18, neutre: 6, négatif: 1 },
+  { city: "Fes", positif: 12, neutre: 5, négatif: 1 },
+  { city: "Agadir", positif: 8, neutre: 3, négatif: 0 },
+  { city: "Indéterminé", positif: 10, neutre: 4, négatif: 1 },
 ];
 
 // ShareOfVoice palette for consistent chart coloring across the dashboard
@@ -47,18 +47,18 @@ const palette = [
 
 const chartConfig = {
   visitors: { label: "Mentions" },
-  positive: { label: "Positif", color: palette[0] },
-  neutral: { label: "Neutre", color: palette[1] },
-  negative: { label: "Négatif", color: palette[2] },
+  positif: { label: "Positif", color: palette[0] },
+  neutre: { label: "Neutre", color: palette[1] },
+  négatif: { label: "Négatif", color: palette[2] },
 } satisfies ChartConfig;
 
 export default function TopLocationsWithSentiment() {
   const [showInsight, setShowInsight] = React.useState(false);
-  // sort cities by total mentions (positive + neutral + negative) desc
+  // sort cities by total mentions (positif + neutre + négatif) desc
   const sortedData = React.useMemo(() => {
     return [...data].sort((a, b) => {
-      const ta = (a.positive || 0) + (a.neutral || 0) + (a.negative || 0);
-      const tb = (b.positive || 0) + (b.neutral || 0) + (b.negative || 0);
+      const ta = (a.positif || 0) + (a.neutre || 0) + (a.négatif || 0);
+      const tb = (b.positif || 0) + (b.neutre || 0) + (b.négatif || 0);
       return tb - ta;
     });
   }, []);
@@ -93,9 +93,9 @@ export default function TopLocationsWithSentiment() {
               <RechartsTooltip cursor={{ fill: "transparent" }} formatter={(v: number) => v} />
               <Legend />
 
-              <Bar dataKey="positive" stackId="a" fill={chartConfig.positive.color} />
-              <Bar dataKey="neutral" stackId="a" fill={chartConfig.neutral.color} />
-              <Bar dataKey="negative" stackId="a" fill={chartConfig.negative.color} />
+              <Bar dataKey="positif" stackId="a" fill={chartConfig.positif.color} />
+              <Bar dataKey="neutre" stackId="a" fill={chartConfig.neutre.color} />
+              <Bar dataKey="négatif" stackId="a" fill={chartConfig.négatif.color} />
             </BarChart>
           </ResponsiveContainer>
         </ChartContainer>

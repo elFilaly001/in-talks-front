@@ -44,11 +44,11 @@ type BrandItem = {
 // remote request fails (CORS, rate-limit or missing), the local inline-SVG
 // fallback (initials) will display instead.
 const defaultBrands: BrandItem[] = [
-  { name: "Walt Disney", logo: "https://logo.clearbit.com/disney.com", value: 8 },
-  { name: "Apple", logo: "https://logo.clearbit.com/apple.com", value: 7 },
-  { name: "Starbucks", logo: "https://logo.clearbit.com/starbucks.com", value: 4 },
+  { name: "Yan&One", logo: "/yanandone.png", value: 8 },
+  { name: "INWI", logo: "/inwi.png", value: 7 },
+  { name: "Marjane", logo: "/MARJANE.jpg", value: 4 },
   { name: "Nike", logo: "https://logo.clearbit.com/nike.com", value: 4 },
-  { name: "Adidas", logo: "https://logo.clearbit.com/adidas.com", value: 3 },
+  { name: "ZARA", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Zara_Logo.svg/512px-Zara_Logo.svg.png", value: 3 },
 ];
 
 const BrandAffinity = ({ title = "Marques préférées de l’audience", data = defaultBrands }:{ title?: string; data?: BrandItem[] }) => {

@@ -17,11 +17,9 @@ import {
     BarChart2,
     MedalIcon,
     RefreshCw,
-    Sliders,
-    Sparkles
+    Sliders
 } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 
 export default function WelcomePage() {
     const dashboardItems = [

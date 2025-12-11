@@ -33,6 +33,7 @@ export interface Network {
     avgViews: number;
     metrics: string;
     growth?: number;
+    activity?: number;
 }
 
 export interface AudienceSocialTableProps {
@@ -159,8 +160,11 @@ const AudienceSocialTable = ({
             name: "Activité (90 jours)",
             minWidth: "120px",
             grow: 1,
-            cell() {
-                return <p>10 publications / mois</p>;
+            sortable: true,
+            selector: (row) => row.activity ?? 0,
+            cell: (row) => {
+                const activity = row.activity ?? 0;
+                return <p>{activity} publications / mois</p>;
             },
         },
         {

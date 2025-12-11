@@ -51,11 +51,11 @@ const palette = [
 // Default brands palette (used if parent doesn't pass rows)
 const defaultBrands = [
     { label: 'Massinart', value: 35000, color: palette[0] },
-    { label: 'Competitor 1', value: 25000, color: palette[1] },
-    { label: 'Competitor 2', value: 18000, color: palette[2] },
-    { label: 'Competitor 3', value: 15000, color: palette[3] },
-    { label: 'Competitor 4', value: 9000, color: palette[4] },
-    { label: 'Competitor 5', value: 12000, color: palette[5] },
+    { label: 'Concurrent 1', value: 25000, color: palette[1] },
+    { label: 'Concurrent 2', value: 18000, color: palette[2] },
+    { label: 'Concurrent 3', value: 15000, color: palette[3] },
+    { label: 'Concurrent 4', value: 9000, color: palette[4] },
+    { label: 'Concurrent 5', value: 12000, color: palette[5] },
 ];
 
 // Sentiment breakdowns for the five Moroccan competitors (positive / negative).
