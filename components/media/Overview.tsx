@@ -13,7 +13,7 @@ const Overview = () => {
     <div className="flex flex-col gap-3 ">
       <div className="">
         <h2 className="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white inline-flex flex-col">
-          Ecoute Sociale
+          Social listening 
           <div className="flex flex-row gap-1 mt-2  mb-4">
             <div className="w-[20%] h-1 bg-[#f02cb9] rounded-full"></div>
             <div className="w-[10%] h-1 bg-[#35b9f4] rounded-full"></div>

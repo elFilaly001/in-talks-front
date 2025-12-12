@@ -1,0 +1,20 @@
+{
+  "site": {
+    "title": "InTalks"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "account": "Account",
+    "reports": "Reports"
+  },
+  "sidebar": {
+    "overview": "Overview",
+    "mentions": "Mentions",
+    "analytics": "Analytics"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "forgotPassword": "Forgot password?"
+  }
+}

@@ -26,13 +26,13 @@ interface CompactDatePickerProps {
 }
 
 const PRESETS = [
-  { label: "Aujourd'hui", days: 0 },
-  { label: "Hier", days: 1 },
-  { label: "7 derniers jours", days: 7 },
-  { label: "14 derniers jours", days: 14 },
-  { label: "30 derniers jours", days: 30 },
-  { label: "Ce mois-ci", type: "this_month" },
-  { label: "Le mois dernier", type: "last_month" },
+  { label: "Today", days: 0 },
+  { label: "Yesterday", days: 1 },
+  { label: "Last 7 days", days: 7 },
+  { label: "Last 14 days", days: 14 },
+  { label: "Last 30 days", days: 30 },
+  { label: "This month", type: "this_month" },
+  { label: "Last month", type: "last_month" },
 ];
 
 export function CompactDatePicker({
@@ -61,7 +61,7 @@ export function CompactDatePicker({
 
   const formatDateRange = () => {
     if (!dateRange.from && !dateRange.to) {
-      return "Période";
+      return "By period";
     }
     if (dateRange.from && dateRange.to) {
       return `${format(dateRange.from, "dd MMM")} - ${format(

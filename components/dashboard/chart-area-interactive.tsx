@@ -137,7 +137,7 @@ const ChartAreaInteractive = () => {
       <CardHeader className="flex flex-col items-stretch border-b dark:border-gray-800 border-gray-200 p-0! sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1 px-6 pt-4 pb-3 sm:py-0!">
           <div className="flex items-center gap-2">
-            <CardTitle>Mentions Totales</CardTitle>
+            <CardTitle>Total Mentions</CardTitle>
             <div className="bg-transparent">
               <ToolTipsProvider
                 title={`Affiche le nombre total de mentions sur la période sélectionnée et les indicateurs de croissance rapide. Utilisez cela pour surveiller les variations de volume et repérer les pics ou baisses d'attention.`}
@@ -148,7 +148,7 @@ const ChartAreaInteractive = () => {
         <div className="flex flex-1">
           <button className="data-[active=true]:bg-muted/50 relative z-5 flex flex-1 flex-col text-center justify-center gap-1 border-t dark:border-gray-800 border-gray-200 px-6 py-4 even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6">
             <span className="text-gray-500 text-xs capitalize">
-              Mentions totales
+              Total Mentions
             </span>
             <span className="text-lg leading-none font-bold sm:text-3xl dark:text-gray-200 text-gray-600">
               11,780
@@ -156,7 +156,7 @@ const ChartAreaInteractive = () => {
           </button>
           <button className="data-[active=true]:bg-muted/50 relative z-5 flex flex-1 flex-col text-center justify-center gap-1 border-t dark:border-gray-800 border-gray-200 px-6 py-4 even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6">
             <span className="text-gray-500 text-xs capitalize">
-              Moyenne quotidienne
+              Daily Average
             </span>
             <span className="text-lg leading-none font-bold sm:text-3xl dark:text-gray-200 text-gray-600">
               129

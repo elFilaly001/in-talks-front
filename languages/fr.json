@@ -1,0 +1,20 @@
+{
+  "site": {
+    "title": "InTalks"
+  },
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "account": "Compte",
+    "reports": "Rapports"
+  },
+  "sidebar": {
+    "overview": "Aperçu",
+    "mentions": "Mentions",
+    "analytics": "Analyses"
+  },
+  "auth": {
+    "login": "Connexion",
+    "register": "S'inscrire",
+    "forgotPassword": "Mot de passe oublié ?"
+  }
+}
