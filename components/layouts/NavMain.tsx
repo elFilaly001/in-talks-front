@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useAuth } from "@/components/AuthGuard";
 
 import { ChevronRight } from "lucide-react";
 
@@ -85,24 +86,30 @@ const NavItemExpanded = ({
         {item.subItems && (
           <CollapsibleContent>
             <SidebarMenuSub>
-              {item.subItems.map((subItem) => (
-                <SidebarMenuSubItem key={subItem.title}>
-                  <SidebarMenuSubButton
-                    aria-disabled={subItem.comingSoon}
-                    isActive={isActive(subItem.url)}
-                    asChild
-                  >
-                    <Link
-                      href={subItem.url}
-                      target={subItem.newTab ? "_blank" : undefined}
+              {item.subItems?.map((subItem) => {
+                const isPublicSub = ["/", "/login", "/register"].includes(subItem.url);
+                const href = !isAuthenticated && !isPublicSub ? "/login" : subItem.url;
+                const muted = !isAuthenticated && !isPublicSub;
+                return (
+                  <SidebarMenuSubItem key={subItem.title}>
+                    <SidebarMenuSubButton
+                      aria-disabled={subItem.comingSoon}
+                      isActive={isActive(subItem.url)}
+                      asChild
                     >
-                      {subItem.icon && <subItem.icon />}
-                      <span>{subItem.title}</span>
-                      {subItem.comingSoon && <IsComingSoon />}
-                    </Link>
-                  </SidebarMenuSubButton>
-                </SidebarMenuSubItem>
-              ))}
+                      <Link
+                        href={href}
+                        target={subItem.newTab ? "_blank" : undefined}
+                        className={muted ? "text-muted-foreground pointer-events-auto" : undefined}
+                      >
+                        {subItem.icon && <subItem.icon />}
+                        <span>{subItem.title}</span>
+                        {subItem.comingSoon && <IsComingSoon />}
+                      </Link>
+                    </SidebarMenuSubButton>
+                  </SidebarMenuSubItem>
+                );
+              })}
             </SidebarMenuSub>
           </CollapsibleContent>
         )}
@@ -169,6 +176,7 @@ const NavItemCollapsed = ({
 export function NavMain({ items }: NavMainProps) {
   const path = usePathname();
   const { state, lockOpen, unlockOpen } = useSidebar();
+  const { isAuthenticated } = useAuth();
 
   const isItemActive = (url: string, subItems?: NavMainItem["subItems"]) => {
     if (subItems?.length) {
@@ -216,6 +224,12 @@ export function NavMain({ items }: NavMainProps) {
               {group.items.map((item) => {
                 // If no subItems, just render the button as a link (works for both collapsed and expanded)
                 if (!item.subItems) {
+                  // If the user is not authenticated and this route is protected,
+                  // point the link to `/login` instead and visually mute it.
+                  const isPublic = ["/", "/login", "/register"].includes(item.url);
+                  const href = !isAuthenticated && !isPublic ? "/login" : item.url;
+                  const muted = !isAuthenticated && !isPublic;
+
                   return (
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton
@@ -224,8 +238,9 @@ export function NavMain({ items }: NavMainProps) {
                         isActive={isItemActive(item.url)}
                       >
                         <Link
-                          href={item.url}
+                          href={href}
                           target={item.newTab ? "_blank" : undefined}
+                          className={muted ? "text-muted-foreground pointer-events-auto" : undefined}
                         >
                           {item.icon && <item.icon />}
                           <span>{item.title}</span>

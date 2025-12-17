@@ -9,9 +9,11 @@ import * as Yup from "yup";
 // import { signIn } from "@/auth";
 // import { signIn } from "next-auth/react"; // Import from next-auth/react instead
 import { useRouter } from "next/navigation";
+import api, { setAuthToken } from "@/services/axiosService";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import { signIn } from "next-auth/react";
 
 export function LoginForm({
   className,
@@ -34,25 +36,38 @@ export function LoginForm({
         .required("Mot de passe est requis"),
     }),
     onSubmit: async (values, { setErrors }) => {
-      console.log(values);
       try {
-        // const res = await signIn("credentials", {
-        //   email: values.email,
-        //   password: values.password,
-        //   redirect: false,
-        // });
+        const response = await api.post("/auth/login", values);
+        const data = response?.data || {};
+        const token = data.token || data.accessToken || data.access_token || data?.data?.token;
 
-        // if (res.error && res.code) {
-        //   setErrors({ email: "Adresse e-mail ou mot de passe invalide." });
-        // } else {
+        if (!token) {
+          setErrors({ email: "Adresse e-mail ou mot de passe invalide." });
+          return;
+        }
+
+        setAuthToken(token);
+
         router.push("/");
-        // }
-      } catch (error) {
-        console.error(error);
-        setErrors({ email: "Adresse e-mail ou mot de passe invalide." });
+      } catch (err: any) {
+        console.error(err);
+        const status = err?.response?.status;
+        if (status === 401 || status === 403) {
+          setErrors({ email: "Adresse e-mail ou mot de passe invalide." });
+        } else {
+          setErrors({ email: "Une erreur est survenue. Réessayez." });
+        }
       }
     },
   });
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await signIn("google" , { callbackUrl: "/" });
+    } catch (err) {
+      console.error("Google sign-in error:", err);
+    }
+  };
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -66,7 +81,7 @@ export function LoginForm({
         <CardContent className="grid gap-6">
           <form onSubmit={formik.handleSubmit}>
             <div className="grid gap-6">
-            
+
               <InputWithLabel
                 label="Email"
                 placeHolder="m@example.com"
