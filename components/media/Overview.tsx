@@ -1,6 +1,7 @@
 import React from "react";
 import { SectionCards } from "../ui/section-cards";
 import { InsightCards } from "../dashboard/InsightCards";
+import { MentionsBySourceCard } from "../dashboard/MentionsBySourceCard";
 import ChartSetiment from "../dashboard/ChartSetiment";
 import ChartAreaInteractive from "../dashboard/chart-area-interactive";
 import KeywordsNuage from "../dashboard/KeywordsNuage";
@@ -24,7 +25,10 @@ const Overview = () => {
       <div className="@container/main flex flex-col gap-4 md:gap-6">
         <SectionCards />
         <ChartAreaInteractive />
-        <InsightCards />
+        <div className="grid grid-cols-2 gap-6">
+          <InsightCards />
+          <MentionsBySourceCard />
+        </div>
         <div className="grid grid-cols-2 gap-6">
           <ShareOfVoice />
           <ChartSetiment />
