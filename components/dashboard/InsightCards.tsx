@@ -1,279 +1,214 @@
 "use client";
 
-import { Line, LineChart, CartesianGrid, XAxis, YAxis } from "recharts";
+
 import { useState } from "react";
-
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-  ChartLegend,
-  ChartLegendContent,
-} from "@/components/ui/chart";
-
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import ToolTipsProvider from "../charts/ToolTipsProvider";
 
-// Sample data for mentions over four sections (S1..S4) to match the target line chart
-const mentionsByPeriodData = [
-  { period: "1 Fev", x: 80, facebook: 40, instagram: 60, tiktok: 90, news: 15 },
-  { period: "2 Mar", x: 95, facebook: 30, instagram: 55, tiktok: 110, news: 12 },
-  { period: "3 Avr", x: 70, facebook: 35, instagram: 58, tiktok: 105, news: 18 },
-  { period: "4 Mai", x: 75, facebook: 38, instagram: 62, tiktok: 98, news: 20 },
-];
-
-const mentionsByPeriodConfig = {
-  x: {
-    label: "Twitter/X",
-    color: "#000000",
-  },
-  facebook: {
-    label: "Facebook",
-    color: "#f97316",
-  },
-  instagram: {
-    label: "Instagram",
-    color: "#ec4899",
-  },
-  tiktok: {
-    label: "TikTok",
-    color: "#d946ef",
-  },
-  news: {
-    label: "News",
-    color: "#38bdf8",
-  },
-};
 
 const mentions = [
   {
-    id: "1",
-    title: "Glovo expands in Morocco",
-    link: "https://example.com/thumb1.jpg ",
-    postedDate: "2025-11-01",
-    thumbnail: "/mentions/glovo.webp",
-    snippet:
-      "Glovo is expanding its delivery services to more cities in Morocco, aiming to cover both major urban centers and smaller towns. This expansion includes increasing the number of delivery partners, introducing faster delivery times, and offering more variety in the types of goods available for delivery. The company is also investing in local marketing campaigns to raise awareness and attract new users to its platform.",
-    source: "facebook",
-    type: "POSITIVE",
-  },
-  {
-    id: "2",
-    title: "Fast Delivery Trends 2025",
-    link: "https://example.com/fast-delivery-trends",
-    postedDate: "2025-10-28",
-    thumbnail: "/mentions/Glovo-1.png",
-    snippet:
-      "The fast delivery market in North Africa is experiencing significant growth in 2025, with trends showing an increase in demand for same-day delivery, more sustainable packaging solutions, and innovative technology integration. Companies like Glovo and other regional players are adapting by expanding their networks, improving logistics efficiency, and offering a wider range of products, from groceries to electronics. Consumers are increasingly relying on app-based delivery services for convenience and speed.",
-    source: "facebook",
-    type: "POSITIVE",
-  },
-  {
-    id: "3",
-    title: "Glovo partners with local restaurants",
-    link: "https://example.com/glovo-partners",
-    postedDate: "2025-10-30",
-    thumbnail: "/mentions/Glovo-2.webp",
-    snippet:
-      "Glovo has partnered with over 50 local restaurants in Casablanca to expand its offerings and provide more diverse meal options to customers. However, some restaurant owners have raised concerns about commission fees and delivery logistics. While Glovo aims to strengthen its presence in the Moroccan market, balancing profitability for the restaurants and customer satisfaction remains a key challenge. The partnership is expected to increase overall app usage and drive more orders, but the company will need to address these concerns carefully.",
-    source: "instagram",
-    type: "NEGATIVE",
-  },
-  {
-    id: "4",
-    title: "Rabat sees growth in app-based deliveries",
-    link: "https://example.com/rabat-growth",
-    postedDate: "2025-10-25",
-    thumbnail: "/mentions/Glovo-1.png",
-    snippet:
-      "Rabat has seen a remarkable growth in app-based delivery services this year, with a 35% increase in demand compared to the previous year. The surge is driven by changing consumer behavior, urbanization, and the increasing availability of smartphones. Businesses across the city are integrating delivery apps to meet customer expectations, and logistics companies are upgrading their infrastructure to handle higher order volumes. Experts predict that this trend will continue as more residents embrace digital solutions for everyday needs, from food delivery to groceries and retail products.",
-    source: "instagram",
-    type: "Article",
-  },
-  {
-    id: "5",
-    title: "Glovo job opportunities in Morocco",
-    link: "https://example.com/glovo-jobs",
-    postedDate: "2025-10-20",
-    thumbnail: "/mentions/glovo.webp",
-    snippet:
-      "Glovo is actively hiring delivery partners, customer support staff, and other roles across Morocco as part of its expansion strategy. The company offers competitive benefits, flexible working hours, and opportunities for career growth. While some potential employees have expressed concerns about workload and job stability, Glovo continues to focus on creating an efficient recruitment process and training programs. The goal is to support the increasing demand for delivery services while maintaining high-quality service and customer satisfaction.",
-    source: "tiktok",
-    type: "NEGATIVE",
-  },
-  {
-    id: "6",
-    title: "New delivery zones in Marrakech",
-    link: "https://example.com/marrakech-zones",
-    postedDate: "2025-10-15",
-    thumbnail: "/mentions/Glovo-1.png",
-    snippet:
-      "Glovo has announced the addition of new delivery zones in Marrakech, covering popular tourist areas and residential neighborhoods. This move is expected to boost local businesses and provide faster service to customers in these areas.",
-    source: "twitter",
-    type: "POSITIVE",
-  },
-  {
-    id: "7",
-    title: "Customer feedback on Glovo app",
-    link: "https://example.com/app-feedback",
-    postedDate: "2025-10-12",
-    thumbnail: "/mentions/glovo.webp",
-    snippet:
-      "Users have shared mixed feedback on the Glovo app's user interface and delivery tracking features. While many appreciate the real-time updates, some complain about occasional glitches and slow loading times.",
-    source: "facebook",
-    type: "NEUTRAL",
-  },
-  {
-    id: "8",
-    title: "Glovo sustainability initiatives",
-    link: "https://example.com/sustainability",
-    postedDate: "2025-10-10",
-    thumbnail: "/mentions/Glovo-2.webp",
-    snippet:
-      "Glovo is implementing eco-friendly practices, including the use of electric vehicles for deliveries and biodegradable packaging. This initiative aims to reduce the company's carbon footprint and appeal to environmentally conscious consumers.",
+    id: "cmj0453qd00030l3mkagfxjzu",
+    title: "Élégance et confort pour vos appartements",
+    link: "https://www.instagram.com/massinart.ma/p/C-lZv_vNeOn/",
+    postedDate: "2024-08-12",
+    thumbnail: "/massinart/125003786_190659399287819_7034797341339919248_n.jpg",
+    snippet: "Nous sommes ravis de contribuer à l'élégance et au confort de vos appartements 🌟👌",
     source: "instagram",
     type: "POSITIVE",
   },
   {
-    id: "9",
-    title: "Delivery delays during peak hours",
-    link: "https://example.com/delays",
-    postedDate: "2025-10-08",
-    thumbnail: "/mentions/glovo.webp",
-    snippet:
-      "Customers have reported longer wait times during peak hours, leading to dissatisfaction. Glovo is working on optimizing their logistics to handle increased demand more efficiently.",
-    source: "tiktok",
-    type: "NEGATIVE",
-  },
-  {
-    id: "10",
-    title: "Partnership with local supermarkets",
-    link: "https://example.com/supermarkets",
-    postedDate: "2025-10-05",
-    thumbnail: "/mentions/Glovo-1.png",
-    snippet:
-      "Glovo has expanded its grocery delivery options by partnering with major supermarkets across Morocco. This collaboration offers customers a wider selection of products and competitive pricing.",
-    source: "facebook",
-    type: "POSITIVE",
-  },
-  {
-    id: "11",
-    title: "Glovo customer loyalty program",
-    link: "https://example.com/loyalty",
-    postedDate: "2025-10-03",
-    thumbnail: "/mentions/Glovo-2.webp",
-    snippet:
-      "The new loyalty program rewards frequent users with discounts and free deliveries. Early feedback indicates that it has increased customer retention and app usage.",
+    id: "cmj04548w00040l3m0bdk0ejx",
+    title: "Photos clients : Merci de nous avoir choisis ❤️",
+    link: "https://www.instagram.com/massinart.ma/p/C2awZizNgYZ/",
+    postedDate: "2024-01-22",
+    thumbnail: "/massinart/125501384_1524614727729320_763500987854682863_n.jpg",
+    snippet: "Les photos réelles de nos clients parlent d'elles-mêmes. Merci de nous avoir choisis !",
     source: "instagram",
     type: "POSITIVE",
   },
   {
-    id: "12",
-    title: "Challenges in rural delivery",
-    link: "https://example.com/rural-delivery",
-    postedDate: "2025-10-01",
-    thumbnail: "/mentions/glovo.webp",
-    snippet:
-      "Delivering to rural areas remains a challenge due to infrastructure limitations. Glovo is exploring solutions like drone deliveries to improve service in these regions.",
-    source: "twitter",
-    type: "NEUTRAL",
-  },
-  {
-    id: "13",
-    title: "Glovo app security updates",
-    link: "https://example.com/security",
-    postedDate: "2025-09-28",
-    thumbnail: "/mentions/Glovo-1.png",
-    snippet:
-      "Recent security updates have enhanced data protection for users. This includes improved encryption and secure payment methods, addressing previous concerns about privacy.",
-    source: "facebook",
-    type: "POSITIVE",
-  },
-  {
-    id: "14",
-    title: "Increase in delivery fees",
-    link: "https://example.com/fees",
-    postedDate: "2025-09-25",
-    thumbnail: "/mentions/glovo.webp",
-    snippet:
-      "Glovo has adjusted delivery fees to cover rising operational costs. While necessary, this has sparked debates among users about affordability.",
-    source: "instagram",
-    type: "NEGATIVE",
-  },
-  {
-    id: "15",
-    title: "New features in Glovo app",
-    link: "https://example.com/new-features",
-    postedDate: "2025-09-22",
-    thumbnail: "/mentions/Glovo-2.webp",
-    snippet:
-      "The latest app update introduces features like group ordering and scheduled deliveries. Users are excited about these additions, which enhance convenience.",
-    source: "tiktok",
-    type: "POSITIVE",
-  },
-  {
-    id: "16",
-    title: "Glovo's impact on local economy",
-    link: "https://example.com/economy",
-    postedDate: "2025-09-20",
-    thumbnail: "/mentions/glovo.webp",
-    snippet:
-      "By connecting consumers with local businesses, Glovo has stimulated economic growth in Morocco. Small vendors report increased sales through the platform.",
-    source: "facebook",
-    type: "POSITIVE",
-  },
-  {
-    id: "17",
-    title: "Customer service improvements",
-    link: "https://example.com/service",
-    postedDate: "2025-09-18",
-    thumbnail: "/mentions/Glovo-1.png",
-    snippet:
-      "Glovo has upgraded its customer support with 24/7 chat assistance. Response times have improved, leading to higher satisfaction rates.",
+    id: "cmj0454qw00050l3mhozg3672",
+    title: "Le tableau, une expression puissante",
+    link: "https://www.instagram.com/massinart.ma/p/C1-EwMwt4on/",
+    postedDate: "2024-01-11",
+    thumbnail: "/massinart/126553678_1055730511541447_6801924916327054791_n.jpg",
+    snippet: "Le tableau n'est pas simplement décoratif, mais une expression puissante qui éclaire l'âme de l'espace.",
     source: "instagram",
     type: "POSITIVE",
   },
   {
-    id: "18",
-    title: "Weather-related delivery issues",
-    link: "https://example.com/weather",
-    postedDate: "2025-09-15",
-    thumbnail: "/mentions/glovo.webp",
-    snippet:
-      "Heavy rains have caused delays in deliveries. Glovo is advising customers to plan ahead and offering rain checks for affected orders.",
-    source: "twitter",
-    type: "NEUTRAL",
-  },
-  {
-    id: "19",
-    title: "Glovo expands to new categories",
-    link: "https://example.com/categories",
-    postedDate: "2025-09-12",
-    thumbnail: "/mentions/Glovo-2.webp",
-    snippet:
-      "Beyond food and groceries, Glovo now offers delivery for electronics and household items. This diversification is attracting a broader customer base.",
-    source: "facebook",
+    id: "cmj04556e00060l3mdgrj5xo2",
+    title: "Chefs-d'œuvre livrés partout au Maroc",
+    link: "https://www.instagram.com/massinart.ma/p/CwL0mLEtx2b/",
+    postedDate: "2023-08-20",
+    thumbnail: "/massinart/137220838_812010759528813_6165508280218479197_n.jpg",
+    snippet: "Chaque jour, nos clients nous surprennent avec leurs photos de nos tableaux livrés partout au Maroc.",
+    source: "instagram",
     type: "POSITIVE",
   },
   {
-    id: "20",
-    title: "Feedback on delivery personnel",
-    link: "https://example.com/personnel",
-    postedDate: "2025-09-10",
-    thumbnail: "/mentions/glovo.webp",
-    snippet:
-      "Delivery partners are praised for their professionalism, but there are occasional complaints about package handling. Glovo is providing additional training.",
+    id: "cmj0455m500070l3m1rcb355o",
+    title: "Portrait 'African Tribal' : Fierté culturelle",
+    link: "https://www.instagram.com/massinart.ma/p/CswjmfxNLyj/",
+    postedDate: "2023-05-27",
+    thumbnail: "/massinart/153510614_885762142248884_4699986030568484371_n.jpg",
+    snippet: "Sentez le rythme vibrant de portrait 'African Tribal', une célébration de la diversité et de la fierté culturelle.",
     source: "instagram",
-    type: "MIXED",
+    type: "POSITIVE",
+  },
+  {
+    id: "cmj04564l00080l3m2n4ohitu",
+    title: "Ambiance positive au travail",
+    link: "https://www.instagram.com/massinart.ma/p/Cnh84KtKhl4/",
+    postedDate: "2023-01-17",
+    thumbnail: "/massinart/163110704_914373496048469_6893751915895547772_n.jpg",
+    snippet: "Intégrez des tableaux d'art pour une ambiance de travail positive !",
+    source: "instagram",
+    type: "POSITIVE",
+  },
+  {
+    id: "cmj0456dr00090l3mhp47gt4b",
+    title: "Happy Clients, Happy Us !",
+    link: "https://www.instagram.com/massinart.ma/p/ChsiQ8EqZza/",
+    postedDate: "2022-08-25",
+    thumbnail: "/massinart/164233082_2935753496711451_8231549723413694347_n.jpg",
+    snippet: "Photos reçues de nos chers clients satisfaits à 100% Merci de nous avoir choisis ❤️",
+    source: "instagram",
+    type: "POSITIVE",
+  },
+  {
+    id: "cmj0456mm000a0l3me85qmysx",
+    title: "Essayez +1000 tableaux en réalité augmentée",
+    link: "https://www.instagram.com/massinart.ma/reel/Ce6i-FWKtYP/",
+    postedDate: "2022-06-17",
+    thumbnail: "/massinart/174885747_813701786195615_7216069332923025101_n.jpg",
+    snippet: "Regardez avant d'acheter ! Essayez nos tableaux en réalité augmentée.",
+    source: "instagram",
+    type: "POSITIVE",
+  },
+  {
+    id: "cmj0456wj000b0l3mv4mxtr9g",
+    title: "Décoration avant et après",
+    link: "https://www.instagram.com/massinart.ma/p/Cdol7piqcqq/",
+    postedDate: "2022-05-16",
+    thumbnail: "/massinart/175175018_1802736086574565_8294194785114657543_n.jpg",
+    snippet: "Transformez votre décoration intérieure facilement !",
+    source: "instagram",
+    type: "POSITIVE",
+  },
+  {
+    id: "cmj04575n000c0l3m904zr0pm",
+    title: "Le tableau, Bijou de la maison !",
+    link: "https://www.instagram.com/massinart.ma/reel/CcLzVHtqbog/",
+    postedDate: "2022-04-10",
+    thumbnail: "/massinart/176786848_460305661746700_622098928093317882_n.jpg",
+    snippet: "Le tableau, Bijou de la maison ! اللوحة، جوهر الدار",
+    source: "instagram",
+    type: "POSITIVE",
+  },
+  {
+    id: "cmj0457g9000d0l3mtuctnvga",
+    title: "Le tableau, Bijou de la maison.",
+    link: "https://www.instagram.com/massinart.ma/reel/CbNeLVXKh-V/",
+    postedDate: "2022-03-17",
+    thumbnail: "/massinart/201351282_3049958388556759_4171216507597693472_n.jpg",
+    snippet: "Le tableau, Bijou de la maison. اللوحة جوهر الدار",
+    source: "instagram",
+    type: "POSITIVE",
+  },
+  {
+    id: "cmj0457ql000e0l3mob24vik2",
+    title: "Photos clients : rendu final !",
+    link: "https://www.instagram.com/massinart.ma/p/Cap5Q_mqmDD/",
+    postedDate: "2022-03-03",
+    thumbnail: "/massianrt/235784411_901307220497016_5778229906965051245_n.jpg",
+    snippet: "Nos clients nous surprennent à chaque fois avec des photos qui montrent le rendu final !",
+    source: "instagram",
+    type: "POSITIVE",
+  },
+  {
+    id: "cmj04580f000f0l3m5omw8nsb",
+    title: "Salle de réunion inspirée",
+    link: "https://www.instagram.com/massinart.ma/p/CZ4u47nqDC9/",
+    postedDate: "2022-02-12",
+    thumbnail: "/massinart/242554827_256470663041829_692142427909223786_n.jpg",
+    snippet: "Chaque salle de réunion portant un rappel d'une ville marocaine, c'est absolument une idée originale!",
+    source: "instagram",
+    type: "POSITIVE",
+  },
+  {
+    id: "cmj0458f4000g0l3mxfkguozp",
+    title: "Nouvelles créations chez Massinart",
+    link: "https://www.instagram.com/massinart.ma/reel/CZhfT14ubsR/",
+    postedDate: "2022-02-03",
+    thumbnail: "/massinart/271616226_267257558676290_6580051897749967944_n.jpg",
+    snippet: "Le tableau, Bijou de la maison ! اللوحة. جوهر الدار Nouvelles créations chez Massinart.",
+    source: "instagram",
+    type: "POSITIVE",
+  },
+  {
+    id: "cmj0458qa000h0l3mqpydbwpd",
+    title: "Bonne année 2972 !",
+    link: "https://www.instagram.com/massinart.ma/p/CYpK4H2K8aA/",
+    postedDate: "2022-01-12",
+    thumbnail: "/massinart/273833907_1853005521562056_7354083980177197073_n.jpg",
+    snippet: "L'équipe Massinart vous transmet ses meilleurs voeux pour la nouvelle année 2972 !",
+    source: "instagram",
+    type: "POSITIVE",
+  },
+  {
+    id: "cmj04590s000i0l3m0iap4mtt",
+    title: "Décoration avant et après",
+    link: "https://www.instagram.com/massinart.ma/p/CUK5ETeqVeB/",
+    postedDate: "2021-09-23",
+    thumbnail: "/massinart/275020494_121495286924472_6625934654837451704_n.jpg",
+    snippet: "Que pensez-vous de la touche apportée par nos tableaux décoratifs ?",
+    source: "instagram",
+    type: "POSITIVE",
+  },
+  {
+    id: "cmj04599t000j0l3mbmnziwwz",
+    title: "Photos réelles de nos tableaux livrés",
+    link: "https://www.instagram.com/massinart.ma/p/CSezsnJKNzh/",
+    postedDate: "2021-08-12",
+    thumbnail: "/massinart/275950502_679084266464325_5405504300672906796_n.jpg",
+    snippet: "Photos réelles de nos tableaux livrés à nos clients partout dans le Maroc.",
+    source: "instagram",
+    type: "POSITIVE",
+  },
+  {
+    id: "cmj0459kn000k0l3mknxw3vd8",
+    title: "Nouvelle collection été 2021",
+    link: "https://www.instagram.com/massinart.ma/reel/CQl8wtthuhv/",
+    postedDate: "2021-06-26",
+    thumbnail: "/massinart/278257473_533120248174413_5171243576138254662_n.jpg",
+    snippet: "Œuvres artistiques Made in Morocco. Nouvelle collection été 2021 !",
+    source: "instagram",
+    type: "POSITIVE",
+  },
+  {
+    id: "cmj0459tx000l0l3mhdt7xruo",
+    title: "Conseil gratuit en choix de tableaux",
+    link: "https://www.instagram.com/massinart.ma/p/CQMElXXBn1U/",
+    postedDate: "2021-06-16",
+    thumbnail: "/massinart/281712356_1058787735076559_1591863786797654739_n.jpg",
+    snippet: "Envoyez-nous les photos de votre intérieur et recevez du conseil gratuit en choix de tableaux !",
+    source: "instagram",
+    type: "POSITIVE",
+  },
+  {
+    id: "cmj045a3t000m0l3mc4e2x6t4",
+    title: "Décoration personnalisée",
+    link: "https://www.instagram.com/massinart.ma/reel/CPjCRx2BJjm/",
+    postedDate: "2021-05-31",
+    thumbnail: "/massinart/289072254_1255518918524771_5435469611654265444_n.jpg",
+    snippet: "Décoration personnalisée pour chaque espace.",
+    source: "instagram",
+    type: "POSITIVE",
   },
 ];
 
@@ -306,112 +241,9 @@ export function InsightCards({ filters, data }: SectionCardsProps) {
 
   const totalPages = Math.max(1, Math.ceil(mentionsList.length / itemsPerPage));
 
-
-
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
-      <Card className="relative w-full">
-        <CardHeader>
-          <div className="flex items-center gap-2">
-            <CardTitle>Répartition des Mentions par Source</CardTitle>
-            <ToolTipsProvider
-              title="Répartition des mentions sur différentes sources (ex : Facebook, X, Instagram) au fil du temps. Utilisez cela pour voir quels canaux génèrent le plus de conversations."
-            />
-          </div>
-        </CardHeader>
-        <CardContent className="pb-16">
-          <ChartContainer config={mentionsByPeriodConfig}>
-            <LineChart data={mentionsByPeriodData}>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} />
-              <XAxis
-                dataKey="period"
-                tickLine={false}
-                tickMargin={10}
-                axisLine={false}
-              />
-              <YAxis
-                tickLine={false}
-                axisLine={false}
-                tickMargin={10}
-              />
-              <ChartTooltip content={<ChartTooltipContent />} />
-              <ChartLegend content={<ChartLegendContent />} />
-              <Line
-                type="monotone"
-                dataKey="x"
-                stroke={mentionsByPeriodConfig.x.color}
-                strokeWidth={2}
-                dot={false}
-                name={mentionsByPeriodConfig.x.label}
-              />
-              <Line
-                type="monotone"
-                dataKey="facebook"
-                stroke={mentionsByPeriodConfig.facebook.color}
-                strokeWidth={2}
-                dot={false}
-                name={mentionsByPeriodConfig.facebook.label}
-              />
-              <Line
-                type="monotone"
-                dataKey="instagram"
-                stroke={mentionsByPeriodConfig.instagram.color}
-                strokeWidth={2}
-                dot={false}
-                name={mentionsByPeriodConfig.instagram.label}
-              />
-              <Line
-                type="monotone"
-                dataKey="tiktok"
-                stroke={mentionsByPeriodConfig.tiktok.color}
-                strokeWidth={2}
-                dot={false}
-                name={mentionsByPeriodConfig.tiktok.label}
-              />
-              <Line
-                type="monotone"
-                dataKey="news"
-                stroke={mentionsByPeriodConfig.news.color}
-                strokeWidth={2}
-                dot={false}
-                name={mentionsByPeriodConfig.news.label}
-              />
-            </LineChart>
-          </ChartContainer>
-        </CardContent>
-        <div className="absolute bottom-4 left-6">
-          <div className="relative">
-            <div
-              className="text-sm text-black flex items-center gap-2 cursor-pointer"
-              onMouseEnter={() => setShowInsight1(true)}
-              onMouseLeave={() => setShowInsight1(false)}
-            >
-              <Image src="/icons/IN-TALKS-logo.png-2.webp" alt="IN-TALKS Logo" width={22} height={22} className="inline-block align-middle" />
-              <span
-                className="font-semibold"
-                style={{
-                  background: 'linear-gradient(90deg, #06b6d4 0%, #8b5cf6 50%, #ec4899 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                  color: 'transparent',
-                  display: 'inline-block',
-                }}
-              >
-                AI-Powered Insight
-              </span>
-            </div>
-            {showInsight1 && (
-              <div className="absolute bottom-full left-0 mb-2 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50 w-auto min-w-80 max-w-xl">
-                <p className="text-sm text-gray-700 dark:text-gray-300">
-                  Facebook domine les mentions sur les réseaux sociaux avec une part de 38%, indiquant une forte présence de la marque sur cette plateforme. Le graphique en barres empilées montre un engagement constant sur tous les réseaux au cours des trois périodes.
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-      </Card>
-      <Card className="relative w-full">
+    <div className="w-full h-full">
+      <Card className="relative w-full h-full">
         <CardHeader>
           <div className="flex items-center gap-2">
             <CardTitle>Dernières Mentions</CardTitle>
@@ -492,7 +324,7 @@ export function InsightCards({ filters, data }: SectionCardsProps) {
             {showInsight2 && (
               <div className="absolute bottom-full left-0 mb-2 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50 w-auto min-w-80 max-w-xl">
                 <p className="text-sm text-gray-700 dark:text-gray-300">
-                  Les mentions sur les réseaux sociaux montrent une augmentation de 25% du sentiment positif pour les services de livraison. Facebook arrive en tête avec 40% du total des mentions, suivi d&apos;Instagram à 30%. Les sujets clés incluent l&apos;expansion du service, les partenariats et l&apos;amélioration de la satisfaction client.
+                  Les mentions sur les réseaux sociaux montrent une augmentation de 25% du sentiment positif pour Massinart et les tendances de décoration intérieure. Instagram domine avec 80% des mentions, mettant en avant l&apos;appréciation des œuvres d&apos;art, la satisfaction client et l&apos;inspiration pour l&apos;aménagement des espaces.
                 </p>
               </div>
             )}

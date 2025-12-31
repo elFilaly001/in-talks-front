@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { SectionCards } from "../ui/section-cards";
 import { InsightCards } from "../dashboard/InsightCards";
+import { MentionsBySourceCard } from "../dashboard/MentionsBySourceCard";
 import ChartSetiment from "../dashboard/ChartSetiment";
 import ChartAreaInteractive from "../dashboard/chart-area-interactive";
 import KeywordsNuage from "../dashboard/KeywordsNuage";
