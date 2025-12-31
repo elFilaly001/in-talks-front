@@ -7,10 +7,11 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { sidebarItems } from "./sidebar-items";
-
 import { NavMain } from "./NavMain";
 import { NavUser } from "./NavUser";
 import Image from "next/image";
+import { useEffect } from "react";
+import { useSession } from "next-auth/react";
 
 export default function AppSideBar({
   ...props

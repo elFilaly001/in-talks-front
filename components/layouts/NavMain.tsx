@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/components/AuthGuard";
+import { useSession } from "next-auth/react";
 
 import { ChevronRight } from "lucide-react";
 
@@ -31,6 +32,7 @@ import {
 } from "@/components/ui/sidebar";
 import { type NavGroup, type NavMainItem } from "./sidebar-items";
 
+
 interface NavMainProps {
   readonly items: readonly NavGroup[];
 }
@@ -45,10 +47,12 @@ const NavItemExpanded = ({
   item,
   isActive,
   isSubmenuOpen,
+  isAuthenticated,
 }: {
   item: NavMainItem;
   isActive: (url: string, subItems?: NavMainItem["subItems"]) => boolean;
   isSubmenuOpen: (subItems?: NavMainItem["subItems"]) => boolean;
+  isAuthenticated: boolean | undefined;
 }) => {
   return (
     <Collapsible
@@ -269,6 +273,7 @@ export function NavMain({ items }: NavMainProps) {
                     item={item}
                     isActive={isItemActive}
                     isSubmenuOpen={isSubmenuOpen}
+                    isAuthenticated={isAuthenticated}
                   />
                 );
               })}
